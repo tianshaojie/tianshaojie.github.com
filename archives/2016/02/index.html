@@ -184,20 +184,20 @@
 <section class="postShorten-group main-content-wrap">
     
     
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
-                        <a class="link-unstyled" href="/2016/02/05/Hexo-with-Github-Pages/">
-                            Hexo with Github Pages
+                        <a class="link-unstyled" href="/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+                            Hexo + Github Pages 搭建个人博客
                         </a>
                     
                 </h1>
                 <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Fri Feb 05 2016 14:58:04 GMT+0800">
+    <time itemprop="datePublished" content="Sat Feb 06 2016 13:24:28 GMT+0800">
 	
-		    2月 05, 2016
+		    2月 06, 2016
     	
     </time>
     
@@ -211,17 +211,31 @@
             </div>
             
             
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <ol>
-<li><p>Homebrew</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Homebrew</span></span><br><span class="line">/usr/bin/ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+                <div class="postShorten-content" itemprop="articleBody">
+                    <p><strong>1. 安装Homebrew</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Homebrew</span></span><br><span class="line">/usr/bin/ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 安装Node.js &amp; npm</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Node.js</span></span><br><span class="line">brew install node</span><br></pre></td></tr></table></figure></p>
+<p><strong>3. Hexo牛刀小试</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装hexo-cli</span></span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Hexo初始化你的Blog目录</span></span><br><span class="line">mkdir hexo</span><br><span class="line"><span class="built_in">cd</span> /Users/tiansj/hexo</span><br><span class="line">hexo init blog   <span class="comment"># INFO Cloning hexo-starter to ~/hexo/blog</span></span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动Server，访问127.0.0.1:4000</span></span><br><span class="line">hexo server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个新文章</span></span><br><span class="line">hexo new <span class="string">"Hello Hexo"</span> </span><br><span class="line"><span class="comment">#会在blog/source/_posts下创建Hello-Hexo.md，剩下的写作可以选择任何Markdown工具自由写作</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件（blog/public）</span></span><br><span class="line">hexo generate</span><br><span class="line">hexo server</span><br><span class="line"><span class="comment"># 再次启动，可以看到写做新文章了</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>4. 设置主题，这里用的是[hexo-theme-tranquilpeak]</strong>(<a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="external">https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak</a>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#19979;&#36733;&#21916;&#27426;&#30340;&#20027;&#39064;&#65292;&#27880;&#24847;&#36825;&#20010;&#20027;&#39064;&#38656;&#35201;grunt build&#21518;&#25165;&#33021;&#24212;&#29992;&#65292;&#22914;&#26524;&#20320;&#19981;&#24819;&#25240;&#33150;&#65292;&#30452;&#25509;&#19979;&#36733;&#29983;&#20135;&#29256;&#26412;&#65292;&#35265;&#19978;&#38754;&#31449;&#28857; Quick start &#31532;&#19968;&#39033;&#19979;&#36733;&#26368;&#26032;&#29256;&#26412;&#10;git clone https://github.com/tianshaojie/hexo-theme-tranquilpeak.git themes/tranquilpeak&#10;&#10;# &#20462;&#25913;blog/_config.yml (hexo clean/generate/server)&#26032;&#20027;&#39064;&#24050;&#24212;&#29992;&#10;theme: tranquilpeak&#10;&#10;# &#20010;&#24615;&#21270;&#33258;&#24049;&#30340;&#20449;&#24687;&#10;/blog/theme/tranquilpeak/__config.yml</span><br></pre></td></tr></table></figure></p>
+<p><strong>5. 生成导航页面，分类页、标签页、文章列表页</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#22312;~/hexo/blog/&#19979;&#25191;&#34892;&#21629;&#20196;&#10;hexo new page &#34;all-categories&#34;&#10;hexo new page &#34;all-tags&#34;&#10;hexo new page &#34;all-archives&#34;</span><br></pre></td></tr></table></figure></p>
+<p><strong>6. 编辑/source/各个目录下的index.md，重启后导航即生效</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&#10;title: &#34;all-categories&#34;&#10;layout: &#34;all-categories&#34;&#10;comments: false&#10;---</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&#10;title: &#34;all-tags&#34;&#10;layout: &#34;all-tags&#34;&#10;comments: false&#10;---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&#10;title: &#34;all-archives&#34;&#10;layout: &#34;all-archives&#34;&#10;comments: false&#10;---</span><br></pre></td></tr></table></figure>
+<p><strong>7. 配置Deploy，自动部署到Github上</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#20808;&#29983;&#20135;&#20320;&#30340;GitHub Pages&#39029;&#38754;&#10;# &#20462;&#25913;blog/_config.yml&#20013;&#30340;deploy&#39033;&#10;&#10;deploy:&#10;  type: git&#10;  repository: git@github.com:username/username.github.com.git&#10;  branch: master</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#22312;~/hexo/blog&#19979;&#25191;&#34892;&#10;npm install hexo-deployer-git --save&#10;&#10;# &#33258;&#21160;&#37096;&#32626;&#21629;&#20196;&#65292;&#28982;&#21518;&#21326;&#20029;&#20029;&#30340;&#30475;&#20320;&#30340;&#32593;&#31449;&#21543;&#10;hexo deploy</span><br></pre></td></tr></table></figure>
+<p><strong>8. OK，自由的写文章</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. hexo new &#34;&#34;&#65292;&#26032;&#24314;&#25991;&#31456;&#10;2. ~/hexo/blog/source/_post&#65292;&#19979;&#25214;&#21040;&#23545;&#24212;.md&#25991;&#20214;&#65292;&#33258;&#30001;&#32534;&#36753;&#10;3. hexo g&#65292;&#29983;&#25104;&#38745;&#24577;html&#25991;&#20214;&#10;4. hexo s&#65292;&#37096;&#32626;&#21040;&#32447;&#19978;</span><br></pre></td></tr></table></figure></p>
+<p><strong>9. 帮助链接</strong></p>
+<p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo中文官方文档</a><br><a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="external">hexo-theme-tranquilpeak主题文档</a></p>
+
                     
-                        <a href="/2016/02/05/Hexo-with-Github-Pages/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
                         
+
+                    
+                    
+                        <p>
+                            <a href="/2016/02/06/Hexo-Github-Pages-搭建个人博客/#post-footer" class="postShorten-excerpt_link link">
+                                注释和共享
+                            </a>
+                        </p>
                     
                 </div>
             
