@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="田少杰">
+    <title>Jenkins Android自动打包平台配置 - 田少杰</title>
+    <meta name="author" content="田少杰">
+    
+    
+    
+    <meta name="description" content="一、Jenkins自动打包配置目标：1. 自动打包；2. 自动上传；3. 友好下载">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Jenkins Android自动打包平台配置">
+<meta property="og:url" content="http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/index.html">
+<meta property="og:site_name" content="田少杰">
+<meta property="og:description" content="一、Jenkins自动打包配置目标：1. 自动打包；2. 自动上传；3. 友好下载">
+<meta property="og:updated_time" content="2016-02-14T03:21:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jenkins Android自动打包平台配置">
+<meta name="twitter:description" content="一、Jenkins自动打包配置目标：1. 自动打包；2. 自动上传；3. 友好下载">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://tianshaojie.com/assets/images/me.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">田少杰</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+            <img class="header-picture" src="/assets/images/me.jpg"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">田少杰</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/tianshaojie" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Jenkins Android自动打包平台配置
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Feb 14 2016 10:32:42 GMT+0800">
+	
+		    2月 14, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="u4E00_u3001Jenkins_u81EA_u52A8_u6253_u5305_u914D_u7F6E"><a href="#u4E00_u3001Jenkins_u81EA_u52A8_u6253_u5305_u914D_u7F6E" class="headerlink" title="一、Jenkins自动打包配置"></a>一、Jenkins自动打包配置</h1><pre><code>目标：1. 自动打包；2. 自动上传；3. 友好下载
+</code></pre><a id="more"></a>
+<h2 id="1-_Jenkins_u7B80_u4ECB"><a href="#1-_Jenkins_u7B80_u4ECB" class="headerlink" title="1. Jenkins简介"></a>1. Jenkins简介</h2><pre><code>Jenkins是基于Java开发的一种持续集成工具，用于监控持续重复的工作。
+减少重复劳动，减少人工成本。
+</code></pre><ul>
+<li>持续、自动地构建/测试软件项目；</li>
+<li>监控一些定时执行的任务；</li>
+</ul>
+<h2 id="2-_Jenkins_u914D_u7F6E"><a href="#2-_Jenkins_u914D_u7F6E" class="headerlink" title="2. Jenkins配置"></a>2. Jenkins配置</h2><ul>
+<li>添加git plugin和 role插件 </li>
+<li>设置人员权限，根据角色授权</li>
+<li>启动访问<a href="http://ip/8080即可，见下`3.1" target="_blank" rel="external">http://ip/8080即可，见下`3.1</a> 开机自启脚本`</li>
+<li>添加git项目，配置脚本，见下<code>3.2 项目打包脚本</code>和<code>3.3 Apk上传脚本</code></li>
+</ul>
+<h2 id="3-__u81EA_u52A8_u5316_u811A_u672C"><a href="#3-__u81EA_u52A8_u5316_u811A_u672C" class="headerlink" title="3. 自动化脚本"></a>3. 自动化脚本</h2><h3 id="3-1__u5F00_u673A_u81EA_u542F_u811A_u672C"><a href="#3-1__u5F00_u673A_u81EA_u542F_u811A_u672C" class="headerlink" title="3.1 开机自启脚本"></a>3.1 开机自启脚本</h3><ul>
+<li>jenkins.sh </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh&#10;# chkconfig: 2345 10 90&#10;# description: jenkins ....&#10;# This script will be executed *after* all the other init scripts.&#10;# You can put your own initialization stuff in here if you don&#39;t&#10;# want to do the full Sys V style init stuff.&#10;#prefix=/Users/laifeng/jenkins&#10;#nohup $prefix/jenkins_start.sh &#62;&#62; $prefix/jenkins.log 2&#62;&#38;1 &#38;&#10;&#10;JENKINS_ROOT=/Users/laifeng/jenkins&#10;JENKINSFILENAME=jenkins.war&#10;&#10;&#10;stop()&#123;&#10;    echo &#34;Stoping $JENKINSFILENAME &#34;&#10;        ps -ef|grep $JENKINSFILENAME |awk &#39;&#123;print $2&#125;&#39;|while read pid&#10;        do&#10;           kill -9 $pid&#10;           echo &#34; $pid kill&#34;&#10;        done&#10;&#125;&#10;&#10;case &#34;$1&#34; in&#10;start)&#10;    echo &#34;Starting $JENKINSFILENAME &#34;&#10;        nohup java -jar $JENKINS_ROOT/jenkins.war --httpPort=8080 &#62;&#62; $JENKINS_ROOT/jenkins.log 2&#62;&#38;1 &#38;&#10;  ;;&#10;stop)&#10;  stop&#10;  ;;&#10;restart)&#10;  stop&#10;  start&#10;  ;;&#10;status)&#10;  ps -ef|grep $JENKINSFILENAME&#10;  ;;&#10;*)&#10;  printf &#39;Usage: %s &#123;start|stop|restart|status&#125;\n&#39; &#34;$prog&#34;&#10;  exit 1&#10;  ;;&#10;esac</span><br></pre></td></tr></table></figure>
+<ul>
+<li>jenkins_start.sh</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash&#10;&#10;export ANDROID_HOME=/usr/local/android-sdk&#10;export GRADLE_HOME=/usr/local/gradle-2.2.1&#10;export JENKINS_HOME=/Users/laifeng/.jenkins&#10;&#10;/Users/laifeng/jenkins/jenkins.sh start&#10;/usr/local/apache-tomcat-7.0.67/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Mac上开机自启</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo defaults write com.apple.loginwindow LoginHook /path/to/script &#10;&#10;&#35774;&#32622;/path/to/script &#65309; /Users/laifeng/jenkins/jenkins_start.sh</span><br></pre></td></tr></table></figure>
+<h3 id="3-2__u81EA_u52A8_u5316_u6253_u5305_u548C_u4E0A_u4F20"><a href="#3-2__u81EA_u52A8_u5316_u6253_u5305_u548C_u4E0A_u4F20" class="headerlink" title="3.2 自动化打包和上传"></a>3.2 自动化打包和上传</h3><h4 id="u9879_u76EE_u6253_u5305_u811A_u672C"><a href="#u9879_u76EE_u6253_u5305_u811A_u672C" class="headerlink" title="项目打包脚本"></a>项目打包脚本</h4><p>目前是直接运行Gradle命令，可脚本完成复杂需求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew clean assembleDebug</span><br></pre></td></tr></table></figure>
+<h4 id="Apk_u4E0A_u4F20_u811A_u672C"><a href="#Apk_u4E0A_u4F20_u811A_u672C" class="headerlink" title="Apk上传脚本"></a>Apk上传脚本</h4><ul>
+<li>deploy.sh</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;&#10;echo &#34;deploy begin......&#34;&#10;&#10;apkName=$1&#10;&#10;currDay=$(date +%Y-%m-%d)&#10;currTime=$(date +%H-%M-%S)&#10;deployPath=&#34;/Users/laifeng/jenkins/android-apks/$&#123;currDay&#125;&#34;&#10;&#10;#echo &#34;$deployPath&#34;&#10;&#10;# &#21019;&#24314;&#25991;&#20214;&#22841;&#10;if [ ! -d &#34;$deployPath&#34; ]; then&#10;        mkdir &#34;$deployPath&#34;&#10;fi&#10;&#10;# &#25335;&#36125;&#25991;&#20214;&#21040;&#30446;&#24405;&#10;workspaceApkFile=&#34;$&#123;WORKSPACE&#125;/crazytogether/build/outputs/apk/crazytogether-debug.apk&#34;&#10;deployApkFile=&#34;$&#123;deployPath&#125;/$&#123;apkName&#125;-$&#123;currTime&#125;.apk&#34;&#10;#echo &#34;$workspaceApkFile&#34;&#10;#echo &#34;deployApkFile&#34;&#10;&#10;cp $&#123;workspaceApkFile&#125; $&#123;deployApkFile&#125;&#10;&#10;echo &#34;deploy success......&#34;</span><br></pre></td></tr></table></figure>
+<h4 id="Tomcat__u6587_u4EF6_u670D_u52A1_u5668"><a href="#Tomcat__u6587_u4EF6_u670D_u52A1_u5668" class="headerlink" title="Tomcat 文件服务器"></a>Tomcat 文件服务器</h4><ol>
+<li><p>在tomcat安装目录\conf\Catalina\localhost下建立任意文件名xml文件，比如：download.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&#62;&#10;&#60;Context  path=&#34;/download&#34; docBase=&#34;D://download&#34; crossContext=&#34;true&#34;&#62;&#10;&#60;/Context&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改tomcat配置文件，文件目录\conf\web.xml，要将红色的false改为true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;servlet&#62;&#10;&#9;&#60;servlet-name&#62;default&#60;/servlet-name&#62;&#10;&#9;&#60;servlet-class&#62;org.apache.catalina.servlets.DefaultServlet&#60;/servlet-class&#62;&#10;&#9;&#60;init-param&#62;&#10;&#9;&#9;&#60;param-name&#62;debug&#60;/param-name&#62;&#10;&#9;&#9;&#60;param-value&#62;0&#60;/param-value&#62;&#10;&#9;&#60;/init-param&#62;&#10;&#9;&#60;init-param&#62;&#10;&#9;&#9;&#60;param-name&#62;listings&#60;/param-name&#62;&#10;&#9;&#9;&#60;param-value&#62;false&#60;/param-value&#62;&#10;&#9;&#60;/init-param&#62;&#10;&#9;&#60;load-on-startup&#62;1&#60;/load-on-startup&#62;&#10;&#60;/servlet&#62;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启tomcat，访问<a href="http://127.0.0.1:8080/download" target="_blank" rel="external">http://127.0.0.1:8080/download</a></p>
+</li>
+</ol>
+<h3 id="u9047_u5230_u7684_u95EE_u9898"><a href="#u9047_u5230_u7684_u95EE_u9898" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ul>
+<li>添加git 项目无法获得权限，创建ssh key ，把本地ssh key 公钥上传到你用户的git server ，在Jenkins 添加认证，ssh 私钥。</li>
+<li>自启动脚本无法顺利执行，缺少环境变量，启动的用户不一致，启动顺序有先后，在启动脚本里添加必须的环境变量</li>
+<li><p>自启动的脚本是系统启动的，和登陆用户不是一个环境</p>
+</li>
+<li><p>先在本地运行保证脚本的正确性</p>
+</li>
+<li>根据Log 查看什么错误</li>
+</ul>
+<h1 id="u4E8C_u3001Jenkins_u90AE_u4EF6_u914D_u7F6E"><a href="#u4E8C_u3001Jenkins_u90AE_u4EF6_u914D_u7F6E" class="headerlink" title="二、Jenkins邮件配置"></a>二、Jenkins邮件配置</h1><pre><code>目标：1. 构建自动发邮件；2. 邮件模板；3. 组织友好下载链接；
+</code></pre><h2 id="1-__u90AE_u4EF6_u914D_u7F6E"><a href="#1-__u90AE_u4EF6_u914D_u7F6E" class="headerlink" title="1. 邮件配置"></a>1. 邮件配置</h2><ol>
+<li>添加插件：Email Extension Plugin</li>
+<li>设置SMTP服务器：系统管理-&gt;系统设置-&gt;在Extended E-mail Notification项设置smtp service。注意设置的不是jenkins邮件通知项。</li>
+<li>设置job邮件配置：<ul>
+<li>在“增加构建后操作步骤”选择“Editable Email Notification”</li>
+<li>Project Recipient List，设置接受邮箱，多个邮箱空格隔开即可</li>
+<li>Content Type，选择为HTML</li>
+<li>Default Subject，邮件标题</li>
+<li>Default Content，邮件内容，可以写html</li>
+<li>注意：这些选项里面都可以使用“全局邮件变量”，<a href="http://wcp88888888.iteye.com/blog/2211565" target="_blank" rel="external">参见链接</a></li>
+</ul>
+</li>
+<li><p>如何设置友好的下载链接：</p>
+<ul>
+<li>下载地址每次都会发生变化，主要是“时间变量”</li>
+<li>“时间变量”，Day，Time需要设置到jenkins的环境变量中，这样后续执行才能共用这些变量，使用</li>
+<li>“构建环境”：勾选“Inject environment variables to the build process”，在下面”Evaluated Groovy script”选项中设置groovy脚本，添加到环境变量</li>
+<li>修改“构建 Excute shell“ deploy.sh脚本，脚本中的时间变量不在是本地定义，而是使用上面设置的构建变量 <code>${CURR_DAY}</code>, <code>${CURR_TIME}</code></li>
+<li>修改“Editable Email Notification”-&gt; “Default Content”，当前版本根据“时间变量”<code>${CURR_DAY}</code>, <code>${CURR_TIME}</code>动态生产下载地址</li>
+</ul>
+</li>
+<li><p>Evaluated Groovy script 添加如下脚本内容，后续的脚本中，可以引用<code>${CURR_DAY}</code>, <code>${CURR_TIME}</code></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TimeZone.setDefault(TimeZone.getTimeZone(&#39;Asia/Shanghai&#39;))&#10;def now = new Date()&#10;def map = [CURR_DAY: now.format(&#39;yyyy-MM-dd&#39;), CURR_TIME: now.format(&#39;HH-mm-ss&#39;)]&#10;return map</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Email Default Content 内容</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#25991;&#20214;&#19979;&#36733;&#65306;&#60;br/&#62;&#60;hr/&#62;&#10;&#24403;&#21069;&#29256;&#26412;&#65306;&#60;a href=&#34;http://10.155.59.205:8081/download/$&#123;CURR_DAY&#125;/branch-2.6.1-$&#123;CURR_TIME&#125;.apk&#34; target=&#34;_blank&#34;&#62;&#28857;&#20987;&#19979;&#36733;&#60;/a&#62;&#60;br/&#62;&#10;&#21382;&#21490;&#29256;&#26412;&#65306;&#60;a href=&#34;http://10.155.59.205:8081/download&#34; target=&#34;_blank&#34;&#62;http://10.155.59.205:8081/download&#60;/a&#62;&#60;br/&#62;&#60;br/&#62;&#10;&#10;&#26500;&#24314;&#20449;&#24687;&#65306;&#60;br/&#62;&#60;hr/&#62;&#10;&#39033;&#30446;&#21517;&#31216;&#65306;$PROJECT_NAME&#60;br/&#62;&#10;&#26500;&#24314;&#32534;&#21495;&#65306;$BUILD_NUMBER&#60;br/&#62;&#10;&#26500;&#24314;&#29366;&#24577;&#65306;$BUILD_STATUS&#60;br/&#62;&#10;&#35302;&#21457;&#21407;&#22240;&#65306;$&#123;CAUSE&#125;&#60;br/&#62;&#10;&#26500;&#24314;&#26085;&#24535;&#22320;&#22336;&#65306;&#60;a href=&#34;$&#123;BUILD_URL&#125;console&#34;&#62;$&#123;BUILD_URL&#125;console&#60;/a&#62;&#60;br/&#62;&#10;&#26500;&#24314;&#22320;&#22336;&#65306;&#60;a href=&#34;$BUILD_URL&#34;&#62;$BUILD_URL&#60;/a&#62;&#60;br/&#62;&#10;&#21464;&#26356;&#38598;:$&#123;JELLY_SCRIPT,template=&#34;html&#34;&#125;&#60;br/&#62;&#60;hr/&#62;&#10;&#10;(&#26412;&#37038;&#20214;&#26159;&#31243;&#24207;&#33258;&#21160;&#19979;&#21457;&#30340;&#65292;&#35831;&#21247;&#22238;&#22797;&#65281;&#60;br&#9;&#62;</span><br></pre></td></tr></table></figure>
+<h2 id="2-__u5176_u4ED6_u95EE_u9898"><a href="#2-__u5176_u4ED6_u95EE_u9898" class="headerlink" title="2. 其他问题"></a>2. 其他问题</h2><ul>
+<li>smtp邮件服务一致无法正常发生，原因可能出在，ssl授权，smtp端口等问题上</li>
+<li>时区问题默认获得的时间少8小时，需要TimeZone为“Asia/Shanghai”</li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Android/">Android</a> <a class="tag tag--primary tag--small t-link" href="/tags/Jenkins/">Jenkins</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/14/Android-Code-Style/" data-tooltip="Android Code Style">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 田少杰. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/14/Android-Code-Style/" data-tooltip="Android Code Style">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.jpg"/>
+        
+            <h4 id="about-card-name">田少杰</h4>
+        
+            <h5 id="about-card-bio"><p>不想当设计的产品不是好攻城狮</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Android Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Beijing
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://tianshaojie.com/2016/02/14/Jenkins-Android自动打包平台配置/';
+                 
+                    this.page.identifier = '2016/02/14/Jenkins-Android自动打包平台配置/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'tianshaojie';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','UYMkvuaxLrqccjBtUTyx','2.0.0');
+    </script>
+
+
+</html>
