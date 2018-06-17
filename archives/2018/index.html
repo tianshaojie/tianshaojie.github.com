@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="田少杰">
-    <title>标签: Hexo - 田少杰</title>
+    <title>归档: 2018 - 田少杰</title>
     <meta name="author" content="田少杰">
     
     
@@ -14,7 +14,7 @@
     <meta name="description" content="精神崩溃的一个最初征兆就是坚信自己的工作非常非常重要">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="田少杰">
-<meta property="og:url" content="http://tianshaojie.com/tags/Hexo/index.html">
+<meta property="og:url" content="http://tianshaojie.com/archives/2018/index.html">
 <meta property="og:site_name" content="田少杰">
 <meta property="og:description" content="精神崩溃的一个最初征兆就是坚信自己的工作非常非常重要">
 <meta name="twitter:card" content="summary">
@@ -184,40 +184,58 @@
 <section class="postShorten-group main-content-wrap">
     
     
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
-                        <a class="link-unstyled" href="/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
-                            Hexo + Github Pages 搭建个人博客
+                        <a class="link-unstyled" href="/2018/06/17/小米手机不能安装Charles证书/">
+                            小米手机不能安装Charles证书
                         </a>
                     
                 </h1>
                 <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sat Feb 06 2016 13:24:28 GMT+0800">
+    <time itemprop="datePublished" content="Sun Jun 17 2018 23:15:18 GMT+0800">
 	
-		    2月 06, 2016
+		    6月 17, 2018
     	
     </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/hexo/">Hexo</a>
-
-
     
 </div>
             </div>
             
             
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p><strong>1. 安装Homebrew</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Homebrew</span></span><br><span class="line">/usr/bin/ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure></p>
+                <div class="postShorten-content" itemprop="articleBody">
+                    <h2 id="u5B89_u88C5ssl_u8BC1_u4E66"><a href="#u5B89_u88C5ssl_u8BC1_u4E66" class="headerlink" title="安装ssl证书"></a>安装ssl证书</h2><h3 id="u5931_u8D25_u73B0_u573A"><a href="#u5931_u8D25_u73B0_u573A" class="headerlink" title="失败现场"></a>失败现场</h3><ul>
+<li>按照Charles的提示，手机打开 chls.pro/ssl</li>
+<li>小米通过自带浏览器（QQ浏览器或者其它浏览器未测）下载得到一个 getssl.crt 证书</li>
+<li>设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+<li><strong>选择第二步骤获取到的证书，会弹窗提示 没有可安装的证书。，换个姿势再来一次。</strong></li>
+</ul>
+<h3 id="u518D_u8BD5_u4E00_u6B21"><a href="#u518D_u8BD5_u4E00_u6B21" class="headerlink" title="再试一次"></a>再试一次</h3><ul>
+<li>按照Charles的提示，PC打开 chls.pro/ssl</li>
+<li>下载得到一个 charles-proxy-ssl-proxying-certificate.pem 证书</li>
+<li>传送到手机（姿势自选）</li>
+<li>设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+<li><strong>姿势正确。</strong></li>
+</ul>
+<h3 id="u6216_u8005_uFF0C_u4F7F_u7528_u975E_u81EA_u5E26_u6D4F_u89C8_u5668_u5B89_u88C5"><a href="#u6216_u8005_uFF0C_u4F7F_u7528_u975E_u81EA_u5E26_u6D4F_u89C8_u5668_u5B89_u88C5" class="headerlink" title="或者，使用非自带浏览器安装"></a>或者，使用非自带浏览器安装</h3><ul>
+<li>手机下载Chrom浏览器</li>
+<li>打开 chls.pro/ssl，下载完成后会自动安装证书</li>
+<li>如果没提示安装，在Download下可以找到charles-proxy-ssl-proxying-certificate.pem证书</li>
+<li>手动安装：设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+</ul>
+
                     
-                        <a href="/2016/02/06/Hexo-Github-Pages-搭建个人博客/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
                         
+
+                    
+                    
+                        <p>
+                            <a href="/2018/06/17/小米手机不能安装Charles证书/#post-footer" class="postShorten-excerpt_link link">
+                                注释和共享
+                            </a>
+                        </p>
                     
                 </div>
             
@@ -234,6 +252,7 @@
 </div>
 
 </section>
+
 
 
                 <footer id="footer" class="main-content-wrap">

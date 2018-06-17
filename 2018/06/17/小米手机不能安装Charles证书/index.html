@@ -6,21 +6,42 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="田少杰">
-    <title>Hexo + Github Pages 搭建个人博客 - 田少杰</title>
+    <title>小米手机不能安装Charles证书 - 田少杰</title>
     <meta name="author" content="田少杰">
     
     
     
-    <meta name="description" content="1. 安装Homebrew12345# Install Homebrew/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# Checkbrew --version">
+    <meta name="description" content="安装ssl证书失败现场
+按照Charles的提示，手机打开 chls.pro/ssl
+小米通过自带浏览器（QQ浏览器或者其它浏览器未测）下载得到一个 getssl.crt 证书
+设置 &amp;gt; 更多设置(系统和设备) &amp;gt; 系统安全 &amp;gt; 从存储设备安装
+选择第二步骤获取到的证书，会弹窗提示 没有可安装的证书。，换个姿势再来一次。
+
+再试一次
+按照Charles的提示，PC打开 chls.">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Hexo + Github Pages 搭建个人博客">
-<meta property="og:url" content="http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/index.html">
+<meta property="og:title" content="小米手机不能安装Charles证书">
+<meta property="og:url" content="http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/index.html">
 <meta property="og:site_name" content="田少杰">
-<meta property="og:description" content="1. 安装Homebrew12345# Install Homebrew/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# Checkbrew --version">
-<meta property="og:updated_time" content="2016-02-14T02:25:52.000Z">
+<meta property="og:description" content="安装ssl证书失败现场
+按照Charles的提示，手机打开 chls.pro/ssl
+小米通过自带浏览器（QQ浏览器或者其它浏览器未测）下载得到一个 getssl.crt 证书
+设置 &amp;gt; 更多设置(系统和设备) &amp;gt; 系统安全 &amp;gt; 从存储设备安装
+选择第二步骤获取到的证书，会弹窗提示 没有可安装的证书。，换个姿势再来一次。
+
+再试一次
+按照Charles的提示，PC打开 chls.">
+<meta property="og:updated_time" content="2018-06-17T15:19:41.901Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo + Github Pages 搭建个人博客">
-<meta name="twitter:description" content="1. 安装Homebrew12345# Install Homebrew/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# Checkbrew --version">
+<meta name="twitter:title" content="小米手机不能安装Charles证书">
+<meta name="twitter:description" content="安装ssl证书失败现场
+按照Charles的提示，手机打开 chls.pro/ssl
+小米通过自带浏览器（QQ浏览器或者其它浏览器未测）下载得到一个 getssl.crt 证书
+设置 &amp;gt; 更多设置(系统和设备) &amp;gt; 系统安全 &amp;gt; 从存储设备安装
+选择第二步骤获取到的证书，会弹窗提示 没有可安装的证书。，换个姿势再来一次。
+
+再试一次
+按照Charles的提示，PC打开 chls.">
     
     
         
@@ -186,41 +207,40 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Hexo + Github Pages 搭建个人博客
+            小米手机不能安装Charles证书
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Sat Feb 06 2016 13:24:28 GMT+0800">
+    <time itemprop="datePublished" content="Sun Jun 17 2018 23:15:18 GMT+0800">
 	
-		    2月 06, 2016
+		    6月 17, 2018
     	
     </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/hexo/">Hexo</a>
-
-
     
 </div>
 </div>
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p><strong>1. 安装Homebrew</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Homebrew</span></span><br><span class="line">/usr/bin/ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p><strong>2. 安装Node.js &amp; npm</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Node.js</span></span><br><span class="line">brew install node</span><br></pre></td></tr></table></figure></p>
-<p><strong>3. Hexo牛刀小试</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装hexo-cli</span></span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Hexo初始化你的Blog目录</span></span><br><span class="line">mkdir hexo</span><br><span class="line"><span class="built_in">cd</span> /Users/tiansj/hexo</span><br><span class="line">hexo init blog   <span class="comment"># INFO Cloning hexo-starter to ~/hexo/blog</span></span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动Server，访问127.0.0.1:4000</span></span><br><span class="line">hexo server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个新文章</span></span><br><span class="line">hexo new <span class="string">"Hello Hexo"</span> </span><br><span class="line"><span class="comment">#会在blog/source/_posts下创建Hello-Hexo.md，剩下的写作可以选择任何Markdown工具自由写作</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件（blog/public）</span></span><br><span class="line">hexo generate</span><br><span class="line">hexo server</span><br><span class="line"><span class="comment"># 再次启动，可以看到写做新文章了</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>4. 设置主题，这里用的是[hexo-theme-tranquilpeak]</strong>(<a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="external">https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak</a>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#19979;&#36733;&#21916;&#27426;&#30340;&#20027;&#39064;&#65292;&#27880;&#24847;&#36825;&#20010;&#20027;&#39064;&#38656;&#35201;grunt build&#21518;&#25165;&#33021;&#24212;&#29992;&#65292;&#22914;&#26524;&#20320;&#19981;&#24819;&#25240;&#33150;&#65292;&#30452;&#25509;&#19979;&#36733;&#29983;&#20135;&#29256;&#26412;&#65292;&#35265;&#19978;&#38754;&#31449;&#28857; Quick start &#31532;&#19968;&#39033;&#19979;&#36733;&#26368;&#26032;&#29256;&#26412;&#10;git clone https://github.com/tianshaojie/hexo-theme-tranquilpeak.git themes/tranquilpeak&#10;&#10;# &#20462;&#25913;blog/_config.yml (hexo clean/generate/server)&#26032;&#20027;&#39064;&#24050;&#24212;&#29992;&#10;theme: tranquilpeak&#10;&#10;# &#20010;&#24615;&#21270;&#33258;&#24049;&#30340;&#20449;&#24687;&#10;/blog/theme/tranquilpeak/__config.yml</span><br></pre></td></tr></table></figure></p>
-<p><strong>5. 生成导航页面，分类页、标签页、文章列表页</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#22312;~/hexo/blog/&#19979;&#25191;&#34892;&#21629;&#20196;&#10;hexo new page &#34;all-categories&#34;&#10;hexo new page &#34;all-tags&#34;&#10;hexo new page &#34;all-archives&#34;</span><br></pre></td></tr></table></figure></p>
-<p><strong>6. 编辑/source/各个目录下的index.md，重启后导航即生效</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&#10;title: &#34;all-categories&#34;&#10;layout: &#34;all-categories&#34;&#10;comments: false&#10;---</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&#10;title: &#34;all-tags&#34;&#10;layout: &#34;all-tags&#34;&#10;comments: false&#10;---</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---&#10;title: &#34;all-archives&#34;&#10;layout: &#34;all-archives&#34;&#10;comments: false&#10;---</span><br></pre></td></tr></table></figure>
-<p><strong>7. 配置Deploy，自动部署到Github上</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#20808;&#29983;&#20135;&#20320;&#30340;GitHub Pages&#39029;&#38754;&#10;# &#20462;&#25913;blog/_config.yml&#20013;&#30340;deploy&#39033;&#10;&#10;deploy:&#10;  type: git&#10;  repository: git@github.com:username/username.github.com.git&#10;  branch: master</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#22312;~/hexo/blog&#19979;&#25191;&#34892;&#10;npm install hexo-deployer-git --save&#10;&#10;# &#33258;&#21160;&#37096;&#32626;&#21629;&#20196;&#65292;&#28982;&#21518;&#21326;&#20029;&#20029;&#30340;&#30475;&#20320;&#30340;&#32593;&#31449;&#21543;&#10;hexo deploy</span><br></pre></td></tr></table></figure>
-<p><strong>8. OK，自由的写文章</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. hexo new &#34;&#34;&#65292;&#26032;&#24314;&#25991;&#31456;&#10;2. ~/hexo/blog/source/_post&#65292;&#19979;&#25214;&#21040;&#23545;&#24212;.md&#25991;&#20214;&#65292;&#33258;&#30001;&#32534;&#36753;&#10;3. hexo g&#65292;&#29983;&#25104;&#38745;&#24577;html&#25991;&#20214;&#10;4. hexo s&#65292;&#37096;&#32626;&#21040;&#32447;&#19978;</span><br></pre></td></tr></table></figure></p>
-<p><strong>9. 帮助链接</strong></p>
-<p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo中文官方文档</a><br><a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="external">hexo-theme-tranquilpeak主题文档</a></p>
+            <h2 id="u5B89_u88C5ssl_u8BC1_u4E66"><a href="#u5B89_u88C5ssl_u8BC1_u4E66" class="headerlink" title="安装ssl证书"></a>安装ssl证书</h2><h3 id="u5931_u8D25_u73B0_u573A"><a href="#u5931_u8D25_u73B0_u573A" class="headerlink" title="失败现场"></a>失败现场</h3><ul>
+<li>按照Charles的提示，手机打开 chls.pro/ssl</li>
+<li>小米通过自带浏览器（QQ浏览器或者其它浏览器未测）下载得到一个 getssl.crt 证书</li>
+<li>设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+<li><strong>选择第二步骤获取到的证书，会弹窗提示 没有可安装的证书。，换个姿势再来一次。</strong></li>
+</ul>
+<h3 id="u518D_u8BD5_u4E00_u6B21"><a href="#u518D_u8BD5_u4E00_u6B21" class="headerlink" title="再试一次"></a>再试一次</h3><ul>
+<li>按照Charles的提示，PC打开 chls.pro/ssl</li>
+<li>下载得到一个 charles-proxy-ssl-proxying-certificate.pem 证书</li>
+<li>传送到手机（姿势自选）</li>
+<li>设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+<li><strong>姿势正确。</strong></li>
+</ul>
+<h3 id="u6216_u8005_uFF0C_u4F7F_u7528_u975E_u81EA_u5E26_u6D4F_u89C8_u5668_u5B89_u88C5"><a href="#u6216_u8005_uFF0C_u4F7F_u7528_u975E_u81EA_u5E26_u6D4F_u89C8_u5668_u5B89_u88C5" class="headerlink" title="或者，使用非自带浏览器安装"></a>或者，使用非自带浏览器安装</h3><ul>
+<li>手机下载Chrom浏览器</li>
+<li>打开 chls.pro/ssl，下载完成后会自动安装证书</li>
+<li>如果没提示安装，在Download下可以找到charles-proxy-ssl-proxying-certificate.pem证书</li>
+<li>手动安装：设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+</ul>
 
             
                 
@@ -233,7 +253,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Github/">Github</a> <a class="tag tag--primary tag--small t-link" href="/tags/Hexo/">Hexo</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/Android/">Android</a>
 
             </div>
         
@@ -242,7 +262,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/14/Android-Code-Style/"  data-tooltip="Android Code Style">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -250,7 +270,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/14/Jenkins-Android自动打包平台配置/" data-tooltip="Jenkins Android自动打包平台配置">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -265,17 +285,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -323,7 +343,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/14/Android-Code-Style/"  data-tooltip="Android Code Style">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -331,7 +351,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/14/Jenkins-Android自动打包平台配置/" data-tooltip="Jenkins Android自动打包平台配置">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -346,17 +366,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -382,17 +402,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="1">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/">
                 <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
             </a>
         </li>
@@ -449,9 +469,9 @@
     
         <script>
              var disqus_config = function () {
-                 this.page.url = 'http://tianshaojie.com/2016/02/06/Hexo-Github-Pages-搭建个人博客/';
+                 this.page.url = 'http://tianshaojie.com/2018/06/17/小米手机不能安装Charles证书/';
                  
-                    this.page.identifier = '2016/02/06/Hexo-Github-Pages-搭建个人博客/';
+                    this.page.identifier = '2018/06/17/小米手机不能安装Charles证书/';
                                   
              };
             (function() {
