@@ -11,16 +11,16 @@
     
     
     
-    <meta name="description" content="Fragment 重叠问题原因Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState)，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图">
+    <meta name="description" content="构建MainActivity导航">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Android Fragment 重叠问题">
 <meta property="og:url" content="http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/index.html">
 <meta property="og:site_name" content="tianshaojie">
-<meta property="og:description" content="Fragment 重叠问题原因Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState)，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图">
-<meta property="og:updated_time" content="2018-11-17T07:59:28.542Z">
+<meta property="og:description" content="构建MainActivity导航">
+<meta property="og:updated_time" content="2018-11-17T08:04:09.314Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Fragment 重叠问题">
-<meta name="twitter:description" content="Fragment 重叠问题原因Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState)，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图">
+<meta name="twitter:description" content="构建MainActivity导航">
     
     
         
@@ -207,7 +207,8 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <a id="more"></a>
+            <p>构建MainActivity导航</p>
+<a id="more"></a>
 <h2 id="Fragment__u91CD_u53E0_u95EE_u9898_u539F_u56E0"><a href="#Fragment__u91CD_u53E0_u95EE_u9898_u539F_u56E0" class="headerlink" title="Fragment 重叠问题原因"></a>Fragment 重叠问题原因</h2><p>Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState)，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”</p>
 <p>使用 Fragment 的状态保存，当系统内存不足，Fragment 的宿主 Activity 回收的时候，Fragment 的实例并没有随之被回收。Activity 被系统回收时，会主动调用 onSaveInstance() 方法来保存视图层（View Hierarchy），所以当 Activity 通过导航再次被重建时，之前被实例化过的 Fragment 依然会出现在 Activity 中，此时的 FragmentTransaction 中的相当于又再次 add 了 fragment 进去的，hide()和show()方法对之前保存的fragment已经失效了。综上这些因素导致了多个Fragment重叠在一起。</p>
 <pre><code>1. 被恢复的fragment加载到Activity
