@@ -184,7 +184,7 @@
 <section class="postShorten-group main-content-wrap">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
@@ -201,28 +201,23 @@
     	
     </time>
     
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
 </div>
             </div>
             
             
-                <div class="postShorten-content" itemprop="articleBody">
-                    <h3 id="1-__u79D2_u5F00_uFF1A_u4E3B_u9898_u8BBE_u7F6EwindowBackground_uFF0C_u907F_u514D_u542F_u52A8_u9ED1_u767D_u95EA_u5C4F"><a href="#1-__u79D2_u5F00_uFF1A_u4E3B_u9898_u8BBE_u7F6EwindowBackground_uFF0C_u907F_u514D_u542F_u52A8_u9ED1_u767D_u95EA_u5C4F" class="headerlink" title="1. 秒开：主题设置windowBackground，避免启动黑白闪屏"></a>1. 秒开：主题设置windowBackground，避免启动黑白闪屏</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;style name=&#34;SplashTheme&#34; parent=&#34;Theme.AppCompat.NoActionBar&#34;&#62;&#10;    &#60;item name=&#34;android:windowBackground&#34;&#62;@mipmap/background_splash&#60;/item&#62;&#10;    &#60;item name=&#34;android:windowFullscreen&#34;&#62;true&#60;/item&#62;&#10;&#60;/style&#62;</span><br></pre></td></tr></table></figure>
-<h3 id="2-__u4E0D_u8BBE_u7F6EsetContentView_uFF0C_u51CF_u5C11_u542F_u52A8_u65F6_u95F4"><a href="#2-__u4E0D_u8BBE_u7F6EsetContentView_uFF0C_u51CF_u5C11_u542F_u52A8_u65F6_u95F4" class="headerlink" title="2. 不设置setContentView，减少启动时间"></a>2. 不设置setContentView，减少启动时间</h3><h3 id="3-__u5982_u4F55_u66F4_u6539_u80CC_u666F_uFF0C_u6BD4_u5982_u663E_u793A_u9996_u53D1_uFF1A_u5728_u539F_u80CC_u666F_u56FE_u4E0A_uFF0C_u5236_u4F5C_u4E00_u5F20_u5E26_u201C_u9996_u53D1_u201D_u5B57_u4F53_u7684_u56FE_u7247_uFF0C_u7136_u540E_u5728_u589E_u52A0_u4E00_u4E2Astyle_u4E3B_u9898_uFF0C_u7136_u540E_u5728onCreate_u91CCsetTheme_28_29"><a href="#3-__u5982_u4F55_u66F4_u6539_u80CC_u666F_uFF0C_u6BD4_u5982_u663E_u793A_u9996_u53D1_uFF1A_u5728_u539F_u80CC_u666F_u56FE_u4E0A_uFF0C_u5236_u4F5C_u4E00_u5F20_u5E26_u201C_u9996_u53D1_u201D_u5B57_u4F53_u7684_u56FE_u7247_uFF0C_u7136_u540E_u5728_u589E_u52A0_u4E00_u4E2Astyle_u4E3B_u9898_uFF0C_u7136_u540E_u5728onCreate_u91CCsetTheme_28_29" class="headerlink" title="3. 如何更改背景，比如显示首发：在原背景图上，制作一张带“首发”字体的图片，然后在增加一个style主题，然后在onCreate里setTheme()"></a>3. 如何更改背景，比如显示首发：在原背景图上，制作一张带“首发”字体的图片，然后在增加一个style主题，然后在onCreate里setTheme()</h3><h3 id="4-__u5982_u4F55_u505ApostDelay_u540E_u542F_u52A8MainActivity"><a href="#4-__u5982_u4F55_u505ApostDelay_u540E_u542F_u52A8MainActivity" class="headerlink" title="4. 如何做postDelay后启动MainActivity"></a>4. 如何做postDelay后启动MainActivity</h3><h3 id="5-_show_me_code_uFF1A"><a href="#5-_show_me_code_uFF1A" class="headerlink" title="5. show me code："></a>5. show me code：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class SplashActivity extends Activity &#123;&#10;&#10;    @Override&#10;    protected void onCreate(Bundle savedInstanceState) &#123;&#10;        // setTheme(R.style.SplashThemeHuawei); // &#26356;&#25913;&#32972;&#26223;&#10;        super.onCreate(savedInstanceState);&#10;        getWindow().getDecorView().postDelayed(new Runnable() &#123;&#10;            @Override&#10;            public void run() &#123;&#10;                startActivity(new Intent(SplashActivity.this, MainActivity.class));&#10;                finish();&#10;            &#125;&#10;        &#125;, 1000);&#10;    &#125;&#10;&#10;    @Override&#10;    protected void onDestroy() &#123;&#10;        super.onDestroy();&#10;        getWindow().getDecorView().getHandler().removeCallbacksAndMessages(null);&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="u53C2_u8003_uFF1A"><a href="#u53C2_u8003_uFF1A" class="headerlink" title="参考："></a>参考：</h3><ul>
-<li><a href="/https//www.bignerdranch.com/blog/splash-screens-the-right-way/">Splash Screens the Right Way</a></li>
-<li><a href="http://blog.chengyunfeng.com/?p=741#ixzz56Q5NtaKD" target="_blank" rel="external">Android 应用启动界面自定义</a></li>
-</ul>
-
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>Android启屏页最佳实践</p>
                     
+                        <a href="/2018/11/17/Android-SplashActivity-启屏页最佳实践/" class="postShorten-excerpt_link link">
+                            阅读全文
+                        </a>
                         
-
-                    
-                    
-                        <p>
-                            <a href="/2018/11/17/Android-SplashActivity-启屏页最佳实践/#post-footer" class="postShorten-excerpt_link link">
-                                注释和共享
-                            </a>
-                        </p>
                     
                 </div>
             
