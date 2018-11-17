@@ -189,6 +189,48 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
+                        <a class="link-unstyled" href="/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                            Android Toolbar 避坑最佳实践
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sat Nov 17 2018 15:49:06 GMT+0800">
+	
+		    11月 17, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>不要再封装自己的Bar了；</p>
+                    
+                        <a href="/2018/11/17/Android-Toolbar-避坑最佳实践/" class="postShorten-excerpt_link link">
+                            阅读全文
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
                         <a class="link-unstyled" href="/2018/11/17/Android-Vector-使用与兼容/">
                             Android Vector 使用与兼容
                         </a>
@@ -212,7 +254,7 @@
             
             
                 <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>使用开源图标构建你的App</p>
+                    <p>使用开源图标构建你的App；</p>
                     
                         <a href="/2018/11/17/Android-Vector-使用与兼容/" class="postShorten-excerpt_link link">
                             阅读全文
@@ -226,7 +268,7 @@
     </article>
     
     
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
@@ -253,13 +295,61 @@
             </div>
             
             
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <h2 id="Fragment__u91CD_u53E0_u95EE_u9898_u539F_u56E0"><a href="#Fragment__u91CD_u53E0_u95EE_u9898_u539F_u56E0" class="headerlink" title="Fragment 重叠问题原因"></a>Fragment 重叠问题原因</h2>
+                <div class="postShorten-content" itemprop="articleBody">
+                    <a id="more"></a>
+<h2 id="Fragment__u91CD_u53E0_u95EE_u9898_u539F_u56E0"><a href="#Fragment__u91CD_u53E0_u95EE_u9898_u539F_u56E0" class="headerlink" title="Fragment 重叠问题原因"></a>Fragment 重叠问题原因</h2><p>Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState)，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”</p>
+<p>使用 Fragment 的状态保存，当系统内存不足，Fragment 的宿主 Activity 回收的时候，Fragment 的实例并没有随之被回收。Activity 被系统回收时，会主动调用 onSaveInstance() 方法来保存视图层（View Hierarchy），所以当 Activity 通过导航再次被重建时，之前被实例化过的 Fragment 依然会出现在 Activity 中，此时的 FragmentTransaction 中的相当于又再次 add 了 fragment 进去的，hide()和show()方法对之前保存的fragment已经失效了。综上这些因素导致了多个Fragment重叠在一起。</p>
+<pre><code>1. 被恢复的fragment加载到Activity
+2. onCreate里又重新new了一个fragment实例，也加到了Activity
+综上出现了重叠或重影问题
+</code></pre><h2 id="u89E3_u51B3_u65B9_u5F0F"><a href="#u89E3_u51B3_u65B9_u5F0F" class="headerlink" title="解决方式"></a>解决方式</h2><p><strong>建议使用第1种方法解决</strong></p>
+<h3 id="1-__u89E3_u51B3_u65B9_u6CD5_u5982_u4E0B_uFF0C_u5728_u8FDB_u5165onCreate_u51FD_u6570_u65F6_uFF0C_u5148_u53BB_u5224_u65ADsavedInstanceState_u662F_u5426_u4E3Anull_uFF0C_u5982_u679C_u4E0D_u4E3Anull_2C_u5219_u8868_u793A_u91CC_u9762_u6709_u4FDD_u5B58_u7740fragment_u3002_u5219_u4E0D_u518D_u91CD_u65B0_u53BBadd_u8FD9_u56DB_u4E2Afragment_uFF0C_u800C_u662F_u901A_u8FC7Tag_u4ECE_u524D_u4FDD_u5B58_u7684_u6570_u636E_u4E2D_u76F4_u63A5_u53BB_u8BFB_u53D6"><a href="#1-__u89E3_u51B3_u65B9_u6CD5_u5982_u4E0B_uFF0C_u5728_u8FDB_u5165onCreate_u51FD_u6570_u65F6_uFF0C_u5148_u53BB_u5224_u65ADsavedInstanceState_u662F_u5426_u4E3Anull_uFF0C_u5982_u679C_u4E0D_u4E3Anull_2C_u5219_u8868_u793A_u91CC_u9762_u6709_u4FDD_u5B58_u7740fragment_u3002_u5219_u4E0D_u518D_u91CD_u65B0_u53BBadd_u8FD9_u56DB_u4E2Afragment_uFF0C_u800C_u662F_u901A_u8FC7Tag_u4ECE_u524D_u4FDD_u5B58_u7684_u6570_u636E_u4E2D_u76F4_u63A5_u53BB_u8BFB_u53D6" class="headerlink" title="1. 解决方法如下，在进入onCreate函数时，先去判断savedInstanceState是否为null，如果不为null,则表示里面有保存着fragment。则不再重新去add这四个fragment，而是通过Tag从前保存的数据中直接去读取"></a>1. 解决方法如下，在进入onCreate函数时，先去判断savedInstanceState是否为null，如果不为null,则表示里面有保存着fragment。则不再重新去add这四个fragment，而是通过Tag从前保存的数据中直接去读取</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override  &#10;public void onCreate(Bundle savedInstanceState) &#123;  &#10;    // TODO Auto-generated method stub  &#10;    fManager = getFragmentManager();  &#10;    if (savedInstanceState != null) &#123;  &#10;        allFrg = (AllOfficialAccountFragment) fManager.findFragmentByTag(&#34;allFrg&#34;);  &#10;        movieFrg = (MovieOfficialAccountFragment) fManager.findFragmentByTag(&#34;movieFrg&#34;);  &#10;        newsFrg = (NewsOfficialAccountFragment) fManager.findFragmentByTag(&#34;newsFrg&#34;);  &#10;        otherFrg = (OtherOfficialAccountFragment) fManager.findFragmentByTag(&#34;otherFrg&#34;);             &#10;    &#125;  &#10;    super.onCreate(savedInstanceState);       &#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-__u91CD_u5199onAttachFragment_uFF0C_u91CD_u65B0_u8BA9_u65B0_u7684Fragment_u6307_u5411_u4E86_u539F_u672C_u672A_u88AB_u9500_u6BC1_u7684fragment_uFF0C_u5B83_u5C31_u662FonAttach_u65B9_u6CD5_u5BF9_u5E94_u7684Fragment_u5BF9_u8C61"><a href="#2-__u91CD_u5199onAttachFragment_uFF0C_u91CD_u65B0_u8BA9_u65B0_u7684Fragment_u6307_u5411_u4E86_u539F_u672C_u672A_u88AB_u9500_u6BC1_u7684fragment_uFF0C_u5B83_u5C31_u662FonAttach_u65B9_u6CD5_u5BF9_u5E94_u7684Fragment_u5BF9_u8C61" class="headerlink" title="2. 重写onAttachFragment，重新让新的Fragment指向了原本未被销毁的fragment，它就是onAttach方法对应的Fragment对象"></a>2. 重写onAttachFragment，重新让新的Fragment指向了原本未被销毁的fragment，它就是onAttach方法对应的Fragment对象</h3><p><a href="https://www.jianshu.com/p/90b51f222455" target="_blank" rel="external">https://www.jianshu.com/p/90b51f222455</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override &#10;public void onAttachFragment(Fragment fragment) &#123; &#10;&#9;if (tab1 == null &#38;&#38; fragment instanceof Tab1Fragment) tab1 = fragment;&#10;&#9;if (tab2 == null &#38;&#38; fragment instanceof Tab2Fragment) tab2 = fragment; &#10;&#9;if (tab3 == null &#38;&#38; fragment instanceof Tab3Fragment) tab3 = fragment; &#10;&#9;if (tab4 == null &#38;&#38; fragment instanceof Tab4Fragment) tab4 = fragment;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-_Activity__u4E2D_u7684_onSaveInstanceState_28_29__u91CC_u9762_u6709_u4E00_u53E5super-onSaveInstanceState_28outState_29_3B_uFF0CGoogle__u5BF9_u4E8E_u8FD9_u53E5_u8BDD_u7684_u89E3_u91CA_u662F__u201CAlways_call_the_superclass_so_it_can_save_the_view_hierarchy_state_u201D_uFF0C_u5927_u6982_u610F_u601D_u662F_u201C_u603B_u662F_u6267_u884C_u8FD9_u53E5_u4EE3_u7801_u6765_u8C03_u7528_u7236_u7C7B_u53BB_u4FDD_u5B58_u89C6_u56FE_u5C42_u7684_u72B6_u6001_u201D_u3002_u901A_u8FC7_u6CE8_u91CA_u6389_u8FD9_u53E5_u8BDD_uFF0C_u8FD9_u6837_u4E3B_Activity__u56E0_u4E3A_u79CD_u79CD_u539F_u56E0_u88AB_u56DE_u6536_u7684_u65F6_u5019_u5C31_u4E0D_u4F1A_u4FDD_u5B58_u4E4B_u524D_u7684_fragment_state_uFF0C_u4E5F_u53EF_u4EE5_u6210_u529F_u89E3_u51B3_u91CD_u53E0_u7684_u95EE_u9898"><a href="#3-_Activity__u4E2D_u7684_onSaveInstanceState_28_29__u91CC_u9762_u6709_u4E00_u53E5super-onSaveInstanceState_28outState_29_3B_uFF0CGoogle__u5BF9_u4E8E_u8FD9_u53E5_u8BDD_u7684_u89E3_u91CA_u662F__u201CAlways_call_the_superclass_so_it_can_save_the_view_hierarchy_state_u201D_uFF0C_u5927_u6982_u610F_u601D_u662F_u201C_u603B_u662F_u6267_u884C_u8FD9_u53E5_u4EE3_u7801_u6765_u8C03_u7528_u7236_u7C7B_u53BB_u4FDD_u5B58_u89C6_u56FE_u5C42_u7684_u72B6_u6001_u201D_u3002_u901A_u8FC7_u6CE8_u91CA_u6389_u8FD9_u53E5_u8BDD_uFF0C_u8FD9_u6837_u4E3B_Activity__u56E0_u4E3A_u79CD_u79CD_u539F_u56E0_u88AB_u56DE_u6536_u7684_u65F6_u5019_u5C31_u4E0D_u4F1A_u4FDD_u5B58_u4E4B_u524D_u7684_fragment_state_uFF0C_u4E5F_u53EF_u4EE5_u6210_u529F_u89E3_u51B3_u91CD_u53E0_u7684_u95EE_u9898" class="headerlink" title="3. Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState);，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”。通过注释掉这句话，这样主 Activity 因为种种原因被回收的时候就不会保存之前的 fragment state，也可以成功解决重叠的问题"></a>3. Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState);，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”。通过注释掉这句话，这样主 Activity 因为种种原因被回收的时候就不会保存之前的 fragment state，也可以成功解决重叠的问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected void onSaveInstanceState(Bundle outState) &#123;&#10;&#9;//&#22914;&#26524;&#29992;&#20197;&#19979;&#36825;&#31181;&#20570;&#27861;&#21017;&#19981;&#20445;&#23384;&#29366;&#24577;&#65292;&#20877;&#27425;&#36827;&#26469;&#30340;&#35805;&#20250;&#26174;&#31034;&#40664;&#35748;tab&#10;&#9;//super.onSaveInstanceState(outState);&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u6D4B_u8BD5_u65B9_u5F0F"><a href="#u6D4B_u8BD5_u65B9_u5F0F" class="headerlink" title="测试方式"></a>测试方式</h2><ul>
+<li>开发者选项打开“不保留活动”</li>
+<li>旋转屏幕</li>
+<li>用AndroidStudio工具 杀掉应用程序，模拟内存不足回收</li>
+<li>转跳到其他Activity、打开多任务窗口、使用Home回到主屏幕再返回</li>
+</ul>
+<h2 id="u7EFC_u4E0A_u6B63_u786E_u59FF_u52BF"><a href="#u7EFC_u4E0A_u6B63_u786E_u59FF_u52BF" class="headerlink" title="综上正确姿势"></a>综上正确姿势</h2><ol>
+<li>fragmentManager.beginTransaction().add，依次添加4个Fragment，这4个Fragment的排序顺序，是由下至上重叠添加，就是后添加的覆盖在前一个的上面</li>
+<li>如果执行add(1)后再add(2)，但不调用hide(1)<ol>
+<li>如果Fragment都带背景色，此时是看2，看不到1，仅仅是因为背景挡住了</li>
+<li>如果Fragment不带背景色，是透明的，可以看到2在1上面，出现重叠</li>
+<li>然后再执行add(1)，而且不调用hide(2)，实际是1叠加显示在2上面了</li>
+<li>然后不执行add(1)，而是执行show(1)，而且不调用hide(2)，实际不会有任何变化，还是遮挡和重叠现象</li>
+<li>正确的逻辑就是show一个，hide其他的Fragment；</li>
+</ol>
+</li>
+<li>旋转屏幕或者被回收重启，执行onSaveInstanceState，然后重新调用onCreate<ol>
+<li>Activity会<strong>自动</strong>恢复被保存的Fragment，FragmentManager会依次恢复Fragment，被恢复的Fragment会正常显示；</li>
+<li>如果onCreate不使用fragmentManager.findFragmentByTag找到被缓存的Fragment，而是每次都add一个新实例，实际是fragmentManager内部多了一个Fragment，不仅出现重叠(把背景设透明比较好验证)，而且实例变多，再出现onSaveInstanceState和onCreate流程，可能出现多次初始化，难易查找的bug</li>
+</ol>
+</li>
+<li>综上，Fragment正确的add、show、hide的调用姿势是<ol>
+<li>add时一定要设置不同的tag</li>
+<li>onCreate一定要通过fragmentManager.findFragmentByTag查找是否存在实例<ul>
+<li>如果不存在，new一个实例，执行add</li>
+<li>如果存在，show自己，hide其他</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Show_me_the_code"><a href="#Show_me_the_code" class="headerlink" title="Show me the code"></a>Show me the code</h2><p>参考项目内 <a href="https://github.com/tianshaojie/android-library" target="_blank" rel="external">android-library</a> MainActivty</p>
+
                     
-                        <a href="/2018/11/17/Android-Fragment-重叠问题/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
                         
+
+                    
+                    
+                        <p>
+                            <a href="/2018/11/17/Android-Fragment-重叠问题/#post-footer" class="postShorten-excerpt_link link">
+                                注释和共享
+                            </a>
+                        </p>
                     
                 </div>
             
@@ -296,7 +386,7 @@
             
             
                 <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>Android启屏页最佳实践</p>
+                    <p>启屏页最佳实践</p>
                     
                         <a href="/2018/11/17/Android-SplashActivity-启屏页最佳实践/" class="postShorten-excerpt_link link">
                             阅读全文

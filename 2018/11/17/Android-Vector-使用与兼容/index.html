@@ -11,12 +11,12 @@
     
     
     
-    <meta name="description" content="使用开源图标构建你的App">
+    <meta name="description" content="使用开源图标构建你的App；">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Android Vector 使用与兼容">
 <meta property="og:url" content="http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/index.html">
 <meta property="og:site_name" content="tianshaojie">
-<meta property="og:description" content="使用开源图标构建你的App">
+<meta property="og:description" content="使用开源图标构建你的App；">
 <meta property="og:image" content="http://skyui.cn/images/C80EAF74-99C4-4E3E-B72E-9D855F909437.png">
 <meta property="og:image" content="http://skyui.cn/images/C0A9DCFF-64EC-4CEB-AA3D-7922991DD374.png">
 <meta property="og:image" content="http://skyui.cn/images/1AF05884-41E5-40EA-8311-0D225007DB39.png">
@@ -25,10 +25,10 @@
 <meta property="og:image" content="http://skyui.cn/images/F21184E4-168F-470D-8922-3E636B96EC38.png">
 <meta property="og:image" content="http://skyui.cn/images/9637F727-879E-4360-930D-87F4445936DA.png">
 <meta property="og:image" content="http://skyui.cn/images/8C442F2C-C9C5-48B6-8A3A-F8F662501CFE.png">
-<meta property="og:updated_time" content="2018-11-17T07:40:49.210Z">
+<meta property="og:updated_time" content="2018-11-17T07:58:29.220Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Vector 使用与兼容">
-<meta name="twitter:description" content="使用开源图标构建你的App">
+<meta name="twitter:description" content="使用开源图标构建你的App；">
     
     
         
@@ -215,7 +215,7 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>使用开源图标构建你的App</p>
+            <p>使用开源图标构建你的App；</p>
 <a id="more"></a>
 <h2 id="u517C_u5BB95-0_u4E4B_u524D_u7248_u672C"><a href="#u517C_u5BB95-0_u4E4B_u524D_u7248_u672C" class="headerlink" title="兼容5.0之前版本"></a>兼容5.0之前版本</h2><h3 id="1-__u4FEE_u6539_u4E00_u4E0Bgradle_u914D_u7F6E_uFF1A_u5728Android_5-0_u4E4B_u524D_u4F7F_u7528Vector_uFF0C_u9700_u8981aapt_u6765_u5BF9_u8D44_u6E90_u8FDB_u884C_u4E00_u4E9B_u5904_u7406"><a href="#1-__u4FEE_u6539_u4E00_u4E0Bgradle_u914D_u7F6E_uFF1A_u5728Android_5-0_u4E4B_u524D_u4F7F_u7528Vector_uFF0C_u9700_u8981aapt_u6765_u5BF9_u8D44_u6E90_u8FDB_u884C_u4E00_u4E9B_u5904_u7406" class="headerlink" title="1. 修改一下gradle配置：在Android 5.0之前使用Vector，需要aapt来对资源进行一些处理"></a>1. 修改一下gradle配置：在Android 5.0之前使用Vector，需要aapt来对资源进行一些处理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        vectorDrawables.useSupportLibrary = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="2-__u4F9D_u8D56appcompat-v7_3A23-2_+"><a href="#2-__u4F9D_u8D56appcompat-v7_3A23-2_+" class="headerlink" title="2. 依赖appcompat-v7:23.2 +"></a>2. 依赖appcompat-v7:23.2 +</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.android.support:appcompat-v7:27.0.2'</span></span><br></pre></td></tr></table></figure>
@@ -251,12 +251,13 @@
 <h3 id="3-__u521B_u5EFAselector_uFF1Awidget_bar_home_bg-xml_uFF0C_u6DFB_u52A0_u8FD9_u4E24_u4E2Avector_icon"><a href="#3-__u521B_u5EFAselector_uFF1Awidget_bar_home_bg-xml_uFF0C_u6DFB_u52A0_u8FD9_u4E24_u4E2Avector_icon" class="headerlink" title="3. 创建selector：widget_bar_home_bg.xml，添加这两个vector icon"></a>3. 创建selector：<code>widget_bar_home_bg.xml</code>，添加这两个vector icon</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;selector xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">"@drawable/ic_home_black_24dp"</span> android:state_enabled=<span class="string">"true"</span> android:state_focused=<span class="string">"true"</span> android:state_pressed=<span class="string">"false"</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">"@drawable/ic_home_orange_24dp"</span> android:state_enabled=<span class="string">"true"</span> android:state_pressed=<span class="string">"true"</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">"@drawable/ic_home_orange_24dp"</span> android:state_checked=<span class="string">"true"</span> android:state_enabled=<span class="string">"true"</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">"@drawable/ic_home_black_24dp"</span> /&gt;</span><br><span class="line">&lt;/selector&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="4-__u5E94_u7528_u7684RadioButton"><a href="#4-__u5E94_u7528_u7684RadioButton" class="headerlink" title="4. 应用的RadioButton"></a>4. 应用的RadioButton</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;RadioButton&#10;&#9;android:id=&#34;@+id/foot_bar_home&#34;&#10;&#9;style=&#34;@style/main_footer_bar_radio&#34;&#10;&#9;android:checked=&#34;true&#34;&#10;&#9;android:drawableTop=&#34;@drawable/widget_bar_home_bg&#34;&#10;&#9;android:text=&#34;@string/main_navigation_home&#34;/&#62;</span><br></pre></td></tr></table></figure>
 <h3 id="5-__u9884_u89C8_u6548_u679C"><a href="#5-__u9884_u89C8_u6548_u679C" class="headerlink" title="5. 预览效果"></a>5. 预览效果</h3><p><img src="/images/8C442F2C-C9C5-48B6-8A3A-F8F662501CFE.png" alt=""></p>
-<h2 id="u6700_u540E"><a href="#u6700_u540E" class="headerlink" title="最后"></a>最后</h2><ul>
+<h2 id="u76EE_u7684"><a href="#u76EE_u7684" class="headerlink" title="目的"></a>目的</h2><ul>
 <li>目的是充分利用Google和三方提供的已有资源，提高效率；</li>
 <li>简单的 Vector Icon 图标，(小图标)在资源、内存大小和性能要优于PNG；</li>
 <li>不依赖设计师，就可以做很多漂亮的事情；</li>
 <li>拥抱Material Design，需要跳过的障碍之一;</li>
 </ul>
+<h2 id="u4EE3_u7801"><a href="#u4EE3_u7801" class="headerlink" title="代码"></a>代码</h2><p>参考项目内 <a href="https://github.com/tianshaojie/android-library" target="_blank" rel="external">android-library</a> MainActivty</p>
 <h2 id="u53C2_u8003"><a href="#u53C2_u8003" class="headerlink" title="参考"></a>参考</h2><ul>
 <li>用常用的矢量图标获取站：<a href="http://iconfont.cn" target="_blank" rel="external">iconfont.cn</a></li>
 <li><a href="https://material.io/icons/" target="_blank" rel="external">https://material.io/icons/</a></li>
@@ -284,7 +285,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-Toolbar-避坑最佳实践/"  data-tooltip="Android Toolbar 避坑最佳实践">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -365,7 +366,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-Toolbar-避坑最佳实践/"  data-tooltip="Android Toolbar 避坑最佳实践">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>

@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="tianshaojie">
+    <title>Android Toolbar 避坑最佳实践 - tianshaojie</title>
+    <meta name="author" content="tianshaojie">
+    
+    
+    
+    <meta name="description" content="不要再封装自己的Bar了；">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android Toolbar 避坑最佳实践">
+<meta property="og:url" content="http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/index.html">
+<meta property="og:site_name" content="tianshaojie">
+<meta property="og:description" content="不要再封装自己的Bar了；">
+<meta property="og:updated_time" content="2018-11-17T08:00:46.501Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Toolbar 避坑最佳实践">
+<meta name="twitter:description" content="不要再封装自己的Bar了；">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://skyui.cn/assets/images/me.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">tianshaojie</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+            <img class="header-picture" src="/assets/images/me.jpg"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">tianshaojie</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/tianshaojie" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Android Toolbar 避坑最佳实践
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat Nov 17 2018 15:49:06 GMT+0800">
+	
+		    11月 17, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>不要再封装自己的Bar了；</p>
+<a id="more"></a>
+<h2 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h2><pre><code>Android 3.0  Android 推了 ActionBar， 本意是想要逐渐改善过去 android 纷乱的界面设计，但ActionBar 使用并不方便，限制了App的开发与设计的弹性，实际使用的也不多了。
+Toolbar 是android 5.0的推出的，放在了v7包中作为控件，它是为了取代ActionBar而产生的，意味着官方在某些程度上认为 ActionBar 限制了App开发与设计的弹性，而在 Material Design 也对之做了名称的定义：App bar
+</code></pre><h2 id="2-__u57FA_u672C_u4F7F_u7528"><a href="#2-__u57FA_u672C_u4F7F_u7528" class="headerlink" title="2. 基本使用"></a>2. 基本使用</h2><h3 id="2-1__u5B9A_u4E49Style"><a href="#2-1__u5B9A_u4E49Style" class="headerlink" title="2.1 定义Style"></a>2.1 定义Style</h3><p>Style要调整两个地方</p>
+<ul>
+<li>一是 res/values/styles.xml中</li>
+<li>二是 res/values-v21/styles.xml中</li>
+</ul>
+<p>为了之后设定方便，我们先在 <code>res/values/styles.xml</code> 里增加一个名为 <code>AppTheme.Base</code> 的风格</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;style name=&#34;AppTheme.Base&#34; parent=&#34;Theme.AppCompat&#34;&#62;&#10;  &#60;item name=&#34;windowActionBar&#34;&#62;false&#60;/item&#62;&#10;  &#60;item name=&#34;android:windowNoTitle&#34;&#62;true&#60;/item&#62;&#10;&#60;/style&#62;</span><br></pre></td></tr></table></figure>
+<p>因为此范例只使用 Toolbar，所以我们要将让原本的 ActionBar 隐藏起来，然后将原本 AppTheme 的 parent 属性 改为上面的AppTheme.Base，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;resources&#62;&#10;  &#60;!-- Base application theme. --&#62;&#10;  &#60;style name=&#34;AppTheme&#34; parent=&#34;AppTheme.Base&#34;&#62;&#10;  &#60;/style&#62;&#10;  &#10;  &#60;style name=&#34;AppTheme.Base&#34; parent=&#34;Theme.AppCompat&#34;&#62;&#10;    &#60;item name=&#34;windowActionBar&#34;&#62;false&#60;/item&#62;&#10;    &#60;del&#62;&#60;item name=&#34;android:windowNoTitle&#34;&#62;true&#60;/item&#62;&#60;/del&#62;&#10;    &#60;!-- &#20351;&#29992; API Level 22 &#32232;&#35695;&#30340;&#35441;&#65292;&#35201;&#25343;&#25481;&#21069;&#32180;&#23383; --&#62;&#10;    &#60;item name=&#34;windowNoTitle&#34;&#62;true&#60;/item&#62;&#10;  &#60;/style&#62;&#10;&#60;/resources&#62;</span><br></pre></td></tr></table></figure>
+<p>再来调整Android 5.0的style：<code>/res/values-v21/styles.xml</code>，也将其 parent 属性改为  AppTheme.Base：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&#62;&#10;&#60;resources&#62;&#10;    &#60;style name=&#34;AppTheme&#34; parent=&#34;AppTheme.Base&#34;&#62;&#10;    &#60;/style&#62;&#10;&#60;/resources&#62;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2__u754C_u9762_28Layout_29"><a href="#2-2__u754C_u9762_28Layout_29" class="headerlink" title="2.2  界面(Layout)"></a>2.2  界面(Layout)</h3><p>在 activity_main.xml 里面添加 Toolbar 控件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;android.support.v7.widget.Toolbar&#10;  android:id=&#34;@+id/toolbar&#34;&#10;  android:layout_height=&#34;?attr/actionBarSize&#34;&#10;  android:layout_width=&#34;match_parent&#34; &#62;&#10;&#60;/android.support.v7.widget.Toolbar&#62;</span><br></pre></td></tr></table></figure>
+<p>请记得用 support v7 里的 toolbar，不然然只有 API Level 21 也就是 Android 5.0 以上的版本才能使用。</p>
+<h3 id="2-3__u4EE3_u7801_28Java_29"><a href="#2-3__u4EE3_u7801_28Java_29" class="headerlink" title="2.3  代码(Java)"></a>2.3  代码(Java)</h3><p>在 MainActivity.java 中加入 Toolbar 的声明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);&#10;setSupportActionBar(toolbar);</span><br></pre></td></tr></table></figure>
+<p>声明后，再将之用 setSupportActionBar 设定，Toolbar即能取代原本的 ActionBar 了</p>
+<h2 id="3-_Toolbar_u5C01_u88C5_u590D_u7528"><a href="#3-_Toolbar_u5C01_u88C5_u590D_u7528" class="headerlink" title="3. Toolbar封装复用"></a>3. Toolbar封装复用</h2><h3 id="3-1__u521B_u5EFAtoolbar-xml_uFF0CActivity_u5E03_u5C40include_u5373_u53EF"><a href="#3-1__u521B_u5EFAtoolbar-xml_uFF0CActivity_u5E03_u5C40include_u5373_u53EF" class="headerlink" title="3.1 创建toolbar.xml，Activity布局include即可"></a>3.1 创建toolbar.xml，Activity布局include即可</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&#62;&#10;&#60;android.support.v7.widget.Toolbar xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&#10;    xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;&#10;    android:id=&#34;@+id/toolbar&#34;&#10;    android:layout_width=&#34;match_parent&#34;&#10;    android:layout_height=&#34;?attr/actionBarSize&#34;&#10;    android:background=&#34;@color/colorPrimary&#34;&#10;    app:navigationIcon=&#34;@drawable/ic_back&#34;&#10;    app:popupTheme=&#34;@style/ThemeOverlay.AppCompat.Light&#34;&#10;    app:theme=&#34;@style/Theme.Toolbar&#34;&#62;&#10;&#10;    &#60;!-- &#26631;&#39064;&#23621;&#20013; --&#62;&#10;    &#60;TextView&#10;        android:id=&#34;@+id/toolbar_title&#34;&#10;        style=&#34;@style/Theme.ToolBar.Title&#34;&#10;        android:layout_width=&#34;wrap_content&#34;&#10;        android:layout_height=&#34;wrap_content&#34;&#10;        android:layout_gravity=&#34;center&#34;&#10;        android:text=&#34;Title&#34; /&#62;&#10;&#10;&#60;/android.support.v7.widget.Toolbar&#62;</span><br></pre></td></tr></table></figure>
+<p>@drawable/ic_back</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;vector android:height=&#34;24dp&#34; android:viewportHeight=&#34;1024.0&#34;&#10;    android:viewportWidth=&#34;1024.0&#34; android:width=&#34;24dp&#34; xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&#62;&#10;    &#60;path android:fillColor=&#34;#ffffff&#34; android:pathData=&#34;M387.8,164.9a22.1,22.1 0,0 0,-0.4 -30.7,20.5 20.5,0 0,0 -29.7,0.4L0,512.9l357.8,378.3c8,8.5 21.3,8.7 29.7,0.3 8.3,-8.3 8.5,-22 0.4,-30.7L60.3,512.9 387.9,164.9z&#34;/&#62;&#10;&#60;/vector&#62;</span><br></pre></td></tr></table></figure>
+<p>@style</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!-- Toolbar --&#62;&#10;&#60;style name=&#34;Theme.Toolbar&#34; parent=&#34;@style/ThemeOverlay.AppCompat.Dark.ActionBar&#34;&#62;&#10;    &#60;!-- &#20462;&#25913;toolbar&#20013;&#25353;&#38062;&#22270;&#26631;&#30340;&#39068;&#33394; --&#62;&#10;    &#60;item name=&#34;colorControlNormal&#34;&#62;@color/white&#60;/item&#62;&#10;&#60;/style&#62;&#10;&#10;&#60;!-- Toolbar Title--&#62;&#10;&#60;style name=&#34;Theme.ToolBar.Title&#34; parent=&#34;@style/TextAppearance.Widget.AppCompat.Toolbar.Title&#34;&#62;&#10;    &#60;item name=&#34;android:textSize&#34;&#62;18sp&#60;/item&#62;&#10;    &#60;item name=&#34;android:textColor&#34;&#62;@android:color/white&#60;/item&#62;&#10;&#60;/style&#62;&#10;&#10;&#60;!-- Toolbar &#28322;&#20986;&#22270;&#26631;&#39068;&#33394; --&#62;&#10;&#60;style name=&#34;Theme.Toolbar.OverflowMenuTheme&#34; parent=&#34;Theme.AppCompat.NoActionBar&#34;&#62;&#10;    &#60;!-- &#35774;&#32622;Menu&#33756;&#21333;&#32972;&#26223;&#33394; --&#62;&#10;    &#60;item name=&#34;android:itemBackground&#34;&#62;@android:color/white&#60;/item&#62;&#10;    &#60;!-- &#35774;&#32622;Menu&#33756;&#21333;&#23383;&#20307;&#39068;&#33394; --&#62;&#10;    &#60;item name=&#34;android:textColorPrimary&#34;&#62;@android:color/black&#60;/item&#62;&#10;    &#60;!-- &#35774;&#32622;Menu&#31383;&#21475;&#19981;&#35206;&#30422;Toolbar&#35270;&#22270; --&#62;&#10;    &#60;item name=&#34;overlapAnchor&#34;&#62;false&#60;/item&#62;&#10;&#60;/style&#62;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2_BaseActivity"><a href="#3-2_BaseActivity" class="headerlink" title="3.2 BaseActivity"></a>3.2 BaseActivity</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public abstract class BaseActivity extends  RxAppCompatActivity &#123;&#10;&#10;    // &#35753;5.0&#20043;&#21069;&#30340;&#31995;&#32479;&#21487;&#20197;&#29992;Vector&#22270;&#26631;&#10;    static &#123;&#10;        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);&#10;    &#125;&#10;&#10;    /**&#10;     * &#27785;&#28024;&#24335;&#29366;&#24577;&#26639;&#21644;&#27785;&#28024;&#24335;&#23548;&#33322;&#26639;&#31649;&#29702;&#65292;&#25903;&#25345;Android 4.4 &#20197;&#19978;&#10;     */&#10;    private ImmersionBar mImmersionBar;&#10;    private Toolbar mToolBar;&#10;    private TextView mToolbarTitle;&#10;&#10;    @Override&#10;    protected void onCreate(@Nullable Bundle savedInstanceState) &#123;&#10;        super.onCreate(savedInstanceState);&#10;&#10;        // &#20462;&#22797;&#31995;&#32479;&#36755;&#20837;&#27861;Bug&#65306;&#22312;15&#60;=API&#60;=23&#23384;&#22312;&#20869;&#23384;&#27844;&#28431;&#10;        // https://zhuanlan.zhihu.com/p/20828861&#10;        IMMLeaks.fixFocusedViewLeak(getApplication());&#10;&#10;        // &#27785;&#28024;&#24335;&#29366;&#24577;&#26639;&#10;        mImmersionBar = ImmersionBar.with(this);&#10;        // &#35299;&#20915;&#29366;&#24577;&#26639;&#19982;&#24067;&#23616;&#39030;&#37096;&#37325;&#21472;&#35299;&#20915;&#26041;&#26696;&#10;        mImmersionBar.fitsSystemWindows(true)&#10;                .statusBarColor(R.color.colorPrimary)&#10;                .navigationBarColor(R.color.colorPrimary)&#10;                .init();&#10;    &#125;&#10;&#10;    /**&#10;     * &#32479;&#19968;Toolbar&#65306;Activity&#24067;&#23616;&#20869;&#60;include layout=&#34;@layout/toolbar&#34;/&#62;&#10;     * 1. &#26631;&#39064;&#10;     *  &#26631;&#39064;&#23621;&#20013;&#26174;&#31034;&#10;     *  &#40664;&#35748;&#20351;&#29992;AndroidManifest&#30340;android:label&#23646;&#24615;&#20540;&#10;     *  &#21487;&#20197;&#22312;onCreate-&#62;setContentView&#20043;&#21518;&#65292;&#35843;&#29992;setToolbarTitle&#26356;&#26032;Title&#10;     * 2. Icon&#10;     * 3. &#38388;&#36317;&#10;     * @param layoutResID&#10;     */&#10;    @Override&#10;    public void setContentView(int layoutResID) &#123;&#10;        super.setContentView(layoutResID);&#10;        mToolBar = findViewById(R.id.toolbar);&#10;        if (mToolBar != null) &#123;&#10;            mToolbarTitle = mToolBar.findViewById(R.id.toolbar_title);&#10;            setSupportActionBar(mToolBar);&#10;            ActionBar actionBar = getSupportActionBar();&#10;            // &#26174;&#31034;&#36820;&#22238;&#38190;&#10;            if(actionBar != null) &#123;&#10;                actionBar.setDisplayHomeAsUpEnabled(true);&#10;            &#125;&#10;            // &#38544;&#34255;&#40664;&#35748;&#26631;&#39064;&#10;            if (mToolbarTitle != null &#38;&#38; actionBar != null) &#123;&#10;                actionBar.setDisplayShowTitleEnabled(false);&#10;            &#125;&#10;        &#125;&#10;    &#125;&#10;&#10;    /**&#10;     * &#32479;&#19968;Toolbar&#36820;&#22238;&#25353;&#38062;&#22788;&#29702;&#10;     * @param item&#10;     * @return&#10;     */&#10;    @Override&#10;    public boolean onOptionsItemSelected(MenuItem item) &#123;&#10;        if (item.getItemId() == android.R.id.home) &#123;&#10;            finish();&#10;            return true;&#10;        &#125;&#10;        return super.onOptionsItemSelected(item);&#10;    &#125;&#10;&#10;    /**&#10;     * &#35206;&#30422;onTitleChanged&#65306;&#35753; title &#40664;&#35748;&#26174;&#31034;&#21040; mToolbarTitle&#65292;&#32780;&#19988;&#19981;&#38656;&#35201;&#26292;&#38706; mToolbarTitle &#23646;&#24615;&#10;     * 1. &#40664;&#35748;&#26174;&#31034;&#65306;AndroidManifest&#30340;android:label&#23646;&#24615;&#20540;&#10;     * 2. &#20195;&#30721;&#35774;&#32622;&#65306;&#30452;&#25509;&#35843;&#29992;Activity.setTitle()&#26041;&#27861;&#21160;&#24577;&#20462;&#25913;&#10;     * @param title&#10;     * @param color&#10;     */&#10;    @Override&#10;    protected void onTitleChanged(CharSequence title, int color) &#123;&#10;        super.onTitleChanged(title, color);&#10;        if (mToolbarTitle != null) &#123;&#10;            mToolbarTitle.setText(title);&#10;        &#125;&#10;    &#125;&#10;&#10;    @Override&#10;    protected void onDestroy() &#123;&#10;        super.onDestroy();&#10;        if (mImmersionBar != null) &#123;&#10;            mImmersionBar.destroy();&#10;        &#125;&#10;    &#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u5B8C_u6574_u4EE3_u7801"><a href="#u5B8C_u6574_u4EE3_u7801" class="headerlink" title="完整代码"></a>完整代码</h2><p>参考项目内 <a href="https://github.com/tianshaojie/android-library" target="_blank" rel="external">android-library</a> MainActivty</p>
+<h2 id="4-__u53C2_u8003"><a href="#4-__u53C2_u8003" class="headerlink" title="4. 参考"></a>4. 参考</h2><ul>
+<li><a href="http://yifeng.studio/2016/10/12/android-toolbar/" target="_blank" rel="external">Android Toolbar，你想知道的都在这里了</a></li>
+<li><a href="http://angeldevil.me/2014/12/24/toolbar-as-actionbar-and-centered-title/" target="_blank" rel="external">Toolbar作为ActionBar与标题居中-封装</a></li>
+<li><a href="http://blog.csdn.net/zhyh1986/article/details/51790570" target="_blank" rel="external">Android：改变 Toolbar 的文字和溢出图标颜色</a></li>
+<li><a href="https://www.jianshu.com/p/834baf3c8f0b" target="_blank" rel="external">ToolBar随心定制 - 简书</a>：介绍了如何在ToolBar左侧放置Menu等</li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Toolbar/">Toolbar</a> <a class="tag tag--primary tag--small t-link" href="/tags/最佳实践/">最佳实践</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-Vector-使用与兼容/" data-tooltip="Android Vector 使用与兼容">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 tianshaojie. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-Vector-使用与兼容/" data-tooltip="Android Vector 使用与兼容">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.jpg"/>
+        
+            <h4 id="about-card-name">tianshaojie</h4>
+        
+            <h5 id="about-card-bio"><p>不想当设计的产品不是好攻城狮</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Android Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Beijing
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://skyui.cn/2018/11/17/Android-Toolbar-避坑最佳实践/';
+                 
+                    this.page.identifier = '2018/11/17/Android-Toolbar-避坑最佳实践/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'tianshaojie';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','UYMkvuaxLrqccjBtUTyx','2.0.0');
+    </script>
+
+
+</html>
