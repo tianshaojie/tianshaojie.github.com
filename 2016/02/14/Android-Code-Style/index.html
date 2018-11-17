@@ -11,37 +11,16 @@
     
     
     
-    <meta name="description" content="1. 约定
-Activity.onCreate()，Fragment.onActivityCreated()，紧跟成员变量后，方法内部保持简单，尽量只调用initXXX()方法，如：initData()，initView()。
-调用方法保持“临近原则”，被调用的方法，放在调用方法下方
-单个方法体不要过长
-代码任何地方不要拼错单词
-统一调整IDE的Tab缩进为4个空格
-杜绝整个类代码格式化
-提交代码">
+    <meta name="description" content="形成隐喻，提高效率">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Android Code Style">
 <meta property="og:url" content="http://skyui.cn/2016/02/14/Android-Code-Style/index.html">
 <meta property="og:site_name" content="tianshaojie">
-<meta property="og:description" content="1. 约定
-Activity.onCreate()，Fragment.onActivityCreated()，紧跟成员变量后，方法内部保持简单，尽量只调用initXXX()方法，如：initData()，initView()。
-调用方法保持“临近原则”，被调用的方法，放在调用方法下方
-单个方法体不要过长
-代码任何地方不要拼错单词
-统一调整IDE的Tab缩进为4个空格
-杜绝整个类代码格式化
-提交代码">
-<meta property="og:updated_time" content="2016-02-14T02:25:20.000Z">
+<meta property="og:description" content="形成隐喻，提高效率">
+<meta property="og:updated_time" content="2018-11-17T08:11:43.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Code Style">
-<meta name="twitter:description" content="1. 约定
-Activity.onCreate()，Fragment.onActivityCreated()，紧跟成员变量后，方法内部保持简单，尽量只调用initXXX()方法，如：initData()，initView()。
-调用方法保持“临近原则”，被调用的方法，放在调用方法下方
-单个方法体不要过长
-代码任何地方不要拼错单词
-统一调整IDE的Tab缩进为4个空格
-杜绝整个类代码格式化
-提交代码">
+<meta name="twitter:description" content="形成隐喻，提高效率">
     
     
         
@@ -228,7 +207,9 @@ Activity.onCreate()，Fragment.onActivityCreated()，紧跟成员变量后，方
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h2 id="1-__u7EA6_u5B9A"><a href="#1-__u7EA6_u5B9A" class="headerlink" title="1. 约定"></a>1. 约定</h2><ul>
+            <p>形成隐喻，提高效率</p>
+<a id="more"></a>
+<h2 id="1-__u7EA6_u5B9A"><a href="#1-__u7EA6_u5B9A" class="headerlink" title="1. 约定"></a>1. 约定</h2><ul>
 <li><strong>Activity.onCreate()，Fragment.onActivityCreated()，紧跟成员变量后，方法内部保持简单，尽量只调用initXXX()方法，如：initData()，initView()。</strong></li>
 <li>调用方法保持<strong>“临近原则”</strong>，被调用的方法，放在调用方法下方</li>
 <li><strong>单个方法体不要过长</strong></li>
@@ -237,7 +218,7 @@ Activity.onCreate()，Fragment.onActivityCreated()，紧跟成员变量后，方
 <li><strong>杜绝整个类代码格式化</strong></li>
 <li>提交代码使用中文注释，如果解决bug加上<code>#bug号</code>，如<strong><code>#123，解决问题描述</code>，不要写fix bug无意义描述</strong></li>
 </ul>
-<a id="more"></a>
+<!-- more -->
 <h2 id="2-__u547D_u540D"><a href="#2-__u547D_u540D" class="headerlink" title="2. 命名"></a>2. 命名</h2><h3 id="2-1-__u5E03_u5C40_u6587_u4EF6_u4E2D_u7684id_u547D_u540D"><a href="#2-1-__u5E03_u5C40_u6587_u4EF6_u4E2D_u7684id_u547D_u540D" class="headerlink" title="2.1. 布局文件中的id命名"></a>2.1. 布局文件中的id命名</h3><p><strong>规则：</strong>使用<strong><code>驼峰命名，前缀+逻辑名称</code></strong>，不需要下划线分割</p>
 <p><strong>注：id对应的成员变量，使用Android BufferKnift Zelezny插件生成，变量前自动加“m前缀”</strong></p>
 <table>

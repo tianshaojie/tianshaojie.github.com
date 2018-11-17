@@ -11,16 +11,16 @@
     
     
     
-    <meta name="description" content="1. 安装Homebrew12345# Install Homebrew/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# Checkbrew --version">
+    <meta name="description" content="自由畅快的写博客；">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Hexo + Github Pages 搭建个人博客">
 <meta property="og:url" content="http://skyui.cn/2016/02/06/Hexo-Github-Pages-搭建个人博客/index.html">
 <meta property="og:site_name" content="tianshaojie">
-<meta property="og:description" content="1. 安装Homebrew12345# Install Homebrew/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# Checkbrew --version">
-<meta property="og:updated_time" content="2018-11-17T07:08:57.352Z">
+<meta property="og:description" content="自由畅快的写博客；">
+<meta property="og:updated_time" content="2018-11-17T08:12:02.587Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo + Github Pages 搭建个人博客">
-<meta name="twitter:description" content="1. 安装Homebrew12345# Install Homebrew/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;# Checkbrew --version">
+<meta name="twitter:description" content="自由畅快的写博客；">
     
     
         
@@ -207,8 +207,9 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h2 id="1-__u5B89_u88C5Homebrew"><a href="#1-__u5B89_u88C5Homebrew" class="headerlink" title="1. 安装Homebrew"></a>1. 安装Homebrew</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Homebrew</span></span><br><span class="line">/usr/bin/ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure>
+            <p>自由畅快的写博客；</p>
 <a id="more"></a>
+<h2 id="1-__u5B89_u88C5Homebrew"><a href="#1-__u5B89_u88C5Homebrew" class="headerlink" title="1. 安装Homebrew"></a>1. 安装Homebrew</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Homebrew</span></span><br><span class="line">/usr/bin/ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure>
 <h2 id="2-__u5B89_u88C5Node-js__26amp_3B_npm"><a href="#2-__u5B89_u88C5Node-js__26amp_3B_npm" class="headerlink" title="2. 安装Node.js &amp; npm"></a>2. 安装Node.js &amp; npm</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install Node.js</span></span><br><span class="line">brew install node</span><br></pre></td></tr></table></figure>
 <h2 id="3-_Hexo_u725B_u5200_u5C0F_u8BD5"><a href="#3-_Hexo_u725B_u5200_u5C0F_u8BD5" class="headerlink" title="3. Hexo牛刀小试"></a>3. Hexo牛刀小试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装hexo-cli</span></span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Hexo初始化你的Blog目录</span></span><br><span class="line">mkdir hexo</span><br><span class="line"><span class="built_in">cd</span> /Users/tiansj/hexo</span><br><span class="line">hexo init blog   <span class="comment"># INFO Cloning hexo-starter to ~/hexo/blog</span></span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动Server，访问127.0.0.1:4000</span></span><br><span class="line">hexo server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个新文章</span></span><br><span class="line">hexo new <span class="string">"Hello Hexo"</span> </span><br><span class="line"><span class="comment">#会在blog/source/_posts下创建Hello-Hexo.md，剩下的写作可以选择任何Markdown工具自由写作</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件（blog/public）</span></span><br><span class="line">hexo generate</span><br><span class="line">hexo server</span><br><span class="line"><span class="comment"># 再次启动，可以看到写做新文章了</span></span><br></pre></td></tr></table></figure>
 <h2 id="4-__u8BBE_u7F6E_u4E3B_u9898"><a href="#4-__u8BBE_u7F6E_u4E3B_u9898" class="headerlink" title="4. 设置主题"></a>4. 设置主题</h2><p>这里用的是<a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="external">hexo-theme-tranquilpeak</a></p>
