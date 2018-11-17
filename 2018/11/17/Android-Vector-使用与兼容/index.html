@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="tianshaojie">
+    <title>Android Vector 使用与兼容 - tianshaojie</title>
+    <meta name="author" content="tianshaojie">
+    
+    
+    
+    <meta name="description" content="从此App内80%的图标不需要设计师；">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android Vector 使用与兼容">
+<meta property="og:url" content="http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/index.html">
+<meta property="og:site_name" content="tianshaojie">
+<meta property="og:description" content="从此App内80%的图标不需要设计师；">
+<meta property="og:image" content="http://skyui.cn/images/C80EAF74-99C4-4E3E-B72E-9D855F909437.png">
+<meta property="og:image" content="http://skyui.cn/images/C0A9DCFF-64EC-4CEB-AA3D-7922991DD374.png">
+<meta property="og:image" content="http://skyui.cn/images/1AF05884-41E5-40EA-8311-0D225007DB39.png">
+<meta property="og:image" content="http://skyui.cn/images/A2750078-2CC2-4FE4-8CB5-4274D5CA7734.png">
+<meta property="og:image" content="http://skyui.cn/images/610708F4-0D4F-46D3-A1B9-63FAEDF591BF.png">
+<meta property="og:image" content="http://skyui.cn/images/F21184E4-168F-470D-8922-3E636B96EC38.png">
+<meta property="og:image" content="http://skyui.cn/images/9637F727-879E-4360-930D-87F4445936DA.png">
+<meta property="og:updated_time" content="2018-11-17T07:32:25.832Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Vector 使用与兼容">
+<meta name="twitter:description" content="从此App内80%的图标不需要设计师；">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://skyui.cn/assets/images/me.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">tianshaojie</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+            <img class="header-picture" src="/assets/images/me.jpg"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">tianshaojie</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/tianshaojie" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Android Vector 使用与兼容
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat Nov 17 2018 14:49:04 GMT+0800">
+	
+		    11月 17, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>从此App内80%的图标不需要设计师；</p>
+<a id="more"></a>
+<h2 id="u517C_u5BB95-0_u4E4B_u524D_u7248_u672C"><a href="#u517C_u5BB95-0_u4E4B_u524D_u7248_u672C" class="headerlink" title="兼容5.0之前版本"></a>兼容5.0之前版本</h2><h3 id="1-__u4FEE_u6539_u4E00_u4E0Bgradle_u914D_u7F6E_uFF1A_u5728Android_5-0_u4E4B_u524D_u4F7F_u7528Vector_uFF0C_u9700_u8981aapt_u6765_u5BF9_u8D44_u6E90_u8FDB_u884C_u4E00_u4E9B_u5904_u7406"><a href="#1-__u4FEE_u6539_u4E00_u4E0Bgradle_u914D_u7F6E_uFF1A_u5728Android_5-0_u4E4B_u524D_u4F7F_u7528Vector_uFF0C_u9700_u8981aapt_u6765_u5BF9_u8D44_u6E90_u8FDB_u884C_u4E00_u4E9B_u5904_u7406" class="headerlink" title="1. 修改一下gradle配置：在Android 5.0之前使用Vector，需要aapt来对资源进行一些处理"></a>1. 修改一下gradle配置：在Android 5.0之前使用Vector，需要aapt来对资源进行一些处理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        vectorDrawables.useSupportLibrary = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-__u4F9D_u8D56appcompat-v7_3A23-2_+"><a href="#2-__u4F9D_u8D56appcompat-v7_3A23-2_+" class="headerlink" title="2. 依赖appcompat-v7:23.2 +"></a>2. 依赖appcompat-v7:23.2 +</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.android.support:appcompat-v7:27.0.2'</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-__u4F7F_u7528AppCompatActivity_uFF0C_u540C_u65F6_u589E_u52A0_u4E0B_u9762_u8FD9_u6BB5_u4EE3_u7801_uFF0C_u653E_u5728Activity_u7684_u524D_u9762_uFF0C_u5EFA_u8BAE_u5199_u4E00_u4E2ABaseActivity"><a href="#3-__u4F7F_u7528AppCompatActivity_uFF0C_u540C_u65F6_u589E_u52A0_u4E0B_u9762_u8FD9_u6BB5_u4EE3_u7801_uFF0C_u653E_u5728Activity_u7684_u524D_u9762_uFF0C_u5EFA_u8BAE_u5199_u4E00_u4E2ABaseActivity" class="headerlink" title="3. 使用AppCompatActivity，同时增加下面这段代码，放在Activity的前面，建议写一个BaseActivity"></a>3. 使用AppCompatActivity，同时增加下面这段代码，放在Activity的前面，建议写一个BaseActivity</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class BaseActivity extends AppCompatActivity &#123;</span><br><span class="line">    static &#123;</span><br><span class="line">        AppCompatDelegate.setCompatVectorFromResourcesEnabled(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-__u63A7_u4EF6_u4F7F_u7528Vector"><a href="#4-__u63A7_u4EF6_u4F7F_u7528Vector" class="headerlink" title="4. 控件使用Vector"></a>4. 控件使用Vector</h3><p>虽然经过上面3步设置，在低版本系统里面可以使用Vector图标，一些注意地方：</p>
+<ul>
+<li>ImageView，ImageButton要兼容Vector图像，只需要将之前的android:src属性，换成app:srcCompat即可；</li>
+<li>Button，RadioButton，TextView的drawableTop/Right/Bottom/Left，并能直接设置vector drawable，否则在4.x手机上回报资源找不到。解决办法是，使用selector或者layer，包装一下vector drawable，再设置到控件上即可；</li>
+<li>如：selector_bottom_bar_explore.xml</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;selector xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&#62;&#10;    &#60;item android:drawable=&#34;@drawable/ic_explore_primary_24px&#34; android:state_enabled=&#34;true&#34; android:state_focused=&#34;true&#34; android:state_pressed=&#34;false&#34; /&#62;&#10;    &#60;item android:drawable=&#34;@drawable/ic_explore_accent_24px&#34; android:state_enabled=&#34;true&#34; android:state_pressed=&#34;true&#34; /&#62;&#10;    &#60;item android:drawable=&#34;@drawable/ic_explore_accent_24px&#34; android:state_checked=&#34;true&#34; android:state_enabled=&#34;true&#34; /&#62;&#10;    &#60;item android:drawable=&#34;@drawable/ic_explore_primary_24px&#34; /&#62;&#10;&#60;/selector&#62;</span><br></pre></td></tr></table></figure>
+<p>如：ic_arrow_right_gray_wrapped.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&#62;&#10;&#60;layer-list xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&#62;&#10;    &#60;item android:drawable=&#34;@drawable/ic_arrow_right_gray_24dp&#34;/&#62;&#10;&#60;/layer-list&#62;</span><br></pre></td></tr></table></figure></p>
+<h2 id="AS_u4F7F_u7528_u8BF4_u660E"><a href="#AS_u4F7F_u7528_u8BF4_u660E" class="headerlink" title="AS使用说明"></a>AS使用说明</h2><ol>
+<li><p>在AS项目drawable下右键，new-&gt;Vector Asset</p>
+<p> <img src="/images/C80EAF74-99C4-4E3E-B72E-9D855F909437.png" alt=""></p>
+</li>
+<li><p>选择Material Icon可以导入自带库的图标</p>
+<p> <img src="/images/C0A9DCFF-64EC-4CEB-AA3D-7922991DD374.png" alt=""></p>
+<p> <img src="/images/1AF05884-41E5-40EA-8311-0D225007DB39.png" alt=""></p>
+<p> <img src="/images/A2750078-2CC2-4FE4-8CB5-4274D5CA7734.png" alt=""></p>
+</li>
+<li><p>也可以选择导入本地 Local file（SVG, PSD)</p>
+<p> <img src="/images/610708F4-0D4F-46D3-A1B9-63FAEDF591BF.png" alt=""></p>
+<p> <img src="/images/F21184E4-168F-470D-8922-3E636B96EC38.png" alt=""></p>
+</li>
+<li><p>最后会生产一个xml到drawable下，就可以在控件内部引用了</p>
+<p> 例如：在RadioButton内通过selector使用vector icon:</p>
+<ol>
+<li><p>比如从AS自带库导入：ic_home_black_24px.xml，作为selector的默认图</p>
+<p><img src="/images/9637F727-879E-4360-930D-87F4445936DA.png" alt=""></p>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;vector xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&#10;    android:width=&#34;24dp&#34;&#10;    android:height=&#34;24dp&#34;&#10;    android:viewportHeight=&#34;24.0&#34;&#10;    android:viewportWidth=&#34;24.0&#34;&#62;&#10;    &#60;path&#10;        android:fillColor=&#34;#FF000000&#34;&#10;        android:pathData=&#34;M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z&#34; /&#62;&#10;&#60;/vector&#62;</span><br></pre></td></tr></table></figure>
+<pre><code>2. 拷贝一份，并修改 fillColor 色值：ic_home_orange_24px.xml
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;vector xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&#10;   &#9;&#9;android:width=&#34;24dp&#34;&#10;&#9;android:height=&#34;24dp&#34;&#10;   &#9;&#9;android:viewportHeight=&#34;24.0&#34;&#10;   &#9;&#9;android:viewportWidth=&#34;24.0&#34;&#62;&#10;   &#9;&#9;&#60;path&#10;       &#9;&#9;android:fillColor=&#34;#FF601C&#34;&#10;       &#9;&#9;android:pathData=&#34;M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z&#34; /&#62;&#10;&#60;/vector&#62;</span><br></pre></td></tr></table></figure>
+<pre><code>3. 创建selector：`widget_bar_home_bg.xml`，添加这两个vector icon
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;selector xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">"@drawable/ic_home_black_24dp"</span> android:state_enabled=<span class="string">"true"</span> android:state_focused=<span class="string">"true"</span> android:state_pressed=<span class="string">"false"</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">"@drawable/ic_home_orange_24dp"</span> android:state_enabled=<span class="string">"true"</span> android:state_pressed=<span class="string">"true"</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">"@drawable/ic_home_orange_24dp"</span> android:state_checked=<span class="string">"true"</span> android:state_enabled=<span class="string">"true"</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">"@drawable/ic_home_black_24dp"</span> /&gt;</span><br><span class="line">&lt;/selector&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>4. 应用的RadioButton
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;RadioButton&#10;&#9;android:id=&#34;@+id/foot_bar_home&#34;&#10;&#9;style=&#34;@style/main_footer_bar_radio&#34;&#10;&#9;android:checked=&#34;true&#34;&#10;&#9;android:drawableTop=&#34;@drawable/widget_bar_home_bg&#34;&#10;&#9;android:text=&#34;@string/main_navigation_home&#34;/&#62;</span><br></pre></td></tr></table></figure>
+<pre><code>5. 预览效果
+![](/images/8C442F2C-C9C5-48B6-8A3A-F8F662501CFE.png)
+</code></pre><h2 id="u6700_u540E"><a href="#u6700_u540E" class="headerlink" title="最后"></a>最后</h2><ul>
+<li>目的是充分利用Google和三方提供的已有资源，提高效率；</li>
+<li>简单的 Vector Icon 图标，(小图标)在资源、内存大小和性能要优于PNG；</li>
+<li>不依赖设计师，就可以做很多漂亮的事情；</li>
+<li>拥抱Material Design，需要跳过的障碍之一;</li>
+</ul>
+<h2 id="u53C2_u8003"><a href="#u53C2_u8003" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>用常用的矢量图标获取站：<a href="http://iconfont.cn" target="_blank" rel="external">iconfont.cn</a></li>
+<li><a href="https://material.io/icons/" target="_blank" rel="external">https://material.io/icons/</a></li>
+<li><a href="https://www.jianshu.com/p/e3614e7abc03" target="_blank" rel="external">Android Vector曲折的兼容之路</a>    </li>
+<li><a href="https://developer.android.com/studio/write/vector-asset-studio.html" target="_blank" rel="external">官网-添加多密度矢量图形</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Android/">Android</a> <a class="tag tag--primary tag--small t-link" href="/tags/Vector/">Vector</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-Fragment-重叠问题/" data-tooltip="Android Fragment 重叠问题">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 tianshaojie. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-Fragment-重叠问题/" data-tooltip="Android Fragment 重叠问题">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.jpg"/>
+        
+            <h4 id="about-card-name">tianshaojie</h4>
+        
+            <h5 id="about-card-bio"><p>不想当设计的产品不是好攻城狮</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Android Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Beijing
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://skyui.cn/2018/11/17/Android-Vector-使用与兼容/';
+                 
+                    this.page.identifier = '2018/11/17/Android-Vector-使用与兼容/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'tianshaojie';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','UYMkvuaxLrqccjBtUTyx','2.0.0');
+    </script>
+
+
+</html>
