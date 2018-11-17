@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="tianshaojie">
+    <title>Android Fragment 重叠问题 - tianshaojie</title>
+    <meta name="author" content="tianshaojie">
+    
+    
+    
+    <meta name="description" content="Fragment 重叠问题原因">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android Fragment 重叠问题">
+<meta property="og:url" content="http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/index.html">
+<meta property="og:site_name" content="tianshaojie">
+<meta property="og:description" content="Fragment 重叠问题原因">
+<meta property="og:updated_time" content="2018-11-17T06:44:11.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Fragment 重叠问题">
+<meta name="twitter:description" content="Fragment 重叠问题原因">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://skyui.cn/assets/images/me.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">tianshaojie</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+            <img class="header-picture" src="/assets/images/me.jpg"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">tianshaojie</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/tianshaojie" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Android Fragment 重叠问题
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat Nov 17 2018 14:32:04 GMT+0800">
+	
+		    11月 17, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="Fragment__u91CD_u53E0_u95EE_u9898_u539F_u56E0"><a href="#Fragment__u91CD_u53E0_u95EE_u9898_u539F_u56E0" class="headerlink" title="Fragment 重叠问题原因"></a>Fragment 重叠问题原因</h2><a id="more"></a>
+<p>Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState)，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”</p>
+<p>使用 Fragment 的状态保存，当系统内存不足，Fragment 的宿主 Activity 回收的时候，Fragment 的实例并没有随之被回收。Activity 被系统回收时，会主动调用 onSaveInstance() 方法来保存视图层（View Hierarchy），所以当 Activity 通过导航再次被重建时，之前被实例化过的 Fragment 依然会出现在 Activity 中，此时的 FragmentTransaction 中的相当于又再次 add 了 fragment 进去的，hide()和show()方法对之前保存的fragment已经失效了。综上这些因素导致了多个Fragment重叠在一起。</p>
+<pre><code>1. 被恢复的fragment加载到Activity
+2. onCreate里又重新new了一个fragment实例，也加到了Activity
+综上出现了重叠或重影问题
+</code></pre><h2 id="u89E3_u51B3_u65B9_u5F0F"><a href="#u89E3_u51B3_u65B9_u5F0F" class="headerlink" title="解决方式"></a>解决方式</h2><p><strong>建议使用第1种方法解决</strong></p>
+<h3 id="1-__u89E3_u51B3_u65B9_u6CD5_u5982_u4E0B_uFF0C_u5728_u8FDB_u5165onCreate_u51FD_u6570_u65F6_uFF0C_u5148_u53BB_u5224_u65ADsavedInstanceState_u662F_u5426_u4E3Anull_uFF0C_u5982_u679C_u4E0D_u4E3Anull_2C_u5219_u8868_u793A_u91CC_u9762_u6709_u4FDD_u5B58_u7740fragment_u3002_u5219_u4E0D_u518D_u91CD_u65B0_u53BBadd_u8FD9_u56DB_u4E2Afragment_uFF0C_u800C_u662F_u901A_u8FC7Tag_u4ECE_u524D_u4FDD_u5B58_u7684_u6570_u636E_u4E2D_u76F4_u63A5_u53BB_u8BFB_u53D6"><a href="#1-__u89E3_u51B3_u65B9_u6CD5_u5982_u4E0B_uFF0C_u5728_u8FDB_u5165onCreate_u51FD_u6570_u65F6_uFF0C_u5148_u53BB_u5224_u65ADsavedInstanceState_u662F_u5426_u4E3Anull_uFF0C_u5982_u679C_u4E0D_u4E3Anull_2C_u5219_u8868_u793A_u91CC_u9762_u6709_u4FDD_u5B58_u7740fragment_u3002_u5219_u4E0D_u518D_u91CD_u65B0_u53BBadd_u8FD9_u56DB_u4E2Afragment_uFF0C_u800C_u662F_u901A_u8FC7Tag_u4ECE_u524D_u4FDD_u5B58_u7684_u6570_u636E_u4E2D_u76F4_u63A5_u53BB_u8BFB_u53D6" class="headerlink" title="1. 解决方法如下，在进入onCreate函数时，先去判断savedInstanceState是否为null，如果不为null,则表示里面有保存着fragment。则不再重新去add这四个fragment，而是通过Tag从前保存的数据中直接去读取"></a>1. 解决方法如下，在进入onCreate函数时，先去判断savedInstanceState是否为null，如果不为null,则表示里面有保存着fragment。则不再重新去add这四个fragment，而是通过Tag从前保存的数据中直接去读取</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override  &#10;public void onCreate(Bundle savedInstanceState) &#123;  &#10;    // TODO Auto-generated method stub  &#10;    fManager = getFragmentManager();  &#10;    if (savedInstanceState != null) &#123;  &#10;        allFrg = (AllOfficialAccountFragment) fManager.findFragmentByTag(&#34;allFrg&#34;);  &#10;        movieFrg = (MovieOfficialAccountFragment) fManager.findFragmentByTag(&#34;movieFrg&#34;);  &#10;        newsFrg = (NewsOfficialAccountFragment) fManager.findFragmentByTag(&#34;newsFrg&#34;);  &#10;        otherFrg = (OtherOfficialAccountFragment) fManager.findFragmentByTag(&#34;otherFrg&#34;);             &#10;    &#125;  &#10;    super.onCreate(savedInstanceState);       &#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-__u91CD_u5199onAttachFragment_uFF0C_u91CD_u65B0_u8BA9_u65B0_u7684Fragment_u6307_u5411_u4E86_u539F_u672C_u672A_u88AB_u9500_u6BC1_u7684fragment_uFF0C_u5B83_u5C31_u662FonAttach_u65B9_u6CD5_u5BF9_u5E94_u7684Fragment_u5BF9_u8C61"><a href="#2-__u91CD_u5199onAttachFragment_uFF0C_u91CD_u65B0_u8BA9_u65B0_u7684Fragment_u6307_u5411_u4E86_u539F_u672C_u672A_u88AB_u9500_u6BC1_u7684fragment_uFF0C_u5B83_u5C31_u662FonAttach_u65B9_u6CD5_u5BF9_u5E94_u7684Fragment_u5BF9_u8C61" class="headerlink" title="2. 重写onAttachFragment，重新让新的Fragment指向了原本未被销毁的fragment，它就是onAttach方法对应的Fragment对象"></a>2. 重写onAttachFragment，重新让新的Fragment指向了原本未被销毁的fragment，它就是onAttach方法对应的Fragment对象</h3><p><a href="https://www.jianshu.com/p/90b51f222455" target="_blank" rel="external">https://www.jianshu.com/p/90b51f222455</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override &#10;public void onAttachFragment(Fragment fragment) &#123; &#10;&#9;if (tab1 == null &#38;&#38; fragment instanceof Tab1Fragment) tab1 = fragment;&#10;&#9;if (tab2 == null &#38;&#38; fragment instanceof Tab2Fragment) tab2 = fragment; &#10;&#9;if (tab3 == null &#38;&#38; fragment instanceof Tab3Fragment) tab3 = fragment; &#10;&#9;if (tab4 == null &#38;&#38; fragment instanceof Tab4Fragment) tab4 = fragment;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-_Activity__u4E2D_u7684_onSaveInstanceState_28_29__u91CC_u9762_u6709_u4E00_u53E5super-onSaveInstanceState_28outState_29_3B_uFF0CGoogle__u5BF9_u4E8E_u8FD9_u53E5_u8BDD_u7684_u89E3_u91CA_u662F__u201CAlways_call_the_superclass_so_it_can_save_the_view_hierarchy_state_u201D_uFF0C_u5927_u6982_u610F_u601D_u662F_u201C_u603B_u662F_u6267_u884C_u8FD9_u53E5_u4EE3_u7801_u6765_u8C03_u7528_u7236_u7C7B_u53BB_u4FDD_u5B58_u89C6_u56FE_u5C42_u7684_u72B6_u6001_u201D_u3002_u901A_u8FC7_u6CE8_u91CA_u6389_u8FD9_u53E5_u8BDD_uFF0C_u8FD9_u6837_u4E3B_Activity__u56E0_u4E3A_u79CD_u79CD_u539F_u56E0_u88AB_u56DE_u6536_u7684_u65F6_u5019_u5C31_u4E0D_u4F1A_u4FDD_u5B58_u4E4B_u524D_u7684_fragment_state_uFF0C_u4E5F_u53EF_u4EE5_u6210_u529F_u89E3_u51B3_u91CD_u53E0_u7684_u95EE_u9898"><a href="#3-_Activity__u4E2D_u7684_onSaveInstanceState_28_29__u91CC_u9762_u6709_u4E00_u53E5super-onSaveInstanceState_28outState_29_3B_uFF0CGoogle__u5BF9_u4E8E_u8FD9_u53E5_u8BDD_u7684_u89E3_u91CA_u662F__u201CAlways_call_the_superclass_so_it_can_save_the_view_hierarchy_state_u201D_uFF0C_u5927_u6982_u610F_u601D_u662F_u201C_u603B_u662F_u6267_u884C_u8FD9_u53E5_u4EE3_u7801_u6765_u8C03_u7528_u7236_u7C7B_u53BB_u4FDD_u5B58_u89C6_u56FE_u5C42_u7684_u72B6_u6001_u201D_u3002_u901A_u8FC7_u6CE8_u91CA_u6389_u8FD9_u53E5_u8BDD_uFF0C_u8FD9_u6837_u4E3B_Activity__u56E0_u4E3A_u79CD_u79CD_u539F_u56E0_u88AB_u56DE_u6536_u7684_u65F6_u5019_u5C31_u4E0D_u4F1A_u4FDD_u5B58_u4E4B_u524D_u7684_fragment_state_uFF0C_u4E5F_u53EF_u4EE5_u6210_u529F_u89E3_u51B3_u91CD_u53E0_u7684_u95EE_u9898" class="headerlink" title="3. Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState);，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”。通过注释掉这句话，这样主 Activity 因为种种原因被回收的时候就不会保存之前的 fragment state，也可以成功解决重叠的问题"></a>3. Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState);，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”。通过注释掉这句话，这样主 Activity 因为种种原因被回收的时候就不会保存之前的 fragment state，也可以成功解决重叠的问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected void onSaveInstanceState(Bundle outState) &#123;&#10;&#9;//&#22914;&#26524;&#29992;&#20197;&#19979;&#36825;&#31181;&#20570;&#27861;&#21017;&#19981;&#20445;&#23384;&#29366;&#24577;&#65292;&#20877;&#27425;&#36827;&#26469;&#30340;&#35805;&#20250;&#26174;&#31034;&#40664;&#35748;tab&#10;&#9;//super.onSaveInstanceState(outState);&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u6D4B_u8BD5_u65B9_u5F0F"><a href="#u6D4B_u8BD5_u65B9_u5F0F" class="headerlink" title="测试方式"></a>测试方式</h2><ul>
+<li>开发者选项打开“不保留活动”</li>
+<li>旋转屏幕</li>
+<li>用AndroidStudio工具 杀掉应用程序，模拟内存不足回收</li>
+<li>转跳到其他Activity、打开多任务窗口、使用Home回到主屏幕再返回</li>
+</ul>
+<h2 id="u7EFC_u4E0A_u6B63_u786E_u59FF_u52BF"><a href="#u7EFC_u4E0A_u6B63_u786E_u59FF_u52BF" class="headerlink" title="综上正确姿势"></a>综上正确姿势</h2><ol>
+<li>fragmentManager.beginTransaction().add，依次添加4个Fragment，这4个Fragment的排序顺序，是由下至上重叠添加，就是后添加的覆盖在前一个的上面</li>
+<li>如果执行add(1)后再add(2)，但不调用hide(1)<ol>
+<li>如果Fragment都带背景色，此时是看2，看不到1，仅仅是因为背景挡住了</li>
+<li>如果Fragment不带背景色，是透明的，可以看到2在1上面，出现重叠</li>
+<li>然后再执行add(1)，而且不调用hide(2)，实际是1叠加显示在2上面了</li>
+<li>然后不执行add(1)，而是执行show(1)，而且不调用hide(2)，实际不会有任何变化，还是遮挡和重叠现象</li>
+<li>正确的逻辑就是show一个，hide其他的Fragment；</li>
+</ol>
+</li>
+<li>旋转屏幕或者被回收重启，执行onSaveInstanceState，然后重新调用onCreate<ol>
+<li>Activity会<strong>自动</strong>恢复被保存的Fragment，FragmentManager会依次恢复Fragment，被恢复的Fragment会正常显示；</li>
+<li>如果onCreate不使用fragmentManager.findFragmentByTag找到被缓存的Fragment，而是每次都add一个新实例，实际是fragmentManager内部多了一个Fragment，不仅出现重叠(把背景设透明比较好验证)，而且实例变多，再出现onSaveInstanceState和onCreate流程，可能出现多次初始化，难易查找的bug</li>
+</ol>
+</li>
+<li>综上，Fragment正确的add、show、hide的调用姿势是<ol>
+<li>add时一定要设置不同的tag</li>
+<li>onCreate一定要通过fragmentManager.findFragmentByTag查找是否存在实例<ul>
+<li>如果不存在，new一个实例，执行add</li>
+<li>如果存在，show自己，hide其他</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Show_me_the_code"><a href="#Show_me_the_code" class="headerlink" title="Show me the code"></a>Show me the code</h2><p><a href="https://github.com/tianshaojie/android-library/blob/master/app/src/main/java/cn/skyui/app/MainActivity.java" target="_blank" rel="external">https://github.com/tianshaojie/android-library/blob/master/app/src/main/java/cn/skyui/app/MainActivity.java</a></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Fragment/">Fragment</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-SplashActivity-启屏页最佳实践/" data-tooltip="Android SplashActivity 启屏页最佳实践">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 tianshaojie. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-SplashActivity-启屏页最佳实践/" data-tooltip="Android SplashActivity 启屏页最佳实践">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.jpg"/>
+        
+            <h4 id="about-card-name">tianshaojie</h4>
+        
+            <h5 id="about-card-bio"><p>不想当设计的产品不是好攻城狮</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Android Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Beijing
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://skyui.cn/2018/11/17/Android-Fragment-重叠问题/';
+                 
+                    this.page.identifier = '2018/11/17/Android-Fragment-重叠问题/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'tianshaojie';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','UYMkvuaxLrqccjBtUTyx','2.0.0');
+    </script>
+
+
+</html>
