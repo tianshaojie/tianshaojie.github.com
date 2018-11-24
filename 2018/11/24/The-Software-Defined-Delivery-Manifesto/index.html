@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="tianshaojie">
+    <title>The Software Defined Delivery Manifesto - tianshaojie</title>
+    <meta name="author" content="tianshaojie">
+    
+    
+    
+    <meta name="description" content="22 日，近十位开发者联名发布了软件定义交付宣言（The Software Defined Delivery Manifesto）。该宣言指出交付是每个软件团队和组织的基础和战略能力，只有在交付时，代码才有它的价值，才能精准地塑造精彩的世界。交付是如此重要，现在是时候定义交付，并将其应用到开发工作中。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="The Software Defined Delivery Manifesto">
+<meta property="og:url" content="http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/index.html">
+<meta property="og:site_name" content="tianshaojie">
+<meta property="og:description" content="22 日，近十位开发者联名发布了软件定义交付宣言（The Software Defined Delivery Manifesto）。该宣言指出交付是每个软件团队和组织的基础和战略能力，只有在交付时，代码才有它的价值，才能精准地塑造精彩的世界。交付是如此重要，现在是时候定义交付，并将其应用到开发工作中。">
+<meta property="og:image" content="https://static.cnbetacdn.com/article/2018/1124/2c37bbbdc002aa1.jpg">
+<meta property="og:updated_time" content="2018-11-24T02:55:47.058Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Software Defined Delivery Manifesto">
+<meta name="twitter:description" content="22 日，近十位开发者联名发布了软件定义交付宣言（The Software Defined Delivery Manifesto）。该宣言指出交付是每个软件团队和组织的基础和战略能力，只有在交付时，代码才有它的价值，才能精准地塑造精彩的世界。交付是如此重要，现在是时候定义交付，并将其应用到开发工作中。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://skyui.cn/assets/images/me.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">tianshaojie</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+            <img class="header-picture" src="/assets/images/me.jpg"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">tianshaojie</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/tianshaojie" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            The Software Defined Delivery Manifesto
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat Nov 24 2018 10:53:20 GMT+0800">
+	
+		    11月 24, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Manifesto/">Manifesto</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>22 日，近十位开发者联名发布了软件定义交付宣言（The Software Defined Delivery Manifesto）。该宣言指出交付是每个软件团队和组织的基础和战略能力，只有在交付时，代码才有它的价值，才能精准地塑造精彩的世界。交付是如此重要，现在是时候定义交付，并将其应用到开发工作中。</p>
+<p><img src="https://static.cnbetacdn.com/article/2018/1124/2c37bbbdc002aa1.jpg" alt=""></p>
+<a id="more"></a>
+<p>宣言中表示交付工作本质上是独一无二的，应用程序、组织、部署环境和团队的每个组合都有自己的上下文，每个团队都需要理解这种独特的交付和自动化。虽然持续交付对满足业务需求至关重要，但自动化执行所有重复任务也是重中之重。</p>
+<p>工作思路是人类做决策，任务则由自动化去完成，而加速自动化的方式与加速应用的方式相同：使用现代架构、编程语言以及通用框架、代码库与服务。</p>
+<p>Software Defined Delivery 的定义：</p>
+<p><strong>Core:</strong> Delivery is a fundamental and strategic capability for every software team and organization.</p>
+<ul>
+<li><strong>First-class:</strong> Delivery code is production code.</li>
+<li><strong>Strategic:</strong> Decide policy at the team and organization level; implement it with precision, without toil, in code.</li>
+<li><strong>Evolving:</strong> As we learn, we continually improve our delivery.</li>
+</ul>
+<p><strong>Engineered:</strong> In robust, testable code.</p>
+<ul>
+<li><strong>Modern software architecture:</strong> Event-driven and extensible.</li>
+<li><strong>Modern programming languages:</strong> Logic is best specified in code, not pictures or GUIs. Scripts don’t scale.</li>
+<li><strong>Model-based:</strong> Backed by a model of the software domain, with understanding of code.</li>
+<li><strong>Testable:</strong> Enabling short trips to spot errors before production.</li>
+</ul>
+<p><strong>Collaborative:</strong></p>
+<ul>
+<li><strong>Among people:</strong> Each person can express their expertise in code for everyone’s benefit.</li>
+<li><strong>Among software:</strong> We use best-of-breed tools, but how we combine them is unique.</li>
+<li><strong>Between people and software:</strong> Collaborative automation enhances our perception and implements our decisions. It brings information and actions to where we are and makes automated behavior comprehensible to us. Using code, we distinguish between a team’s shared set of delivery objectives, and their implementations.</li>
+</ul>
+<p><strong>Accelerated:</strong></p>
+<ul>
+<li><strong>Through automation:</strong> We automate repeated tasks to speed our work and avoid errors.</li>
+<li><strong>Through reuse:</strong> Common functionality is shared between developers, teams, and organizations.</li>
+</ul>
+<p><strong>Observable:</strong> Common means to observe and troubleshoot what happens in the delivery process as a production system.</p>
+<ul>
+<li><strong>Trace:</strong> Observe activity in a system and trace the relationships between actions.</li>
+<li><strong>Debug:</strong> Interact with and inspect a delivery flow.</li>
+<li><strong>Metrics:</strong> Derive metrics from activity across the entire delivery flow.</li>
+</ul>
+<p><strong>Authors:</strong> (alphabetical by last name): Kenny Bastani, Marc Holmes, Rod Johnson, Jessica Kerr, Mik Kersten, Russ Miles, Erin Schnabel, Matt Stine. With the help and refinement of many members in the community.</p>
+<p>© 2018, the above authors, this declaration may be freely copied in any form, but only in its entirety through this notice.</p>
+<p><strong>宣言见：</strong><a href="https://sdd-manifesto.org" target="_blank" rel="external">https://sdd-manifesto.org</a></p>
+<p><strong>GitHub：</strong><a href="https://github.com/sdd-manifesto/manifesto" target="_blank" rel="external">https://github.com/sdd-manifesto/manifesto</a></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Manifesto/">Manifesto</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-Toolbar-避坑最佳实践/" data-tooltip="Android Toolbar 避坑最佳实践">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 tianshaojie. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/17/Android-Toolbar-避坑最佳实践/" data-tooltip="Android Toolbar 避坑最佳实践">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.jpg"/>
+        
+            <h4 id="about-card-name">tianshaojie</h4>
+        
+            <h5 id="about-card-bio"><p>不想当设计的产品不是好攻城狮</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Android Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Beijing
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/';
+                 
+                    this.page.identifier = '2018/11/24/The-Software-Defined-Delivery-Manifesto/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'tianshaojie';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','UYMkvuaxLrqccjBtUTyx','2.0.0');
+    </script>
+
+
+</html>
