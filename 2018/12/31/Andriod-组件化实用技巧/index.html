@@ -11,26 +11,17 @@
     
     
     
-    <meta name="description" content="第一步：拆分前清理无用文件很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
-在Android Studio下，可以使用AS自动工具，Analyze -&amp;gt; Inspect Code，检查某个目录代码。
-也可以使用 Lint 检查： Analyze -&amp;gt; Run Inspection By Name -&amp;gt; 输入检查项。
-例如 Unused declaration">
+    <meta name="description" content="第一步：拆分前清理无用文件组件化拆分代码前，最好做一次lint检查，主要删除无用代码和资源。避免组件独立成git仓库后，因调用关系不完整，静态检查可能出现更多误判，而且删除无效资源和代码，可以减轻一部分拆分工作量。">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Andriod 组件化实用技巧">
 <meta property="og:url" content="http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/index.html">
 <meta property="og:site_name" content="tianshaojie">
-<meta property="og:description" content="第一步：拆分前清理无用文件很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
-在Android Studio下，可以使用AS自动工具，Analyze -&amp;gt; Inspect Code，检查某个目录代码。
-也可以使用 Lint 检查： Analyze -&amp;gt; Run Inspection By Name -&amp;gt; 输入检查项。
-例如 Unused declaration">
+<meta property="og:description" content="第一步：拆分前清理无用文件组件化拆分代码前，最好做一次lint检查，主要删除无用代码和资源。避免组件独立成git仓库后，因调用关系不完整，静态检查可能出现更多误判，而且删除无效资源和代码，可以减轻一部分拆分工作量。">
 <meta property="og:image" content="http://skyui.cn/images/E832994B-980A-493D-85B5-D10663865DE6.png">
-<meta property="og:updated_time" content="2018-12-31T06:18:03.239Z">
+<meta property="og:updated_time" content="2018-12-31T06:26:07.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Andriod 组件化实用技巧">
-<meta name="twitter:description" content="第一步：拆分前清理无用文件很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
-在Android Studio下，可以使用AS自动工具，Analyze -&amp;gt; Inspect Code，检查某个目录代码。
-也可以使用 Lint 检查： Analyze -&amp;gt; Run Inspection By Name -&amp;gt; 输入检查项。
-例如 Unused declaration">
+<meta name="twitter:description" content="第一步：拆分前清理无用文件组件化拆分代码前，最好做一次lint检查，主要删除无用代码和资源。避免组件独立成git仓库后，因调用关系不完整，静态检查可能出现更多误判，而且删除无效资源和代码，可以减轻一部分拆分工作量。">
     
     
         
@@ -217,12 +208,13 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h2 id="u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6"><a href="#u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6" class="headerlink" title="第一步：拆分前清理无用文件"></a>第一步：拆分前清理无用文件</h2><pre><code>很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
+            <h2 id="u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6"><a href="#u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6" class="headerlink" title="第一步：拆分前清理无用文件"></a>第一步：拆分前清理无用文件</h2><p>组件化拆分代码前，最好做一次lint检查，主要删除无用代码和资源。避免组件独立成git仓库后，因调用关系不完整，静态检查可能出现更多误判，而且删除无效资源和代码，可以减轻一部分拆分工作量。</p>
+<a id="more"></a>
+<pre><code>很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
 在Android Studio下，可以使用AS自动工具，Analyze -&gt; Inspect Code，检查某个目录代码。
 也可以使用 Lint 检查： Analyze -&gt; Run Inspection By Name -&gt; 输入检查项。
 例如 Unused declaration | unused resource，检查无用资源。
-</code></pre><p>组件化拆分代码前，最好做一次lint检查，主要删除无用代码和资源。避免组件独立成git仓库后，因调用关系不完整，静态检查可能出现更多误判，而且删除无效资源和代码，可以减轻一部分拆分工作量。</p>
-<ol>
+</code></pre><ol>
 <li>Analyze –&gt; Run inspection by name –&gt; 输入 Unused declaration 检查无效类、方法、变量等，通过面板勾选，根据自己的选择决定，这里我只选择类和内部类</li>
 <li><p>在面板内选择，选择所有和单个文件，然后点击右侧 Safe delete 就可以完成删除，如果选择整个Unused declaration 会一次删除所有检查结果，但是不建议一次删除所有文件，还是每个类看一下，确定一下再删除，这样保险一点；<br>在 Safe delete 过程中，会发现有些类是还被使用着，这种情况是当前类的引用类，已经不再使用了，可以先删除引用类，但不清楚lint为什么没有直接把这些类检查出来；</p>
 <p> <img src="/images/E832994B-980A-493D-85B5-D10663865DE6.png" alt=""></p>
