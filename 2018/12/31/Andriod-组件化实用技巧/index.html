@@ -6,20 +6,31 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="tianshaojie">
-    <title>归档: 2018/12 - tianshaojie</title>
+    <title>Andriod 组件化实用技巧 - tianshaojie</title>
     <meta name="author" content="tianshaojie">
     
     
     
-    <meta name="description" content="精神崩溃的一个最初征兆就是坚信自己的工作非常非常重要">
+    <meta name="description" content="第一步：拆分前清理无用文件很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
+在Android Studio下，可以使用AS自动工具，Analyze -&amp;gt; Inspect Code，检查某个目录代码。
+也可以使用 Lint 检查： Analyze -&amp;gt; Run Inspection By Name -&amp;gt; 输入检查项。
+例如 Unused declaration">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="tianshaojie">
-<meta property="og:url" content="http://skyui.cn/archives/2018/12/index.html">
+<meta property="og:title" content="Andriod 组件化实用技巧">
+<meta property="og:url" content="http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/index.html">
 <meta property="og:site_name" content="tianshaojie">
-<meta property="og:description" content="精神崩溃的一个最初征兆就是坚信自己的工作非常非常重要">
+<meta property="og:description" content="第一步：拆分前清理无用文件很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
+在Android Studio下，可以使用AS自动工具，Analyze -&amp;gt; Inspect Code，检查某个目录代码。
+也可以使用 Lint 检查： Analyze -&amp;gt; Run Inspection By Name -&amp;gt; 输入检查项。
+例如 Unused declaration">
+<meta property="og:image" content="http://skyui.cn/images/E832994B-980A-493D-85B5-D10663865DE6.png">
+<meta property="og:updated_time" content="2018-12-31T06:18:03.239Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tianshaojie">
-<meta name="twitter:description" content="精神崩溃的一个最初征兆就是坚信自己的工作非常非常重要">
+<meta name="twitter:title" content="Andriod 组件化实用技巧">
+<meta name="twitter:description" content="第一步：拆分前清理无用文件很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
+在Android Studio下，可以使用AS自动工具，Analyze -&amp;gt; Inspect Code，检查某个目录代码。
+也可以使用 Lint 检查： Analyze -&amp;gt; Run Inspection By Name -&amp;gt; 输入检查项。
+例如 Unused declaration">
     
     
         
@@ -179,22 +190,16 @@
                         hasCoverMetaIn
                         ">
                 
-    
-
-<section class="postShorten-group main-content-wrap">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2018/12/31/Andriod-组件化实用技巧/">
-                            Andriod 组件化实用技巧
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Andriod 组件化实用技巧
+        </h1>
+    
+    <div class="post-meta">
     <time itemprop="datePublished" content="Mon Dec 31 2018 14:04:37 GMT+0800">
 	
 		    12月 31, 2018
@@ -208,11 +213,11 @@
 
     
 </div>
-            </div>
-            
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <h2 id="u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6"><a href="#u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6" class="headerlink" title="第一步：拆分前清理无用文件"></a>第一步：拆分前清理无用文件</h2><pre><code>很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6"><a href="#u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6" class="headerlink" title="第一步：拆分前清理无用文件"></a>第一步：拆分前清理无用文件</h2><pre><code>很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
 在Android Studio下，可以使用AS自动工具，Analyze -&gt; Inspect Code，检查某个目录代码。
 也可以使用 Lint 检查： Analyze -&gt; Run Inspection By Name -&gt; 输入检查项。
 例如 Unused declaration | unused resource，检查无用资源。
@@ -268,174 +273,90 @@
 <li>提供统一的demo环境，方便组件快速开发，比如，空Activity+注册制的Fragment、获取登录信息等；</li>
 </ol>
 
-                    
-                        
+            
+                
 
-                    
-                    
-                        <p>
-                            <a href="/2018/12/31/Andriod-组件化实用技巧/#post-footer" class="postShorten-excerpt_link link">
-                                注释和共享
-                            </a>
-                        </p>
-                    
-                </div>
             
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2018/12/31/Android-组件化思路/">
-                            Android 组件化思路
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Mon Dec 31 2018 11:03:35 GMT+0800">
-	
-		    12月 31, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/android/">Android</a>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Android-组件化-模块化/">Android,组件化,模块化</a>
 
-
-    
-</div>
             </div>
-            
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <h2 id="1-__u5F15_u8A00"><a href="#1-__u5F15_u8A00" class="headerlink" title="1. 引言"></a>1. 引言</h2><ul>
-<li>几十万行甚至上百万行代码的大工程，100%代码编译，打包时间长；</li>
-<li>业务交叉、耦合严重、修改一个问题可能引出多个问题；</li>
-<li>非本次迭代业务代码被修改上线；</li>
-<li>代码零乱影响开发心情和效率；</li>
-<li>并行开发难，上线测试范围广；</li>
-</ul>
-                    
-                        <a href="/2018/12/31/Android-组件化思路/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2018/12/31/Android-组件化/">
-                            Android 组件化
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Mon Dec 31 2018 10:45:43 GMT+0800">
-	
-		    12月 31, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/31/Android-组件化思路/" data-tooltip="Android 组件化思路">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
         
-    <a class="category-link" href="/categories/android/">Android</a>
-
-
-    
-</div>
-            </div>
-            
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <ol>
-<li><a href="/">Android 组件化思路</a></li>
-<li><a href="/">Andriod 组件化实用技巧</a></li>
-<li><a href="/">Andriod 组件化之后的问题和思考</a></li>
-</ol>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2018/12/31/Android-组件化/#post-footer" class="postShorten-excerpt_link link">
-                                注释和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2018/12/10/CentOS开发环境配置/">
-                            CentOS开发环境配置
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Mon Dec 10 2018 22:44:39 GMT+0800">
-	
-		    12月 10, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/Linux/">Linux</a>
-
-
-    
-</div>
-            </div>
+        <li class="post-action">
             
+                <a class="post-action-btn btn btn--default" href="#">
             
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>CentOS + JDK、Nexus、Redis、Nginx、MySql</p>
-                    
-                        <a href="/2018/12/10/CentOS开发环境配置/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
-        
-        
-        <li class="pagination-number">第 1 页 共 1 页</li>
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
 
 
 
@@ -446,6 +367,89 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/31/Android-组件化思路/" data-tooltip="Android 组件化思路">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
             
         </div>
         
@@ -492,6 +496,25 @@
     <!--SCRIPTS-->
 <script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
 <!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://skyui.cn/2018/12/31/Andriod-组件化实用技巧/';
+                 
+                    this.page.identifier = '2018/12/31/Andriod-组件化实用技巧/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'tianshaojie';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
 
 
     <script type="text/javascript">

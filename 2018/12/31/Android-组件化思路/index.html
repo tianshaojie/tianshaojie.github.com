@@ -1,0 +1,584 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="tianshaojie">
+    <title>Android 组件化思路 - tianshaojie</title>
+    <meta name="author" content="tianshaojie">
+    
+    
+    
+    <meta name="description" content="1. 引言
+几十万行甚至上百万行代码的大工程，100%代码编译，打包时间长；
+业务交叉、耦合严重、修改一个问题可能引出多个问题；
+非本次迭代业务代码被修改上线；
+代码零乱影响开发心情和效率；
+并行开发难，上线测试范围广；">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Android 组件化思路">
+<meta property="og:url" content="http://skyui.cn/2018/12/31/Android-组件化思路/index.html">
+<meta property="og:site_name" content="tianshaojie">
+<meta property="og:description" content="1. 引言
+几十万行甚至上百万行代码的大工程，100%代码编译，打包时间长；
+业务交叉、耦合严重、修改一个问题可能引出多个问题；
+非本次迭代业务代码被修改上线；
+代码零乱影响开发心情和效率；
+并行开发难，上线测试范围广；">
+<meta property="og:updated_time" content="2018-12-31T06:06:09.995Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 组件化思路">
+<meta name="twitter:description" content="1. 引言
+几十万行甚至上百万行代码的大工程，100%代码编译，打包时间长；
+业务交叉、耦合严重、修改一个问题可能引出多个问题；
+非本次迭代业务代码被修改上线；
+代码零乱影响开发心情和效率；
+并行开发难，上线测试范围广；">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://skyui.cn/assets/images/me.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">tianshaojie</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+            <img class="header-picture" src="/assets/images/me.jpg"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/me.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">tianshaojie</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/tianshaojie" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Android 组件化思路
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Dec 31 2018 11:03:35 GMT+0800">
+	
+		    12月 31, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="1-__u5F15_u8A00"><a href="#1-__u5F15_u8A00" class="headerlink" title="1. 引言"></a>1. 引言</h2><ul>
+<li>几十万行甚至上百万行代码的大工程，100%代码编译，打包时间长；</li>
+<li>业务交叉、耦合严重、修改一个问题可能引出多个问题；</li>
+<li>非本次迭代业务代码被修改上线；</li>
+<li>代码零乱影响开发心情和效率；</li>
+<li>并行开发难，上线测试范围广；</li>
+</ul>
+<a id="more"></a>
+<p>如果我们能把100%的代码中，70%的代码稳定下来，只有30%的业务代码经常改动，是否就可以降低维护成本，提高开发效率和稳定性；<br>70%的代码中，形成各个独立的功能模块或组件沉淀稳定下来，就可极大的减小对整体代码开发和修改频率；<br>30%的代码中，负责主要业务代码开发和产品发布，再划分为不同业务小组维护，提高了开发效率，也降低了维护成本；</p>
+<p>所以可以形成一个开发思路：<strong>稳定(大)中台，灵活(小)前台</strong>；</p>
+<h2 id="2-__u76EE_u6807"><a href="#2-__u76EE_u6807" class="headerlink" title="2. 目标"></a>2. 目标</h2><ul>
+<li><strong>去掉任何一个模块，主工程可以运行；</strong></li>
+<li><strong>任意一个子模块，可以独立运行；</strong></li>
+<li><p><strong>自动化，持续集成；</strong></p>
+</li>
+<li><p>APP</p>
+<ul>
+<li>持续集成，<strong>服务产品快速迭代，同时保持高质量</strong>；</li>
+<li>降低代码耦合度，<strong>提高编译速度和开发效率</strong>，避免修改一处编译整个工程；</li>
+<li><strong>按需打包</strong>，根据依赖业务打包；</li>
+<li><strong>缩小测试范围</strong>，减小测试成本，降低代码出错风险，提高App稳定性</li>
+<li><strong>快速响应</strong>，快速迭代发版和热修复；</li>
+</ul>
+</li>
+<li>组件<ul>
+<li>独立编译和发布，组件回滚有迹可循，便于持续集成；</li>
+<li><strong>高内聚低耦合</strong>，提高组件<strong>复用</strong>性；</li>
+</ul>
+</li>
+<li>团队<ul>
+<li>方便团队协作；</li>
+<li>开发职责明确；</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-__u95EE_u9898"><a href="#3-__u95EE_u9898" class="headerlink" title="3. 问题"></a>3. 问题</h2><ol>
+<li>组件划分原则和粒度？<ul>
+<li>组件代码分布思考；</li>
+<li>组件代码修改频率和稳定性思考；</li>
+<li>组件化改造后<strong>开发效率的平衡</strong>；</li>
+<li>对现存代码大工程的拆分思路；</li>
+</ul>
+</li>
+<li>组件间通信方式？<ul>
+<li>Router 维护方式；</li>
+<li>Event；</li>
+</ul>
+</li>
+<li>组件的管理方式？<ul>
+<li>远程or本地？</li>
+</ul>
+</li>
+<li>代码重构和文件查找？</li>
+</ol>
+<h2 id="4-__u7EC4_u4EF6_u5212_u5206_u539F_u5219"><a href="#4-__u7EC4_u4EF6_u5212_u5206_u539F_u5219" class="headerlink" title="4.  组件划分原则"></a>4.  组件划分原则</h2><p><strong>大原则：去中心化，平级组件无依赖；业务组件粗粒度；功能组件细粒度；基础组件高稳定性；</strong></p>
+<h3 id="u7EC4_u4EF6_u5316_u5DE5_u7A0B_u7ED3_u6784"><a href="#u7EC4_u4EF6_u5316_u5DE5_u7A0B_u7ED3_u6784" class="headerlink" title="组件化工程结构"></a>组件化工程结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app  -  &#22771;&#24037;&#31243;&#10;app-support  -  App&#25903;&#25345;&#32452;&#20214;&#10;&#8593;&#10;module-x (A&#12289;B&#12289;C)  -  &#19994;&#21153;&#32452;&#20214;&#10;&#8593;&#10;library-x (a&#65292;b&#65292;c&#65292;d&#65292;e&#65292;f)  -  &#21151;&#33021;&#32452;&#20214;&#10;&#8593;&#10;library  -  &#22522;&#30784;&#32452;&#20214;</span><br></pre></td></tr></table></figure>
+<h3 id="4-1_App_u58F3_u5DE5_u7A0B"><a href="#4-1_App_u58F3_u5DE5_u7A0B" class="headerlink" title="4.1 App壳工程"></a>4.1 App壳工程</h3><ul>
+<li>命名规则：<code>app</code></li>
+<li>目标：壳工程，负责打包；<strong>去掉任何一个业务组件，不影响编译打包运行</strong>；</li>
+<li>依赖关系：只依赖业务组件；</li>
+</ul>
+<h3 id="4-2__u4E1A_u52A1_u7EC4_u4EF6_u5212_u5206_u89C4_u5219"><a href="#4-2__u4E1A_u52A1_u7EC4_u4EF6_u5212_u5206_u89C4_u5219" class="headerlink" title="4.2 业务组件划分规则"></a>4.2 业务组件划分规则</h3><ul>
+<li>命名规则：<code>module-</code> + <code>后缀名</code></li>
+<li>划分规则：根据公司或部门实际业务划分，<strong>粗粒度</strong>，边界清晰，便于团队管理，便于组件划分，业务组件不要太多；</li>
+<li>修改频率：<strong>高</strong>；业务组件作为修改频次最高的组件，减少业务组件，可以提高开发效率；相反如果有拆的过于零散，会造成开发一块业务，要横跨好几个组件才能完成，如果再加上组件独立git仓库，必然影响开发效率，这也是我们在之前拆分过程吸取的教训。</li>
+<li>依赖关系：业务组件之间不能存在依赖，只能向下依赖功能组件或Base组件</li>
+</ul>
+<h3 id="4-3__u529F_u80FD_u7EC4_u4EF6_u5212_u5206_u89C4_u5219"><a href="#4-3__u529F_u80FD_u7EC4_u4EF6_u5212_u5206_u89C4_u5219" class="headerlink" title="4.3 功能组件划分规则"></a>4.3 功能组件划分规则</h3><ul>
+<li>命名规则：<code>library-</code> + <code>后缀名</code></li>
+<li>划分规则：<strong>细粒度</strong>，<strong>高内聚</strong>，为业务组件提供支撑，可以是基础服务，也可以是封装了单一功能组件；</li>
+<li>修改频率：<strong>中</strong>；一旦功能组件稳定，修改频率会大幅降低，向上提供稳定的服务或功能；</li>
+<li>依赖关系：功能组件之间不能依赖，只能向下依赖Base组件；</li>
+<li>主要作用：1、提供基础服务或独立功能；2、抽取封装业务组件内的通用或独立功能，<strong>为业务组件减负</strong>；3、作为APP的中台代码，形成沉淀，提高稳定性；</li>
+</ul>
+<h3 id="4-4_Base_u7EC4_u4EF6_u89C4_u5219"><a href="#4-4_Base_u7EC4_u4EF6_u89C4_u5219" class="headerlink" title="4.4 Base组件规则"></a>4.4 Base组件规则</h3><ul>
+<li>命名规则：<code>library</code>，不用加后缀，如果在一个AS工程内，library可以友好的显示到上面；如果是独立git远程aar，groupId本身也可以区分；</li>
+<li>划分规则：进入Base代码要斟酌考虑，区分代码是该封装到功能组件，还是下沉到Base，判断标准是代码通用性，这部分代码是所有组件都需要依赖，还是仅仅只给某个业务组件依赖；</li>
+<li>修改频率：<strong>低</strong>；下沉到Base里的代码，一定要谨慎考虑，高通用性、高稳定性；</li>
+<li>主要作用：为上层组件提供基础支撑；提供App开发常用基础功能；完全非业务耦合；封装三方调用；基础工具类调用；一个APP所不可少的代码封装；</li>
+</ul>
+<h3 id="4-5_app-support_uFF0C_u7279_u6B8A_u4EE3_u7801_u5B58_u653E_u89C4_u5219_u601D_u8003"><a href="#4-5_app-support_uFF0C_u7279_u6B8A_u4EE3_u7801_u5B58_u653E_u89C4_u5219_u601D_u8003" class="headerlink" title="4.5 app-support，特殊代码存放规则思考"></a>4.5 app-support，特殊代码存放规则思考</h3><p>总有一部分代码不好安放，也是最纠结的地方，比如：启屏页，引导页，首页框架、搜索、我的、设置、关于等等，这部分代码，不属于某块业务，放到功能组件也不合适，更不能放到Base，而且每个App都需要这些代码才能运行，这部分代码一种可行的方式是，创建一个 <code>app-support</code>独立存放。这个组件和业务组件的区别是，app需要app-support</p>
+<ul>
+<li>命名规则： <code>app-support</code></li>
+<li>划分规则：为App运行提供支撑；不明显属于某块独立业务；</li>
+<li>修改频率：<strong>低</strong>；</li>
+<li>依赖关系：只依赖到APP内。后面描述废弃：<code>可以依赖业务组件，做内容填充；比如MainActivity内依赖的Fragment，Fragment本身可以属于某块业务，比如关注列表，如果你有UGC业务，明显属于UGC业务组件 ；</code></li>
+</ul>
+<h2 id="5-__u7EC4_u4EF6_u95F4_u901A_u4FE1_u65B9_u5F0F"><a href="#5-__u7EC4_u4EF6_u95F4_u901A_u4FE1_u65B9_u5F0F" class="headerlink" title="5. 组件间通信方式"></a>5. 组件间通信方式</h2><h3 id="Activity__u754C_u9762_u4E4B_u95F4_u8C03_u7528"><a href="#Activity__u754C_u9762_u4E4B_u95F4_u8C03_u7528" class="headerlink" title="Activity 界面之间调用"></a>Activity 界面之间调用</h3><pre><code>* 组件对外开放的Activity界面，全部通过定义的Router协议进行跳转；
+* 拦截器：针对需要登录，全局Token失效踢出等进行拦截跳转；
+* 降级支持：页面未找到，提供Toast、空页面，H5页面等降级说明；
+* Router协议的存放：不建议提供中心存放，避免中心依赖；业务组件里有很多对外调用，不要直接把调用写在onClick方法内，在module内部提供一个控制类，统一调用控制即可。
+* https://github.com/chenenyu/Router，轻量、灵活、易懂易用；
+* https://github.com/alibaba/ARouter，功能更丰富强大；
+</code></pre><h3 id="u4E8B_u4EF6_u6216_u6D88_u606F_u8DE8_u7EC4_u4EF6_u4F20_u9012"><a href="#u4E8B_u4EF6_u6216_u6D88_u606F_u8DE8_u7EC4_u4EF6_u4F20_u9012" class="headerlink" title="事件或消息跨组件传递"></a>事件或消息跨组件传递</h3><pre><code>* 基本原则是，全局事件要慎重考虑，过多的全局事件，必然需要中心存放和频繁修改底层组件，带来不稳定性和耦合；
+* 如果有中心事件源在中台，需要接收和抛出，那么设计好数据结构和接口，使用观察者模式，业务调用层扩展和处理；事件源只传递基础数据，不负责业务处理；
+</code></pre><h2 id="6-__u5927_u5DE5_u7A0B_u7684_u62C6_u5206_u601D_u8DEF"><a href="#6-__u5927_u5DE5_u7A0B_u7684_u62C6_u5206_u601D_u8DEF" class="headerlink" title="6. 大工程的拆分思路"></a>6. 大工程的拆分思路</h2><pre><code>* 分析业务和工程代码，形成组件化架构图，提供整体拆分依据；
+* 目前已独立的服务，按照组件原则拆分解耦，提供远程aar调用；
+* 被依赖基础组件，那些组件是不拆分，阻塞其他代码拆分，优先拆分；
+* 底层Base组件，优先进行；
+* 拆功能组件，留业务组件，业务组件后划分；
+* 自底向上拆分比较容易点；
+* 不要一下子变成远程，先再AS内独立module，再变成远程仓库；
+* 各module自己管理相关业务数据，不要所有http请求都放到一个类；
+</code></pre><p><strong>拆分技巧篇：<a href="/">Andriod 组件化实用技巧</a></strong></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Android-组件化-模块化/">Android,组件化,模块化</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/31/Andriod-组件化实用技巧/"  data-tooltip="Andriod 组件化实用技巧">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/31/Android-组件化/" data-tooltip="Android 组件化">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 tianshaojie. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/31/Andriod-组件化实用技巧/"  data-tooltip="Andriod 组件化实用技巧">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/12/31/Android-组件化/" data-tooltip="Android 组件化">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://skyui.cn/2018/12/31/Android-组件化思路/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/me.jpg"/>
+        
+            <h4 id="about-card-name">tianshaojie</h4>
+        
+            <h5 id="about-card-bio"><p>不想当设计的产品不是好攻城狮</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Android Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Beijing
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://skyui.cn/2018/12/31/Android-组件化思路/';
+                 
+                    this.page.identifier = '2018/12/31/Android-组件化思路/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'tianshaojie';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','UYMkvuaxLrqccjBtUTyx','2.0.0');
+    </script>
+
+
+</html>

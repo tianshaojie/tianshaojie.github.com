@@ -184,6 +184,208 @@
 <section class="postShorten-group main-content-wrap">
     
     
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2018/12/31/Andriod-组件化实用技巧/">
+                            Andriod 组件化实用技巧
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Mon Dec 31 2018 14:04:37 GMT+0800">
+	
+		    12月 31, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <h2 id="u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6"><a href="#u7B2C_u4E00_u6B65_uFF1A_u62C6_u5206_u524D_u6E05_u7406_u65E0_u7528_u6587_u4EF6" class="headerlink" title="第一步：拆分前清理无用文件"></a>第一步：拆分前清理无用文件</h2><pre><code>很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
+在Android Studio下，可以使用AS自动工具，Analyze -&gt; Inspect Code，检查某个目录代码。
+也可以使用 Lint 检查： Analyze -&gt; Run Inspection By Name -&gt; 输入检查项。
+例如 Unused declaration | unused resource，检查无用资源。
+</code></pre><p>组件化拆分代码前，最好做一次lint检查，主要删除无用代码和资源。避免组件独立成git仓库后，因调用关系不完整，静态检查可能出现更多误判，而且删除无效资源和代码，可以减轻一部分拆分工作量。</p>
+<ol>
+<li>Analyze –&gt; Run inspection by name –&gt; 输入 Unused declaration 检查无效类、方法、变量等，通过面板勾选，根据自己的选择决定，这里我只选择类和内部类</li>
+<li><p>在面板内选择，选择所有和单个文件，然后点击右侧 Safe delete 就可以完成删除，如果选择整个Unused declaration 会一次删除所有检查结果，但是不建议一次删除所有文件，还是每个类看一下，确定一下再删除，这样保险一点；<br>在 Safe delete 过程中，会发现有些类是还被使用着，这种情况是当前类的引用类，已经不再使用了，可以先删除引用类，但不清楚lint为什么没有直接把这些类检查出来；</p>
+<p> <img src="/images/E832994B-980A-493D-85B5-D10663865DE6.png" alt=""></p>
+</li>
+<li><p>执行多次，可以更完整的检查，删除无效类；</p>
+</li>
+<li>删除Activity或者View后，可能会遗留xml和资源，然后再执行 unused resource ，删除资源文件；</li>
+</ol>
+<h2 id="u7B2C_u4E8C_u6B65_uFF1A_u62C6_u5206_u6210_u5DE5_u7A0B_u5185Module"><a href="#u7B2C_u4E8C_u6B65_uFF1A_u62C6_u5206_u6210_u5DE5_u7A0B_u5185Module" class="headerlink" title="第二步：拆分成工程内Module"></a>第二步：拆分成工程内Module</h2><ol>
+<li>文件移动：<ol>
+<li>command + x</li>
+<li>command + v</li>
+</ol>
+</li>
+<li>方法移动：<ol>
+<li>方法上右键 -&gt; Refactor -&gt; Move；</li>
+<li>弹出面板内，勾选方法依赖的其他方法或者变量；</li>
+<li>输入目标类，移动即可；</li>
+</ol>
+</li>
+<li>子module内涉及资源 R.id 的 switch 判断需要修改为 if， 快捷键如下<ol>
+<li>Alt + Enter  选择 Replace ‘switch’ with ‘if’</li>
+</ol>
+</li>
+<li>ButterKnift，移动到子module后，需要使用ButterKnift生成的R文件<ol>
+<li>建议直接使用AS插件findViewByMe，自动生产findViewById，替换ButterKnift，还可以去掉一个依赖，减小包文件；</li>
+<li>可以使用另外一个AS插件：RemoveButterKnife，可以自动移除ButterKnift，没在项目试过</li>
+</ol>
+</li>
+<li><strong>先保证工程编译通过，R文件正常生成</strong>，否则每个文件都在报错，无法区分真实错误信息；</li>
+<li>类文件移动过程中，不建议一次移动过多文件，否则编译出错，R文件丢失后，查找错误困难；移动关联的一部分代码，编译通过后，即可commit；</li>
+<li>类文件移动过程中，可以先保持类文件的 package 不变，之后再做重构；</li>
+<li>layout.xml移动，<strong>内部依赖的自定义View需要同步移动</strong>；</li>
+<li>文档的维护：功能模块，可能被多个业务模块所依赖，如果该模块要做重构，需要通知依赖方；<ol>
+<li>组件负责人</li>
+<li>组件主要功能描述</li>
+<li>组件的依赖方</li>
+</ol>
+</li>
+<li>app + modules + library，module动态注册，可以去掉任何module；</li>
+<li>demo + module-x + library，通用demo；</li>
+<li>动态初始化，通过注解，自动初始化module，提供优先级；</li>
+<li>Router规则：module-name://path</li>
+</ol>
+<h2 id="u7B2C_u4E09_u6B65_uFF1A_u72EC_u7ACB_u4ED3_u5E93_uFF0C_u53D8_u6210_u8FDC_u7A0B_u4F9D_u8D56"><a href="#u7B2C_u4E09_u6B65_uFF1A_u72EC_u7ACB_u4ED3_u5E93_uFF0C_u53D8_u6210_u8FDC_u7A0B_u4F9D_u8D56" class="headerlink" title="第三步：独立仓库，变成远程依赖"></a>第三步：独立仓库，变成远程依赖</h2><ol>
+<li>减轻业务模块负担，把功能模块独立出去，所谓功能模块，即非强业务耦合，比较独立或通用的功能；</li>
+<li>所有 module 独立 git 仓库，组件提供远程依赖</li>
+<li>提供统一的demo环境，方便组件快速开发，比如，空Activity+注册制的Fragment、获取登录信息等；</li>
+</ol>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/12/31/Andriod-组件化实用技巧/#post-footer" class="postShorten-excerpt_link link">
+                                注释和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2018/12/31/Android-组件化思路/">
+                            Android 组件化思路
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Mon Dec 31 2018 11:03:35 GMT+0800">
+	
+		    12月 31, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <h2 id="1-__u5F15_u8A00"><a href="#1-__u5F15_u8A00" class="headerlink" title="1. 引言"></a>1. 引言</h2><ul>
+<li>几十万行甚至上百万行代码的大工程，100%代码编译，打包时间长；</li>
+<li>业务交叉、耦合严重、修改一个问题可能引出多个问题；</li>
+<li>非本次迭代业务代码被修改上线；</li>
+<li>代码零乱影响开发心情和效率；</li>
+<li>并行开发难，上线测试范围广；</li>
+</ul>
+                    
+                        <a href="/2018/12/31/Android-组件化思路/" class="postShorten-excerpt_link link">
+                            阅读全文
+                        </a>
+                        
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2018/12/31/Android-组件化/">
+                            Android 组件化
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Mon Dec 31 2018 10:45:43 GMT+0800">
+	
+		    12月 31, 2018
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/android/">Android</a>
+
+
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <ol>
+<li><a href="/">Android 组件化思路</a></li>
+<li><a href="/">Andriod 组件化实用技巧</a></li>
+<li><a href="/">Andriod 组件化之后的问题和思考</a></li>
+</ol>
+
+                    
+                        
+
+                    
+                    
+                        <p>
+                            <a href="/2018/12/31/Android-组件化/#post-footer" class="postShorten-excerpt_link link">
+                                注释和共享
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
     <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
@@ -478,143 +680,18 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2018/11/17/Android-SplashActivity-启屏页最佳实践/">
-                            Android SplashActivity 启屏页最佳实践
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sat Nov 17 2018 14:09:05 GMT+0800">
-	
-		    11月 17, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/android/">Android</a>
-
-
-    
-</div>
-            </div>
-            
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>启屏页最佳实践</p>
-                    
-                        <a href="/2018/11/17/Android-SplashActivity-启屏页最佳实践/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2018/06/23/Vysor-Pro-破解/">
-                            Vysor Pro 破解
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sat Jun 23 2018 22:25:51 GMT+0800">
-	
-		    6月 23, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/Vysor/">Vysor</a>
-
-
-    
-</div>
-            </div>
-            
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>参考链接：<a href="https://www.jianshu.com/p/66608ffebc31" target="_blank" rel="external">Vysor Pro巧妙破解</a></p>
-
-                    
-                        
-
-                    
-                    
-                        <p>
-                            <a href="/2018/06/23/Vysor-Pro-破解/#post-footer" class="postShorten-excerpt_link link">
-                                注释和共享
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2018/06/17/小米手机不能安装Charles证书/">
-                            小米手机不能安装Charles证书
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun Jun 17 2018 23:15:18 GMT+0800">
-	
-		    6月 17, 2018
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/android/">Android</a>
-
-
-    
-</div>
-            </div>
-            
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>姿势很重要</p>
-                    
-                        <a href="/2018/06/17/小米手机不能安装Charles证书/" class="postShorten-excerpt_link link">
-                            阅读全文
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
         
-        <li class="pagination-number">第 1 页 共 1 页</li>
+        <li class="pagination-next">
+            <a class="btn btn--default btn--small" href="/archives/2018/page/2/">
+                    <span>下一页</span>
+                <i class="fa fa-angle-right text-base icon-ml"></i>
+            </a>
+        </li>
+        
+        <li class="pagination-number">第 1 页 共 2 页</li>
     </ul>
 </div>
 
