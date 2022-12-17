@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Andriod 组件化实用技巧</title>
+    <url>/2018/12/31/Andriod-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h2 id="第一步：拆分前清理无用文件"><a href="#第一步：拆分前清理无用文件" class="headerlink" title="第一步：拆分前清理无用文件"></a>第一步：拆分前清理无用文件</h2><p>组件化拆分代码前，最好做一次lint检查，主要删除无用代码和资源。避免组件独立成git仓库后，因调用关系不完整，静态检查可能出现更多误判，而且删除无效资源和代码，可以减轻一部分拆分工作量。</p>
+<span id="more"></span>
+
+<pre><code>很早之前在eclipse用过UCDetector，非常有效，记忆犹新。
+在Android Studio下，可以使用AS自动工具，Analyze -&gt; Inspect Code，检查某个目录代码。
+也可以使用 Lint 检查： Analyze -&gt; Run Inspection By Name -&gt; 输入检查项。
+例如 Unused declaration | unused resource，检查无用资源。
+</code></pre>
+<ol>
+<li><p>Analyze –&gt; Run inspection by name –&gt; 输入 Unused declaration 检查无效类、方法、变量等，通过面板勾选，根据自己的选择决定，这里我只选择类和内部类</p>
+</li>
+<li><p>在面板内选择，选择所有和单个文件，然后点击右侧 Safe delete 就可以完成删除，如果选择整个Unused declaration 会一次删除所有检查结果，但是不建议一次删除所有文件，还是每个类看一下，确定一下再删除，这样保险一点；<br>在 Safe delete 过程中，会发现有些类是还被使用着，这种情况是当前类的引用类，已经不再使用了，可以先删除引用类，但不清楚lint为什么没有直接把这些类检查出来；</p>
+<p> <img src="/images/E832994B-980A-493D-85B5-D10663865DE6.png"></p>
+</li>
+<li><p>执行多次，可以更完整的检查，删除无效类；</p>
+</li>
+<li><p>删除Activity或者View后，可能会遗留xml和资源，然后再执行 unused resource ，删除资源文件；</p>
+</li>
+</ol>
+<h2 id="第二步：拆分成工程内Module"><a href="#第二步：拆分成工程内Module" class="headerlink" title="第二步：拆分成工程内Module"></a>第二步：拆分成工程内Module</h2><ol>
+<li>文件移动：<ol>
+<li>command + x</li>
+<li>command + v</li>
+</ol>
+</li>
+<li>方法移动：<ol>
+<li>方法上右键 -&gt; Refactor -&gt; Move；</li>
+<li>弹出面板内，勾选方法依赖的其他方法或者变量；</li>
+<li>输入目标类，移动即可；</li>
+</ol>
+</li>
+<li>子module内涉及资源 R.id 的 switch 判断需要修改为 if， 快捷键如下<ol>
+<li>Alt + Enter  选择 Replace ‘switch’ with ‘if’</li>
+</ol>
+</li>
+<li>ButterKnift，移动到子module后，需要使用ButterKnift生成的R文件<ol>
+<li>建议直接使用AS插件findViewByMe，自动生产findViewById，替换ButterKnift，还可以去掉一个依赖，减小包文件；</li>
+<li>可以使用另外一个AS插件：RemoveButterKnife，可以自动移除ButterKnift，没在项目试过</li>
+</ol>
+</li>
+<li><strong>先保证工程编译通过，R文件正常生成</strong>，否则每个文件都在报错，无法区分真实错误信息；</li>
+<li>类文件移动过程中，不建议一次移动过多文件，否则编译出错，R文件丢失后，查找错误困难；移动关联的一部分代码，编译通过后，即可commit；</li>
+<li>类文件移动过程中，可以先保持类文件的 package 不变，之后再做重构；</li>
+<li>layout.xml移动，<strong>内部依赖的自定义View需要同步移动</strong>；</li>
+<li>文档的维护：功能模块，可能被多个业务模块所依赖，如果该模块要做重构，需要通知依赖方；<ol>
+<li>组件负责人</li>
+<li>组件主要功能描述</li>
+<li>组件的依赖方</li>
+</ol>
+</li>
+<li>app + modules + library，module动态注册，可以去掉任何module；</li>
+<li>demo + module-x + library，通用demo；</li>
+<li>动态初始化，通过注解，自动初始化module，提供优先级；</li>
+<li>Router规则：module-name:&#x2F;&#x2F;path</li>
+</ol>
+<h2 id="第三步：独立仓库，变成远程依赖"><a href="#第三步：独立仓库，变成远程依赖" class="headerlink" title="第三步：独立仓库，变成远程依赖"></a>第三步：独立仓库，变成远程依赖</h2><ol>
+<li>减轻业务模块负担，把功能模块独立出去，所谓功能模块，即非强业务耦合，比较独立或通用的功能；</li>
+<li>所有 module 独立 git 仓库，组件提供远程依赖</li>
+<li>提供统一的demo环境，方便组件快速开发，比如，空Activity+注册制的Fragment、获取登录信息等；</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>组件化</tag>
+        <tag>模块化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Andriod 组件化后的问题和思考</title>
+    <url>/2019/01/01/Andriod-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%90%8E%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E6%80%9D%E8%80%83/</url>
+    <content><![CDATA[<p>先抛出问题：组件发布、集成、效率、自动化；</p>
+<span id="more"></span>
+
+<h2 id="组件拆分后的开发流程"><a href="#组件拆分后的开发流程" class="headerlink" title="组件拆分后的开发流程"></a>组件拆分后的开发流程</h2><ul>
+<li>组件单独发布，gradle配置，版本管理维护</li>
+<li>更加友好的集成<ul>
+<li>组件自动化注册</li>
+<li>组件间通信，业务公共通信组件；</li>
+</ul>
+</li>
+<li>组件化针对不同宿主的差异化实现方式；</li>
+</ul>
+<h2 id="主工程与组件联合编译"><a href="#主工程与组件联合编译" class="headerlink" title="主工程与组件联合编译"></a>主工程与组件联合编译</h2><ul>
+<li>开发调试</li>
+<li>主工程与组件联合编译，gradle配置，git仓库配置；</li>
+<li>开发效率平衡，组件，可以打开任意组件源码依赖调试；aar与源码依赖可以动态任意调整；</li>
+</ul>
+<h2 id="管理平台"><a href="#管理平台" class="headerlink" title="管理平台"></a>管理平台</h2><ul>
+<li>终极是自研一条移动端管理平台<ul>
+<li>Jenkins 自定义与扩展</li>
+</ul>
+</li>
+</ul>
+<p>待续…	</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>组件化</tag>
+        <tag>模块化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android Q 适配</title>
+    <url>/2019/04/11/Android-Q-%E9%80%82%E9%85%8D/</url>
+    <content><![CDATA[<h2 id="市场要求"><a href="#市场要求" class="headerlink" title="市场要求"></a>市场要求</h2><ul>
+<li><a href="https://www.ithome.com/0/418/112.htm">华为、小米督促应用开发者：5月底前适配Android Q</a></li>
+<li>谷歌已经于北京时间2019年3月14日正式对外发布Android Q Beta 1及预览版SDK</li>
+<li>华为应用市场已在3月15日启动Android Q版本应用适配检测工作。</li>
+<li>华为要求开发者对应用适配这一环节加以重视，<strong>并于2019年5月底前完成Android Q版本适配工作并自检通过。</strong>华为表示，针对未适配或在Android Q版本体验欠佳的应用，华为应用市场将在Android Q版本机型上采取<strong>下架、不推荐更新或屏蔽</strong>策略。</li>
+<li>小米应用商店也于4月2日向开发者发送了邮件，同样表示已启动<strong>Android Q版本应用适配检测工作</strong>，督促开发者在5月底前完成Android Q适配工作</li>
+<li>对于那些提交到Google Play商店的安卓应用，谷歌先前也定下了一个API等级的门槛。谷歌要求，从2019年8月起，提交到Play商店的应用目标API（targetSdkVersion，非最低兼容API“minSdkVersion”）应至少为APILevel 28（安卓9 Pie）；2019年11月起，提交到Play商店的应用更新目标API也应至少为APILevel 28（安卓9 Pie）。</li>
+</ul>
+<h2 id="适配方案"><a href="#适配方案" class="headerlink" title="适配方案"></a>适配方案</h2><span id="more"></span>
+
+<h3 id="1-检查是否-APP-是否使用了-非SDK接口"><a href="#1-检查是否-APP-是否使用了-非SDK接口" class="headerlink" title="1. 检查是否 APP 是否使用了 非SDK接口"></a>1. 检查是否 APP 是否使用了 非SDK接口</h3><h4 id="非SDK接口描述"><a href="#非SDK接口描述" class="headerlink" title="非SDK接口描述"></a><strong>非SDK接口描述</strong></h4><ul>
+<li><p>a. <strong>黑名单</strong>：无论您的应用的 <a href="https://developer.android.com/distribute/best-practices/develop/target-sdk">目标API级别</a> 如何，您都无法使用的非SDK接口。如果您的应用尝试访问其中一个接口，系统将 <a href="https://developer.android.com/distribute/best-practices/develop/restrictions-non-sdk-interfaces#results-of-keeping-non-sdk">抛出错误</a> 。</p>
+</li>
+<li><p>b. <strong>灰名单</strong>：您可以使用的非SDK接口，只要它们不受您应用的 <a href="https://developer.android.com/distribute/best-practices/develop/target-sdk">目标API级别的</a> 限制。</p>
+<p>  <strong>灰名单 在Android 9（API级别28）中，灰名单分为以下两个列表</strong></p>
+<ul>
+<li>（1）lightgrey列表: targetSdkVersion&lt;28 情况下可以使用的非SDK接口</li>
+<li>（2）darkgrey list：targetSdkVersion&gt;&#x3D;28 情况下无法使用的非SDK接口 （greylist-max-o，greylist-max-p）</li>
+</ul>
+<p>  <strong>在 Android Q 中，我们现在将这两个列表统称为 greylist（灰名单），</strong></p>
+<ul>
+<li>但是受目标API级别限制： 如在 Android P 中被限制的黑灰色名单：darkgrey list 现在叫做 greylist-max-o， 在 Android Q 中被限制的非SDK接口应该称为 greylist-max-p</li>
+</ul>
+</li>
+<li><p>c. <strong>白名单</strong>：可以自由使用的接口，作为官方记录的Android框架 <a href="https://developer.android.com/reference/packages.html">包索引的</a> 一部分得到支持。</p>
+</li>
+</ul>
+<h4 id="三种方法"><a href="#三种方法" class="headerlink" title="三种方法"></a><strong>三种方法</strong></h4><ul>
+<li>a. 使用Android 9 (API level 28) or higher的真机或模拟器，安装 debuggable 版 app。在应用程序上运行测试时，如果您的应用程序访问某些非SDK接口，系统会打印一条日志消息。然后使用 adb logcat 查看。<br><code>Accessing hidden field Landroid/os/Message;-&gt;flags:I (light greylist, JNI)</code></li>
+<li>b. 开启严苛模式 StrictMode API进行测试，再回调内捕获异常，获取日志；</li>
+<li>c. 下载 <a href="https://android.googlesource.com/platform/prebuilts/runtime/+archive/master/appcompat.tar.gz">veridex</a> 工具测试 (解压veridex-xxx.zip文件到当前目录)<ul>
+<li>执行命令：<code>./appcompat.sh --dex-file=test.apk</code></li>
+<li>官方提示的局限性：（意思是还需要整体人工测试一下）</li>
+<li>它无法通过JNI检测到调用。</li>
+<li>它只能通过反射检测一部分调用。</li>
+<li>它对非活动代码路径的分析仅限于API级别检查。</li>
+</ul>
+</li>
+<li>结论：a、b 还是需要人工发现问题，c 还是挺用的，但不能保证检查出所有问题；</li>
+</ul>
+<h4 id="发现使用黑名单SDK的解决办法"><a href="#发现使用黑名单SDK的解决办法" class="headerlink" title="发现使用黑名单SDK的解决办法"></a><strong>发现使用黑名单SDK的解决办法</strong></h4><ol>
+<li>迁移到 SDK 替代方案。</li>
+<li>无法找到替代方案，则应该 <a href="https://developer.android.com/distribute/best-practices/develop/restrictions-non-sdk-interfaces#feature-request">请求新的公共 API</a> 。（意思是请求Google开放出来）</li>
+</ol>
+<h3 id="2-WLAN-直连广播限制："><a href="#2-WLAN-直连广播限制：" class="headerlink" title="2. WLAN 直连广播限制："></a>2. WLAN 直连广播限制：</h3><pre><code>使用Wi-Fi创建P2P连接 受限
+</code></pre>
+<h3 id="3-Go-设备上限制-SYSTEM-ALERT-WINDOW"><a href="#3-Go-设备上限制-SYSTEM-ALERT-WINDOW" class="headerlink" title="3. Go 设备上限制 SYSTEM_ALERT_WINDOW"></a>3. Go 设备上限制 SYSTEM_ALERT_WINDOW</h3><ul>
+<li>允许应用使用类型创建窗口 <a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#TYPE_APPLICATION_OVERLAY">WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY</a> ，显示在所有其他应用之上。很少有应用程序应该使用此权限;这些窗口用于与用户进行系统级交互。</li>
+</ul>
+<h3 id="4-关于以旧版-Android-系统为目标平台的应用的警告"><a href="#4-关于以旧版-Android-系统为目标平台的应用的警告" class="headerlink" title="4. 关于以旧版 Android 系统为目标平台的应用的警告"></a>4. 关于以旧版 Android 系统为目标平台的应用的警告</h3><pre><code>* `compileSdkVersion 26` 可以解决
+</code></pre>
+<p><img src="/images/android_q.png"></p>
+<h3 id="5-应用使用情况Android-Q-引入了与应用使用情况相关的以下行为变更："><a href="#5-应用使用情况Android-Q-引入了与应用使用情况相关的以下行为变更：" class="headerlink" title="5. 应用使用情况Android Q 引入了与应用使用情况相关的以下行为变更："></a>5. 应用使用情况Android Q 引入了与应用使用情况相关的以下行为变更：</h3><ul>
+<li>UsageStats 应用使用情况的改进当在分屏或画中画模式下使用应用时，Android Q 现在能够使用UsageStats准确地跟踪应用使用情况。<br>此外，Android Q 现在可以跟踪免安装应用的使用情况。</li>
+<li>按应用开启灰度模式Android Q 现在可以将应用设为灰度显示模式。</li>
+<li>暂停方面的改进在 Android Q 中，暂停的应用无法再播放音频。</li>
+</ul>
+<h3 id="6-如果以-Android-Q-为目标平台的应用：targetSdkVersion设置为“android-Q”或更高版本"><a href="#6-如果以-Android-Q-为目标平台的应用：targetSdkVersion设置为“android-Q”或更高版本" class="headerlink" title="6. 如果以 Android Q 为目标平台的应用：targetSdkVersion设置为“android-Q”或更高版本"></a>6. 如果以 Android Q 为目标平台的应用：targetSdkVersion设置为“android-Q”或更高版本</h3><ul>
+<li>共享内存限制，不允许从后台读取剪贴板信息。</li>
+<li>禁止后台启动 Activity。 （验证推送）</li>
+<li>Android 运行时只接受系统生成的 OAT 文件 。（可能涉及热修复升级）</li>
+<li>针对全屏 Intent 的权限变更。以 Android Q 或更高版本为目标平台并使用涉及全屏 Intent 的通知的应用必须在其应用的清单文件中请求 <a href="https://developer.android.com/reference/android/Manifest.permission.html#USE_FULL_SCREEN_INTENT">USE_FULL_SCREEN_INTENT</a> 权限</li>
+<li><a href="https://developer.android.com/preview/behavior-changes-q">Android Q 行为变更：以 Android Q 为目标平台的应用</a></li>
+</ul>
+<h2 id="Android-官方文档"><a href="#Android-官方文档" class="headerlink" title="Android 官方文档"></a>Android 官方文档</h2><ul>
+<li><a href="https://developer.android.google.cn/preview/overview.html">Android Q 计划概览</a></li>
+<li><a href="https://developer.android.com/preview/behavior-changes-all">Android Q 行为变更：所有应用</a> </li>
+<li><a href="https://developer.android.com/preview/behavior-changes-q">Android Q 行为变更：以 Android Q 为目标平台的应用</a> </li>
+<li><a href="https://developer.android.com/distribute/best-practices/develop/restrictions-non-sdk-interfaces">非SDK接口的限制 说明</a></li>
+</ul>
+<h2 id="使用-Android-Q-系统模拟器"><a href="#使用-Android-Q-系统模拟器" class="headerlink" title="使用 Android Q 系统模拟器"></a>使用 Android Q 系统模拟器</h2><ul>
+<li>目前(4.10日)，Google还没有放出正式版Q，稳定版Android Studio，无法下载 Android Q 系统镜像。</li>
+<li>如果使用 Android Q 系统模拟器，需要先安装Canary版本AS，再在 AVD Manager 下载 Android Q 系统镜像。</li>
+<li><a href="https://developer.android.com/studio/preview?hl=zh-CN">https://developer.android.com/studio/preview?hl=zh-CN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android Code Style</title>
+    <url>/2016/02/14/Android-Code-Style/</url>
+    <content><![CDATA[<p>形成隐喻，提高效率</p>
+<span id="more"></span>
+
+<h2 id="1-约定"><a href="#1-约定" class="headerlink" title="1. 约定"></a>1. 约定</h2><ul>
+<li><strong>Activity.onCreate()，Fragment.onActivityCreated()，紧跟成员变量后，方法内部保持简单，尽量只调用initXXX()方法，如：initData()，initView()。</strong></li>
+<li>调用方法保持<strong>“临近原则”</strong>，被调用的方法，放在调用方法下方</li>
+<li><strong>单个方法体不要过长</strong></li>
+<li><strong>代码任何地方不要拼错单词</strong></li>
+<li>统一调整IDE的Tab缩进为4个空格</li>
+<li><strong>杜绝整个类代码格式化</strong></li>
+<li>提交代码使用中文注释，如果解决bug加上<code>#bug号</code>，如**<code>#123，解决问题描述</code>，不要写fix bug无意义描述**</li>
+</ul>
+<!-- more -->
+<h2 id="2-命名"><a href="#2-命名" class="headerlink" title="2. 命名"></a>2. 命名</h2><h3 id="2-1-布局文件中的id命名"><a href="#2-1-布局文件中的id命名" class="headerlink" title="2.1. 布局文件中的id命名"></a>2.1. 布局文件中的id命名</h3><p><strong>规则：</strong>使用**<code>驼峰命名，前缀+逻辑名称</code>**，不需要下划线分割</p>
+<p><strong>注：id对应的成员变量，使用Android BufferKnift Zelezny插件生成，变量前自动加“m前缀”</strong></p>
+<p>控件	| 缩写前缀<br>:–	| :—–<br>RelativeLayout&#x2F;LinearLayout&#x2F;FrameLayout | layout<br>Button&#x2F;RadioButton&#x2F;ImageButton | button<br>TextView&#x2F;EditText	| text<br>ImageView 			| imageView<br>ListView	| listView<br>WebView 	| webView<br>CheckBox 	| checkBox<br>ProgressBar	| progressBar<br>seekBar 	| seekBar<br>其他控件 		| 控件名首字母缩写作为前缀</p>
+<h3 id="2-2-布局文件命名"><a href="#2-2-布局文件命名" class="headerlink" title="2.2. 布局文件命名"></a>2.2. 布局文件命名</h3><p><strong>规则：</strong> 使用**<code>lf_前缀_逻辑名称</code>**命名，单词全部小写，单词间以_分割。</p>
+<p>布局类型	| 布局前缀<br>:——	| :——<br>Activity	| lf_activity_<br>Fragment	| lf_fragment_<br>Include		| lf_include_<br>Dialog		| lf_dialog_<br>PopupWindow	| lf_popup_<br>Menu		| lf_menu_<br>Adapter		| lf_adapter_item_</p>
+<h3 id="2-3-资源文件命名"><a href="#2-3-资源文件命名" class="headerlink" title="2.3. 资源文件命名"></a>2.3. 资源文件命名</h3><p><strong>规则：</strong> 使用 <strong><code>lf_前缀_用途</code></strong> 命名，单词全部小写，单词间以 下划线 分割。</p>
+<ul>
+<li>图片资源文件命名</li>
+</ul>
+<p>前缀	| 说明<br>:–	| :–<br>lf_bg_xxx		| 各类背景图片<br>lf_btn_xxx 	| 这种按钮没有其他状态<br>lf_ic_xxx 		| 图标，一般用于单个图标<br><code>lf_bg_描述_状态1[_状态2]</code> 	| 用于控件上的不同状态<br><code>lf_btn_描述_状态1[_状态2]</code> 	| 用于按钮上的不同状态<br><code>lf_chx_描述_状态1[_状态2]</code> 	| 选择框，一般有2态和4态</p>
+<ul>
+<li>第三方资源文件，不管在value、drawable</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>必须携带第三方资源前缀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>umeng_socialize_style.xml</td>
+</tr>
+<tr>
+<td>pull_refresh_attrs.xml</td>
+</tr>
+</tbody></table>
+<h3 id="2-4-类和接口命名"><a href="#2-4-类和接口命名" class="headerlink" title="2.4. 类和接口命名"></a>2.4. 类和接口命名</h3><p><strong>规则：</strong> 使用**<code>驼峰规则，首字母必须大写</code>**，使用名词或名词词组。要求简单易懂，富于描述，不允许出现无意义或错误单词。</p>
+<p>类	| 描述	| 例如<br>:–	| :–	| :–<br>Application类 	| Application为后缀标识 |XXXApplication<br>Activity类		| Activity为后缀标识 | 闪屏页面类SplashActivity<br>解析类		| Handler为后缀标识<br>公共方法类	| Utils或Manager为后缀标识<br>线程池管理类	| ThreadPoolManager<br>日志工具类	| LogUtils<br>数据库类		| 以DBHelper后缀标识 | SQLiteDBHelper<br>Service类 	| 以Service为后缀标识 | 播放服务：PlayService<br>BroadcastReceiver类 | 以Broadcast为后缀标识 | 时间通知：TimeBroadcast<br>ContentProvider类 | 以Provider为后缀标识 | 内容提供者：DictProvider<br>直接写的共享基础类 | 以Base为前缀 | BaseActivity,BaseFragment</p>
+<h3 id="2-5-方法的命名"><a href="#2-5-方法的命名" class="headerlink" title="2.5. 方法的命名"></a>2.5. 方法的命名</h3><p><strong>规则：</strong> 使用**<code>驼峰规则，首字母必须小写</code>**，使用动词。要求简单易懂，富于描述，不允许出现无意义或错误单词。</p>
+<p>方法	| 说明<br>—	| —			<br>initXX()	| 初始化相关方法，使用init为前缀标识，如初始化布局initView()<br>httpXX()	| http业务请求方法，以http为前缀标识<br>getXX()		| 返回某个值的方法，使用get为前缀标识<br>saveXX()	| 与保存数据相关的，使用save为前缀标识<br>deleteXX()	| 删除操作<br>resetXX()	| 对数据重组的，使用reset前缀标识<br>clearXX()	| 清除数据相关的<br>isXX()		| 方法返回值为boolean型的请使用is或check为前缀标识<br>processXX()	| 对数据进行处理的方法，尽量使用process为前缀标识<br>displayXX()	| 弹出提示框和提示信息，使用display为前缀标识<br>drawXXX()	| 绘制数据或效果相关的，使用draw前缀标识</p>
+<h3 id="2-6-变量命名"><a href="#2-6-变量命名" class="headerlink" title="2.6. 变量命名"></a>2.6. 变量命名</h3><p><strong>规则：</strong> 使用**<code>驼峰规则，首字母必须小写</code>**，使用名词或名词词组。要求简单易懂，富于描述，不允许出现无意义或错误单词。</p>
+<ul>
+<li>成员变量命名，变量前添加m前缀</li>
+<li>常量命名，全部大写，单词间用下划线隔开</li>
+</ul>
+<h2 id="3-其他规范参考"><a href="#3-其他规范参考" class="headerlink" title="3. 其他规范参考"></a>3. 其他规范参考</h2><ul>
+<li>Activity继承BaseFragmentActivity或SwipeBackActivity，可以使用ButterKnife注解代替findViewById</li>
+<li>方法<ul>
+<li>拆分臃肿方法，每个方法只作一件事</li>
+<li>做同一个逻辑的方法，尽量靠近放到一块，方便查看</li>
+<li>不要使用 try catch 处理业务逻辑</li>
+<li>使用JSON工具类，不要手动解析和拼装数据</li>
+</ul>
+</li>
+<li>控制语句<ul>
+<li>减少条件嵌套，不要超过3层</li>
+<li>if判断使用“卫语句”，减少层级	<br>  <code>  if(obj != null) &#123;   doSomething();   &#125;	  </code>	<br>  修改为：	<br>  <code>   if(obj == null) &#123;   return;   &#125;   doSomething();	</code></li>
+<li>if语句必须用{}包括起来,即便是只有一句</li>
+</ul>
+</li>
+<li>处理“魔数”等看不懂的神秘数字<ul>
+<li>代码中不要出现数字，特别是一些标识不同类型的数字。</li>
+<li>所有意义数字全部抽取到Constant公共类中，避免散布在各位类中。</li>
+</ul>
+</li>
+<li>空行：空行将逻辑相关代码段隔开，简洁清楚，提高可读性<ul>
+<li>成员变量之间，根据业务形成分组加空行</li>
+<li>方法之间加空行</li>
+</ul>
+</li>
+<li>用好TODO标记<ul>
+<li>记录想法，记录功能点，开发过程中可以利用TODO记录一下临时想法或为了不打扰思路留下待完善的说明</li>
+<li>删除无用TODO，开发工具自动生成的TODO，或则已经完善的TODO，一定要删除。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-IDE"><a href="#4-IDE" class="headerlink" title="4. IDE"></a>4. IDE</h2><ul>
+<li>Android Studio (越早使用越好)</li>
+<li>Android SDK API 20（根据项目约定）</li>
+<li>JDK 1.8（根据项目约定）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android Toolbar 避坑最佳实践</title>
+    <url>/2018/11/17/Android-Toolbar-%E9%81%BF%E5%9D%91%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<p>不要再封装自己的Bar了；</p>
+<span id="more"></span>
+
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><pre><code>Android 3.0  Android 推了 ActionBar， 本意是想要逐渐改善过去 android 纷乱的界面设计，但ActionBar 使用并不方便，限制了App的开发与设计的弹性，实际使用的也不多了。
+Toolbar 是android 5.0的推出的，放在了v7包中作为控件，它是为了取代ActionBar而产生的，意味着官方在某些程度上认为 ActionBar 限制了App开发与设计的弹性，而在 Material Design 也对之做了名称的定义：App bar
+</code></pre>
+<h2 id="2-基本使用"><a href="#2-基本使用" class="headerlink" title="2. 基本使用"></a>2. 基本使用</h2><h3 id="2-1-定义Style"><a href="#2-1-定义Style" class="headerlink" title="2.1 定义Style"></a>2.1 定义Style</h3><p>Style要调整两个地方</p>
+<ul>
+<li>一是 res&#x2F;values&#x2F;styles.xml中</li>
+<li>二是 res&#x2F;values-v21&#x2F;styles.xml中</li>
+</ul>
+<p>为了之后设定方便，我们先在 <code>res/values/styles.xml</code> 里增加一个名为 <code>AppTheme.Base</code> 的风格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;style name=&quot;AppTheme.Base&quot; parent=&quot;Theme.AppCompat&quot;&gt;</span><br><span class="line">  &lt;item name=&quot;windowActionBar&quot;&gt;false&lt;/item&gt;</span><br><span class="line">  &lt;item name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>因为此范例只使用 Toolbar，所以我们要将让原本的 ActionBar 隐藏起来，然后将原本 AppTheme 的 parent 属性 改为上面的AppTheme.Base，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;resources&gt;</span><br><span class="line">  &lt;!-- Base application theme. --&gt;</span><br><span class="line">  &lt;style name=&quot;AppTheme&quot; parent=&quot;AppTheme.Base&quot;&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;style name=&quot;AppTheme.Base&quot; parent=&quot;Theme.AppCompat&quot;&gt;</span><br><span class="line">    &lt;item name=&quot;windowActionBar&quot;&gt;false&lt;/item&gt;</span><br><span class="line">    &lt;del&gt;&lt;item name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;&lt;/del&gt;</span><br><span class="line">    &lt;!-- 使用 API Level 22 編譯的話，要拿掉前綴字 --&gt;</span><br><span class="line">    &lt;item name=&quot;windowNoTitle&quot;&gt;true&lt;/item&gt;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;/resources&gt;</span><br></pre></td></tr></table></figure>
+
+<p>再来调整Android 5.0的style：<code>/res/values-v21/styles.xml</code>，也将其 parent 属性改为  AppTheme.Base：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;resources&gt;</span><br><span class="line">    &lt;style name=&quot;AppTheme&quot; parent=&quot;AppTheme.Base&quot;&gt;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/resources&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-界面-Layout"><a href="#2-2-界面-Layout" class="headerlink" title="2.2  界面(Layout)"></a>2.2  界面(Layout)</h3><p>在 activity_main.xml 里面添加 Toolbar 控件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;android.support.v7.widget.Toolbar</span><br><span class="line">  android:id=&quot;@+id/toolbar&quot;</span><br><span class="line">  android:layout_height=&quot;?attr/actionBarSize&quot;</span><br><span class="line">  android:layout_width=&quot;match_parent&quot; &gt;</span><br><span class="line">&lt;/android.support.v7.widget.Toolbar&gt;</span><br></pre></td></tr></table></figure>
+
+<p>请记得用 support v7 里的 toolbar，不然然只有 API Level 21 也就是 Android 5.0 以上的版本才能使用。</p>
+<h3 id="2-3-代码-Java"><a href="#2-3-代码-Java" class="headerlink" title="2.3  代码(Java)"></a>2.3  代码(Java)</h3><p>在 MainActivity.java 中加入 Toolbar 的声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</span><br><span class="line">setSupportActionBar(toolbar);</span><br></pre></td></tr></table></figure>
+<p>声明后，再将之用 setSupportActionBar 设定，Toolbar即能取代原本的 ActionBar 了</p>
+<h2 id="3-Toolbar封装复用"><a href="#3-Toolbar封装复用" class="headerlink" title="3. Toolbar封装复用"></a>3. Toolbar封装复用</h2><h3 id="3-1-创建toolbar-xml，Activity布局include即可"><a href="#3-1-创建toolbar-xml，Activity布局include即可" class="headerlink" title="3.1 创建toolbar.xml，Activity布局include即可"></a>3.1 创建toolbar.xml，Activity布局include即可</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;android.support.v7.widget.Toolbar xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">    android:id=&quot;@+id/toolbar&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;?attr/actionBarSize&quot;</span><br><span class="line">    android:background=&quot;@color/colorPrimary&quot;</span><br><span class="line">    app:navigationIcon=&quot;@drawable/ic_back&quot;</span><br><span class="line">    app:popupTheme=&quot;@style/ThemeOverlay.AppCompat.Light&quot;</span><br><span class="line">    app:theme=&quot;@style/Theme.Toolbar&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 标题居中 --&gt;</span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/toolbar_title&quot;</span><br><span class="line">        style=&quot;@style/Theme.ToolBar.Title&quot;</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_gravity=&quot;center&quot;</span><br><span class="line">        android:text=&quot;Title&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/android.support.v7.widget.Toolbar&gt;</span><br></pre></td></tr></table></figure>
+<p>@drawable&#x2F;ic_back</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;vector android:height=&quot;24dp&quot; android:viewportHeight=&quot;1024.0&quot;</span><br><span class="line">    android:viewportWidth=&quot;1024.0&quot; android:width=&quot;24dp&quot; xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">    &lt;path android:fillColor=&quot;#ffffff&quot; android:pathData=&quot;M387.8,164.9a22.1,22.1 0,0 0,-0.4 -30.7,20.5 20.5,0 0,0 -29.7,0.4L0,512.9l357.8,378.3c8,8.5 21.3,8.7 29.7,0.3 8.3,-8.3 8.5,-22 0.4,-30.7L60.3,512.9 387.9,164.9z&quot;/&gt;</span><br><span class="line">&lt;/vector&gt;</span><br></pre></td></tr></table></figure>
+
+<p>@style</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- Toolbar --&gt;</span><br><span class="line">&lt;style name=&quot;Theme.Toolbar&quot; parent=&quot;@style/ThemeOverlay.AppCompat.Dark.ActionBar&quot;&gt;</span><br><span class="line">    &lt;!-- 修改toolbar中按钮图标的颜色 --&gt;</span><br><span class="line">    &lt;item name=&quot;colorControlNormal&quot;&gt;@color/white&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Toolbar Title--&gt;</span><br><span class="line">&lt;style name=&quot;Theme.ToolBar.Title&quot; parent=&quot;@style/TextAppearance.Widget.AppCompat.Toolbar.Title&quot;&gt;</span><br><span class="line">    &lt;item name=&quot;android:textSize&quot;&gt;18sp&lt;/item&gt;</span><br><span class="line">    &lt;item name=&quot;android:textColor&quot;&gt;@android:color/white&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Toolbar 溢出图标颜色 --&gt;</span><br><span class="line">&lt;style name=&quot;Theme.Toolbar.OverflowMenuTheme&quot; parent=&quot;Theme.AppCompat.NoActionBar&quot;&gt;</span><br><span class="line">    &lt;!-- 设置Menu菜单背景色 --&gt;</span><br><span class="line">    &lt;item name=&quot;android:itemBackground&quot;&gt;@android:color/white&lt;/item&gt;</span><br><span class="line">    &lt;!-- 设置Menu菜单字体颜色 --&gt;</span><br><span class="line">    &lt;item name=&quot;android:textColorPrimary&quot;&gt;@android:color/black&lt;/item&gt;</span><br><span class="line">    &lt;!-- 设置Menu窗口不覆盖Toolbar视图 --&gt;</span><br><span class="line">    &lt;item name=&quot;overlapAnchor&quot;&gt;false&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-BaseActivity"><a href="#3-2-BaseActivity" class="headerlink" title="3.2 BaseActivity"></a>3.2 BaseActivity</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public abstract class BaseActivity extends  RxAppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    // 让5.0之前的系统可以用Vector图标</span><br><span class="line">    static &#123;</span><br><span class="line">        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 沉浸式状态栏和沉浸式导航栏管理，支持Android 4.4 以上</span><br><span class="line">     */</span><br><span class="line">    private ImmersionBar mImmersionBar;</span><br><span class="line">    private Toolbar mToolBar;</span><br><span class="line">    private TextView mToolbarTitle;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(@Nullable Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        // 修复系统输入法Bug：在15&lt;=API&lt;=23存在内存泄漏</span><br><span class="line">        // https://zhuanlan.zhihu.com/p/20828861</span><br><span class="line">        IMMLeaks.fixFocusedViewLeak(getApplication());</span><br><span class="line"></span><br><span class="line">        // 沉浸式状态栏</span><br><span class="line">        mImmersionBar = ImmersionBar.with(this);</span><br><span class="line">        // 解决状态栏与布局顶部重叠解决方案</span><br><span class="line">        mImmersionBar.fitsSystemWindows(true)</span><br><span class="line">                .statusBarColor(R.color.colorPrimary)</span><br><span class="line">                .navigationBarColor(R.color.colorPrimary)</span><br><span class="line">                .init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 统一Toolbar：Activity布局内&lt;include layout=&quot;@layout/toolbar&quot;/&gt;</span><br><span class="line">     * 1. 标题</span><br><span class="line">     *  标题居中显示</span><br><span class="line">     *  默认使用AndroidManifest的android:label属性值</span><br><span class="line">     *  可以在onCreate-&gt;setContentView之后，调用setToolbarTitle更新Title</span><br><span class="line">     * 2. Icon</span><br><span class="line">     * 3. 间距</span><br><span class="line">     * @param layoutResID</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void setContentView(int layoutResID) &#123;</span><br><span class="line">        super.setContentView(layoutResID);</span><br><span class="line">        mToolBar = findViewById(R.id.toolbar);</span><br><span class="line">        if (mToolBar != null) &#123;</span><br><span class="line">            mToolbarTitle = mToolBar.findViewById(R.id.toolbar_title);</span><br><span class="line">            setSupportActionBar(mToolBar);</span><br><span class="line">            ActionBar actionBar = getSupportActionBar();</span><br><span class="line">            // 显示返回键</span><br><span class="line">            if(actionBar != null) &#123;</span><br><span class="line">                actionBar.setDisplayHomeAsUpEnabled(true);</span><br><span class="line">            &#125;</span><br><span class="line">            // 隐藏默认标题</span><br><span class="line">            if (mToolbarTitle != null &amp;&amp; actionBar != null) &#123;</span><br><span class="line">                actionBar.setDisplayShowTitleEnabled(false);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 统一Toolbar返回按钮处理</span><br><span class="line">     * @param item</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onOptionsItemSelected(MenuItem item) &#123;</span><br><span class="line">        if (item.getItemId() == android.R.id.home) &#123;</span><br><span class="line">            finish();</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return super.onOptionsItemSelected(item);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 覆盖onTitleChanged：让 title 默认显示到 mToolbarTitle，而且不需要暴露 mToolbarTitle 属性</span><br><span class="line">     * 1. 默认显示：AndroidManifest的android:label属性值</span><br><span class="line">     * 2. 代码设置：直接调用Activity.setTitle()方法动态修改</span><br><span class="line">     * @param title</span><br><span class="line">     * @param color</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    protected void onTitleChanged(CharSequence title, int color) &#123;</span><br><span class="line">        super.onTitleChanged(title, color);</span><br><span class="line">        if (mToolbarTitle != null) &#123;</span><br><span class="line">            mToolbarTitle.setText(title);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDestroy() &#123;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">        if (mImmersionBar != null) &#123;</span><br><span class="line">            mImmersionBar.destroy();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><p>参考项目内 <a href="https://github.com/tianshaojie/android-library">android-library</a> MainActivty</p>
+<h2 id="4-参考"><a href="#4-参考" class="headerlink" title="4. 参考"></a>4. 参考</h2><ul>
+<li><a href="http://yifeng.studio/2016/10/12/android-toolbar/">Android Toolbar，你想知道的都在这里了</a></li>
+<li><a href="http://angeldevil.me/2014/12/24/toolbar-as-actionbar-and-centered-title/">Toolbar作为ActionBar与标题居中-封装</a></li>
+<li><a href="http://blog.csdn.net/zhyh1986/article/details/51790570">Android：改变 Toolbar 的文字和溢出图标颜色</a></li>
+<li><a href="https://www.jianshu.com/p/834baf3c8f0b">ToolBar随心定制 - 简书</a>：介绍了如何在ToolBar左侧放置Menu等</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Toolbar</tag>
+        <tag>最佳实践</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android Fragment 重叠问题</title>
+    <url>/2018/11/17/Android-Fragment-%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>构建MainActivity导航</p>
+<span id="more"></span>
+
+<h2 id="Fragment-重叠问题原因"><a href="#Fragment-重叠问题原因" class="headerlink" title="Fragment 重叠问题原因"></a>Fragment 重叠问题原因</h2><p>Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState)，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”</p>
+<p>使用 Fragment 的状态保存，当系统内存不足，Fragment 的宿主 Activity 回收的时候，Fragment 的实例并没有随之被回收。Activity 被系统回收时，会主动调用 onSaveInstance() 方法来保存视图层（View Hierarchy），所以当 Activity 通过导航再次被重建时，之前被实例化过的 Fragment 依然会出现在 Activity 中，此时的 FragmentTransaction 中的相当于又再次 add 了 fragment 进去的，hide()和show()方法对之前保存的fragment已经失效了。综上这些因素导致了多个Fragment重叠在一起。</p>
+<pre><code>1. 被恢复的fragment加载到Activity
+2. onCreate里又重新new了一个fragment实例，也加到了Activity
+综上出现了重叠或重影问题
+</code></pre>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p><strong>建议使用第1种方法解决</strong></p>
+<h3 id="1-解决方法如下，在进入onCreate函数时，先去判断savedInstanceState是否为null，如果不为null-则表示里面有保存着fragment。则不再重新去add这四个fragment，而是通过Tag从前保存的数据中直接去读取"><a href="#1-解决方法如下，在进入onCreate函数时，先去判断savedInstanceState是否为null，如果不为null-则表示里面有保存着fragment。则不再重新去add这四个fragment，而是通过Tag从前保存的数据中直接去读取" class="headerlink" title="1. 解决方法如下，在进入onCreate函数时，先去判断savedInstanceState是否为null，如果不为null,则表示里面有保存着fragment。则不再重新去add这四个fragment，而是通过Tag从前保存的数据中直接去读取"></a>1. 解决方法如下，在进入onCreate函数时，先去判断savedInstanceState是否为null，如果不为null,则表示里面有保存着fragment。则不再重新去add这四个fragment，而是通过Tag从前保存的数据中直接去读取</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Override  </span><br><span class="line">public void onCreate(Bundle savedInstanceState) &#123;  </span><br><span class="line">    // TODO Auto-generated method stub  </span><br><span class="line">    fManager = getFragmentManager();  </span><br><span class="line">    if (savedInstanceState != null) &#123;  </span><br><span class="line">        allFrg = (AllOfficialAccountFragment) fManager.findFragmentByTag(&quot;allFrg&quot;);  </span><br><span class="line">        movieFrg = (MovieOfficialAccountFragment) fManager.findFragmentByTag(&quot;movieFrg&quot;);  </span><br><span class="line">        newsFrg = (NewsOfficialAccountFragment) fManager.findFragmentByTag(&quot;newsFrg&quot;);  </span><br><span class="line">        otherFrg = (OtherOfficialAccountFragment) fManager.findFragmentByTag(&quot;otherFrg&quot;);             </span><br><span class="line">    &#125;  </span><br><span class="line">    super.onCreate(savedInstanceState);       </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<h3 id="2-重写onAttachFragment，重新让新的Fragment指向了原本未被销毁的fragment，它就是onAttach方法对应的Fragment对象"><a href="#2-重写onAttachFragment，重新让新的Fragment指向了原本未被销毁的fragment，它就是onAttach方法对应的Fragment对象" class="headerlink" title="2. 重写onAttachFragment，重新让新的Fragment指向了原本未被销毁的fragment，它就是onAttach方法对应的Fragment对象"></a>2. 重写onAttachFragment，重新让新的Fragment指向了原本未被销毁的fragment，它就是onAttach方法对应的Fragment对象</h3><p><a href="https://www.jianshu.com/p/90b51f222455">https://www.jianshu.com/p/90b51f222455</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Override </span><br><span class="line">public void onAttachFragment(Fragment fragment) &#123; </span><br><span class="line">	if (tab1 == null &amp;&amp; fragment instanceof Tab1Fragment) tab1 = fragment;</span><br><span class="line">	if (tab2 == null &amp;&amp; fragment instanceof Tab2Fragment) tab2 = fragment; </span><br><span class="line">	if (tab3 == null &amp;&amp; fragment instanceof Tab3Fragment) tab3 = fragment; </span><br><span class="line">	if (tab4 == null &amp;&amp; fragment instanceof Tab4Fragment) tab4 = fragment;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Activity-中的-onSaveInstanceState-里面有一句super-onSaveInstanceState-outState-，Google-对于这句话的解释是-“Always-call-the-superclass-so-it-can-save-the-view-hierarchy-state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”。通过注释掉这句话，这样主-Activity-因为种种原因被回收的时候就不会保存之前的-fragment-state，也可以成功解决重叠的问题"><a href="#3-Activity-中的-onSaveInstanceState-里面有一句super-onSaveInstanceState-outState-，Google-对于这句话的解释是-“Always-call-the-superclass-so-it-can-save-the-view-hierarchy-state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”。通过注释掉这句话，这样主-Activity-因为种种原因被回收的时候就不会保存之前的-fragment-state，也可以成功解决重叠的问题" class="headerlink" title="3. Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState);，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”。通过注释掉这句话，这样主 Activity 因为种种原因被回收的时候就不会保存之前的 fragment state，也可以成功解决重叠的问题"></a>3. Activity 中的 onSaveInstanceState() 里面有一句super.onSaveInstanceState(outState);，Google 对于这句话的解释是 “Always call the superclass so it can save the view hierarchy state”，大概意思是“总是执行这句代码来调用父类去保存视图层的状态”。通过注释掉这句话，这样主 Activity 因为种种原因被回收的时候就不会保存之前的 fragment state，也可以成功解决重叠的问题</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">protected void onSaveInstanceState(Bundle outState) &#123;</span><br><span class="line">	//如果用以下这种做法则不保存状态，再次进来的话会显示默认tab</span><br><span class="line">	//super.onSaveInstanceState(outState);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试方式"><a href="#测试方式" class="headerlink" title="测试方式"></a>测试方式</h2><ul>
+<li>开发者选项打开“不保留活动”</li>
+<li>旋转屏幕</li>
+<li>用AndroidStudio工具 杀掉应用程序，模拟内存不足回收</li>
+<li>转跳到其他Activity、打开多任务窗口、使用Home回到主屏幕再返回</li>
+</ul>
+<h2 id="综上正确姿势"><a href="#综上正确姿势" class="headerlink" title="综上正确姿势"></a>综上正确姿势</h2><ol>
+<li>fragmentManager.beginTransaction().add，依次添加4个Fragment，这4个Fragment的排序顺序，是由下至上重叠添加，就是后添加的覆盖在前一个的上面</li>
+<li>如果执行add(1)后再add(2)，但不调用hide(1)<ol>
+<li>如果Fragment都带背景色，此时是看2，看不到1，仅仅是因为背景挡住了</li>
+<li>如果Fragment不带背景色，是透明的，可以看到2在1上面，出现重叠</li>
+<li>然后再执行add(1)，而且不调用hide(2)，实际是1叠加显示在2上面了</li>
+<li>然后不执行add(1)，而是执行show(1)，而且不调用hide(2)，实际不会有任何变化，还是遮挡和重叠现象</li>
+<li>正确的逻辑就是show一个，hide其他的Fragment；</li>
+</ol>
+</li>
+<li>旋转屏幕或者被回收重启，执行onSaveInstanceState，然后重新调用onCreate<ol>
+<li>Activity会<strong>自动</strong>恢复被保存的Fragment，FragmentManager会依次恢复Fragment，被恢复的Fragment会正常显示；</li>
+<li>如果onCreate不使用fragmentManager.findFragmentByTag找到被缓存的Fragment，而是每次都add一个新实例，实际是fragmentManager内部多了一个Fragment，不仅出现重叠(把背景设透明比较好验证)，而且实例变多，再出现onSaveInstanceState和onCreate流程，可能出现多次初始化，难易查找的bug</li>
+</ol>
+</li>
+<li>综上，Fragment正确的add、show、hide的调用姿势是<ol>
+<li>add时一定要设置不同的tag</li>
+<li>onCreate一定要通过fragmentManager.findFragmentByTag查找是否存在实例<ul>
+<li>如果不存在，new一个实例，执行add</li>
+<li>如果存在，show自己，hide其他</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Show-me-the-code"><a href="#Show-me-the-code" class="headerlink" title="Show me the code"></a>Show me the code</h2><p>参考项目内 <a href="https://github.com/tianshaojie/android-library">android-library</a> MainActivty</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Fragment</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 组件化思路</title>
+    <url>/2018/12/31/Android-%E7%BB%84%E4%BB%B6%E5%8C%96%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h2><ul>
+<li>几十万行甚至上百万行代码的大工程，100%代码编译，打包时间长；</li>
+<li>业务交叉、耦合严重、修改一个问题可能引出多个问题；</li>
+<li>非本次迭代业务代码被修改上线；</li>
+<li>代码零乱影响开发心情和效率；</li>
+<li>并行开发难，上线测试范围广；</li>
+</ul>
+<span id="more"></span>
+
+<p>如果我们能把100%的代码中，70%的代码稳定下来，只有30%的业务代码经常改动，是否就可以降低维护成本，提高开发效率和稳定性；<br>70%的代码中，形成各个独立的功能模块或组件沉淀稳定下来，就可极大的减小对整体代码开发和修改频率；<br>30%的代码中，负责主要业务代码开发和产品发布，再划分为不同业务小组维护，提高了开发效率，也降低了维护成本；</p>
+<p>所以可以形成一个开发思路：<strong>稳定(大)中台，灵活(小)前台</strong>；</p>
+<h2 id="2-目标"><a href="#2-目标" class="headerlink" title="2. 目标"></a>2. 目标</h2><ul>
+<li><p><strong>去掉任何一个模块，主工程可以运行；</strong></p>
+</li>
+<li><p><strong>任意一个子模块，可以独立运行；</strong></p>
+</li>
+<li><p><strong>自动化，持续集成；</strong></p>
+</li>
+<li><p>APP</p>
+<ul>
+<li>持续集成，<strong>服务产品快速迭代，同时保持高质量</strong>；</li>
+<li>降低代码耦合度，<strong>提高编译速度和开发效率</strong>，避免修改一处编译整个工程；</li>
+<li><strong>按需打包</strong>，根据依赖业务打包；</li>
+<li><strong>缩小测试范围</strong>，减小测试成本，降低代码出错风险，提高App稳定性</li>
+<li><strong>快速响应</strong>，快速迭代发版和热修复；</li>
+</ul>
+</li>
+<li><p>组件</p>
+<ul>
+<li>独立编译和发布，组件回滚有迹可循，便于持续集成；</li>
+<li><strong>高内聚低耦合</strong>，提高组件<strong>复用</strong>性；</li>
+</ul>
+</li>
+<li><p>团队</p>
+<ul>
+<li>方便团队协作；</li>
+<li>开发职责明确；</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-问题"><a href="#3-问题" class="headerlink" title="3. 问题"></a>3. 问题</h2><ol>
+<li>组件划分原则和粒度？<ul>
+<li>组件代码分布思考；</li>
+<li>组件代码修改频率和稳定性思考；</li>
+<li>组件化改造后<strong>开发效率的平衡</strong>；</li>
+<li>对现存代码大工程的拆分思路；</li>
+</ul>
+</li>
+<li>组件间通信方式？<ul>
+<li>Router 维护方式；</li>
+<li>Event；</li>
+</ul>
+</li>
+<li>组件的管理方式？<ul>
+<li>远程or本地？</li>
+</ul>
+</li>
+<li>代码重构和文件查找？</li>
+</ol>
+<h2 id="4-组件划分原则"><a href="#4-组件划分原则" class="headerlink" title="4.  组件划分原则"></a>4.  组件划分原则</h2><p><strong>大原则：去中心化，平级组件无依赖；业务组件粗粒度；功能组件细粒度；基础组件高稳定性；</strong></p>
+<h3 id="组件化工程结构"><a href="#组件化工程结构" class="headerlink" title="组件化工程结构"></a>组件化工程结构</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app  -  壳工程</span><br><span class="line">app-support  -  App支持组件</span><br><span class="line">↑</span><br><span class="line">module-x (A、B、C)  -  业务组件</span><br><span class="line">↑</span><br><span class="line">library-x (a，b，c，d，e，f)  -  功能组件</span><br><span class="line">↑</span><br><span class="line">library  -  基础组件</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-App壳工程"><a href="#4-1-App壳工程" class="headerlink" title="4.1 App壳工程"></a>4.1 App壳工程</h3><ul>
+<li>命名规则：<code>app</code></li>
+<li>目标：壳工程，负责打包；<strong>去掉任何一个业务组件，不影响编译打包运行</strong>；</li>
+<li>依赖关系：只依赖业务组件；</li>
+</ul>
+<h3 id="4-2-业务组件划分规则"><a href="#4-2-业务组件划分规则" class="headerlink" title="4.2 业务组件划分规则"></a>4.2 业务组件划分规则</h3><ul>
+<li>命名规则：<code>module-</code> + <code>后缀名</code></li>
+<li>划分规则：根据公司或部门实际业务划分，<strong>粗粒度</strong>，边界清晰，便于团队管理，便于组件划分，业务组件不要太多；</li>
+<li>修改频率：<strong>高</strong>；业务组件作为修改频次最高的组件，减少业务组件，可以提高开发效率；相反如果有拆的过于零散，会造成开发一块业务，要横跨好几个组件才能完成，如果再加上组件独立git仓库，必然影响开发效率，这也是我们在之前拆分过程吸取的教训。</li>
+<li>依赖关系：业务组件之间不能存在依赖，只能向下依赖功能组件或Base组件</li>
+</ul>
+<h3 id="4-3-功能组件划分规则"><a href="#4-3-功能组件划分规则" class="headerlink" title="4.3 功能组件划分规则"></a>4.3 功能组件划分规则</h3><ul>
+<li>命名规则：<code>library-</code> + <code>后缀名</code></li>
+<li>划分规则：<strong>细粒度</strong>，<strong>高内聚</strong>，为业务组件提供支撑，可以是基础服务，也可以是封装了单一功能组件；</li>
+<li>修改频率：<strong>中</strong>；一旦功能组件稳定，修改频率会大幅降低，向上提供稳定的服务或功能；</li>
+<li>依赖关系：功能组件之间不能依赖，只能向下依赖Base组件；</li>
+<li>主要作用：1、提供基础服务或独立功能；2、抽取封装业务组件内的通用或独立功能，<strong>为业务组件减负</strong>；3、作为APP的中台代码，形成沉淀，提高稳定性；</li>
+</ul>
+<h3 id="4-4-Base组件规则"><a href="#4-4-Base组件规则" class="headerlink" title="4.4 Base组件规则"></a>4.4 Base组件规则</h3><ul>
+<li>命名规则：<code>library</code>，不用加后缀，如果在一个AS工程内，library可以友好的显示到上面；如果是独立git远程aar，groupId本身也可以区分；</li>
+<li>划分规则：进入Base代码要斟酌考虑，区分代码是该封装到功能组件，还是下沉到Base，判断标准是代码通用性，这部分代码是所有组件都需要依赖，还是仅仅只给某个业务组件依赖；</li>
+<li>修改频率：<strong>低</strong>；下沉到Base里的代码，一定要谨慎考虑，高通用性、高稳定性；</li>
+<li>主要作用：为上层组件提供基础支撑；提供App开发常用基础功能；完全非业务耦合；封装三方调用；基础工具类调用；一个APP所不可少的代码封装；</li>
+</ul>
+<h3 id="4-5-app-support，特殊代码存放规则思考"><a href="#4-5-app-support，特殊代码存放规则思考" class="headerlink" title="4.5 app-support，特殊代码存放规则思考"></a>4.5 app-support，特殊代码存放规则思考</h3><p>总有一部分代码不好安放，也是最纠结的地方，比如：启屏页，引导页，首页框架、搜索、我的、设置、关于等等，这部分代码，不属于某块业务，放到功能组件也不合适，更不能放到Base，而且每个App都需要这些代码才能运行，这部分代码一种可行的方式是，创建一个 <code>app-support</code>独立存放。这个组件和业务组件的区别是，app需要app-support</p>
+<ul>
+<li>命名规则： <code>app-support</code></li>
+<li>划分规则：为App运行提供支撑；不明显属于某块独立业务；</li>
+<li>修改频率：<strong>低</strong>；</li>
+<li>依赖关系：只依赖到APP内。后面描述废弃：<code>可以依赖业务组件，做内容填充；比如MainActivity内依赖的Fragment，Fragment本身可以属于某块业务，比如关注列表，如果你有UGC业务，明显属于UGC业务组件 ；</code></li>
+</ul>
+<h2 id="5-组件间通信方式"><a href="#5-组件间通信方式" class="headerlink" title="5. 组件间通信方式"></a>5. 组件间通信方式</h2><h3 id="Activity-界面之间调用"><a href="#Activity-界面之间调用" class="headerlink" title="Activity 界面之间调用"></a>Activity 界面之间调用</h3><pre><code>* 组件对外开放的Activity界面，全部通过定义的Router协议进行跳转；
+* 拦截器：针对需要登录，全局Token失效踢出等进行拦截跳转；
+* 降级支持：页面未找到，提供Toast、空页面，H5页面等降级说明；
+* Router协议的存放：不建议提供中心存放，避免中心依赖；业务组件里有很多对外调用，不要直接把调用写在onClick方法内，在module内部提供一个控制类，统一调用控制即可。
+* https://github.com/chenenyu/Router，轻量、灵活、易懂易用；
+* https://github.com/alibaba/ARouter，功能更丰富强大；
+</code></pre>
+<h3 id="事件或消息跨组件传递"><a href="#事件或消息跨组件传递" class="headerlink" title="事件或消息跨组件传递"></a>事件或消息跨组件传递</h3><pre><code>* 基本原则是，全局事件要慎重考虑，过多的全局事件，必然需要中心存放和频繁修改底层组件，带来不稳定性和耦合；
+* 如果有中心事件源在中台，需要接收和抛出，那么设计好数据结构和接口，使用观察者模式，业务调用层扩展和处理；事件源只传递基础数据，不负责业务处理；
+</code></pre>
+<h2 id="6-大工程的拆分思路"><a href="#6-大工程的拆分思路" class="headerlink" title="6. 大工程的拆分思路"></a>6. 大工程的拆分思路</h2><pre><code>* 分析业务和工程代码，形成组件化架构图，提供整体拆分依据；
+* 目前已独立的服务，按照组件原则拆分解耦，提供远程aar调用；
+* 被依赖基础组件，那些组件是不拆分，阻塞其他代码拆分，优先拆分；
+* 底层Base组件，优先进行；
+* 拆功能组件，留业务组件，业务组件后划分；
+* 自底向上拆分比较容易点；
+* 不要一下子变成远程，先再AS内独立module，再变成远程仓库；
+* 各module自己管理相关业务数据，不要所有http请求都放到一个类；
+</code></pre>
+<p><strong>拆分技巧篇：<a href="/2018/12/31/Andriod-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/">Andriod 组件化实用技巧</a></strong></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>组件化</tag>
+        <tag>模块化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android SplashActivity 启屏页最佳实践</title>
+    <url>/2018/11/17/Android-SplashActivity-%E5%90%AF%E5%B1%8F%E9%A1%B5%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<p>启屏页最佳实践</p>
+<span id="more"></span>
+
+
+<h3 id="1-秒开：主题设置windowBackground，避免启动黑白闪屏"><a href="#1-秒开：主题设置windowBackground，避免启动黑白闪屏" class="headerlink" title="1. 秒开：主题设置windowBackground，避免启动黑白闪屏"></a>1. 秒开：主题设置windowBackground，避免启动黑白闪屏</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;style name=&quot;SplashTheme&quot; parent=&quot;Theme.AppCompat.NoActionBar&quot;&gt;</span><br><span class="line">    &lt;item name=&quot;android:windowBackground&quot;&gt;@mipmap/background_splash&lt;/item&gt;</span><br><span class="line">    &lt;item name=&quot;android:windowFullscreen&quot;&gt;true&lt;/item&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-不设置setContentView，减少启动时间"><a href="#2-不设置setContentView，减少启动时间" class="headerlink" title="2. 不设置setContentView，减少启动时间"></a>2. 不设置setContentView，减少启动时间</h3><h3 id="3-如何更改背景，比如显示首发：在原背景图上，制作一张带“首发”字体的图片，然后在增加一个style主题，然后在onCreate里setTheme"><a href="#3-如何更改背景，比如显示首发：在原背景图上，制作一张带“首发”字体的图片，然后在增加一个style主题，然后在onCreate里setTheme" class="headerlink" title="3. 如何更改背景，比如显示首发：在原背景图上，制作一张带“首发”字体的图片，然后在增加一个style主题，然后在onCreate里setTheme()"></a>3. 如何更改背景，比如显示首发：在原背景图上，制作一张带“首发”字体的图片，然后在增加一个style主题，然后在onCreate里setTheme()</h3><h3 id="4-如何做postDelay后启动MainActivity"><a href="#4-如何做postDelay后启动MainActivity" class="headerlink" title="4. 如何做postDelay后启动MainActivity"></a>4. 如何做postDelay后启动MainActivity</h3><h3 id="5-Show-me-the-code："><a href="#5-Show-me-the-code：" class="headerlink" title="5. Show me the code："></a>5. Show me the code：</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class SplashActivity extends Activity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        // setTheme(R.style.SplashThemeHuawei); // 更改背景</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        getWindow().getDecorView().postDelayed(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                startActivity(new Intent(SplashActivity.this, MainActivity.class));</span><br><span class="line">                finish();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, 1000);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDestroy() &#123;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">        getWindow().getDecorView().getHandler().removeCallbacksAndMessages(null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>参考项目内 <a href="https://github.com/tianshaojie/android-library">android-library</a> SplashActivty</p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
+<li><a href="https//www.bignerdranch.com/blog/splash-screens-the-right-way/">Splash Screens the Right Way</a></li>
+<li><a href="http://blog.chengyunfeng.com/?p=741#ixzz56Q5NtaKD">Android 应用启动界面自定义</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>最佳实践</tag>
+        <tag>Splash</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo + Github Pages 搭建个人博客</title>
+    <url>/2016/02/06/Hexo-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>自由畅快的写博客；</p>
+<span id="more"></span>
+
+<h2 id="1-安装Homebrew"><a href="#1-安装Homebrew" class="headerlink" title="1. 安装Homebrew"></a>1. 安装Homebrew</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Install Homebrew</span></span><br><span class="line">/usr/bin/ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check</span></span><br><span class="line">brew --version</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-安装Node-js-amp-npm"><a href="#2-安装Node-js-amp-npm" class="headerlink" title="2. 安装Node.js &amp; npm"></a>2. 安装Node.js &amp; npm</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Install Node.js</span></span><br><span class="line">brew install node</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Hexo牛刀小试"><a href="#3-Hexo牛刀小试" class="headerlink" title="3. Hexo牛刀小试"></a>3. Hexo牛刀小试</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装hexo-cli</span></span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用Hexo初始化你的Blog目录</span></span><br><span class="line"><span class="built_in">mkdir</span> hexo</span><br><span class="line"><span class="built_in">cd</span> /Users/tiansj/hexo</span><br><span class="line">hexo init blog   <span class="comment"># INFO Cloning hexo-starter to ~/hexo/blog</span></span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动Server，访问127.0.0.1:4000</span></span><br><span class="line">hexo server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个新文章</span></span><br><span class="line">hexo new <span class="string">&quot;Hello Hexo&quot;</span> </span><br><span class="line"><span class="comment">#会在blog/source/_posts下创建Hello-Hexo.md，剩下的写作可以选择任何Markdown工具自由写作</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件（blog/public）</span></span><br><span class="line">hexo generate</span><br><span class="line">hexo server</span><br><span class="line"><span class="comment"># 再次启动，可以看到写做新文章了</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-设置主题"><a href="#4-设置主题" class="headerlink" title="4. 设置主题"></a>4. 设置主题</h2><p>这里用的是<a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak">hexo-theme-tranquilpeak</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 下载喜欢的主题，注意这个主题需要grunt build后才能应用，如果你不想折腾，直接下载生产版本，见上面站点 Quick start 第一项下载最新版本</span><br><span class="line">git clone https://github.com/tianshaojie/hexo-theme-tranquilpeak.git themes/tranquilpeak</span><br><span class="line"></span><br><span class="line"># 修改blog/_config.yml (hexo clean/generate/server)新主题已应用</span><br><span class="line">theme: tranquilpeak</span><br><span class="line"></span><br><span class="line"># 个性化自己的信息</span><br><span class="line">/blog/theme/tranquilpeak/__config.yml</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-生成导航页面，分类页、标签页、文章列表页"><a href="#5-生成导航页面，分类页、标签页、文章列表页" class="headerlink" title="5. 生成导航页面，分类页、标签页、文章列表页"></a>5. 生成导航页面，分类页、标签页、文章列表页</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">在~/hexo/blog/下执行命令</span><br><span class="line">hexo new page <span class="string">&quot;all-categories&quot;</span></span><br><span class="line">hexo new page <span class="string">&quot;all-tags&quot;</span></span><br><span class="line">hexo new page <span class="string">&quot;all-archives&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-编辑-x2F-source-x2F-各个目录下的index-md，重启后导航即生效"><a href="#6-编辑-x2F-source-x2F-各个目录下的index-md，重启后导航即生效" class="headerlink" title="6. 编辑&#x2F;source&#x2F;各个目录下的index.md，重启后导航即生效"></a>6. 编辑&#x2F;source&#x2F;各个目录下的index.md，重启后导航即生效</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: <span class="string">&quot;all-categories&quot;</span></span><br><span class="line">layout: <span class="string">&quot;all-categories&quot;</span></span><br><span class="line">comments: <span class="literal">false</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &quot;all-tags&quot;</span><br><span class="line">layout: &quot;all-tags&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &quot;all-archives&quot;</span><br><span class="line">layout: &quot;all-archives&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-配置Deploy，自动部署到Github上"><a href="#7-配置Deploy，自动部署到Github上" class="headerlink" title="7. 配置Deploy，自动部署到Github上"></a>7. 配置Deploy，自动部署到Github上</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 先生产你的GitHub Pages页面</span><br><span class="line"># 修改blog/_config.yml中的deploy项</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:username/username.github.com.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 在~/hexo/blog下执行</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line"># 自动部署命令，然后华丽丽的看你的网站吧</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-OK，自由的写文章"><a href="#8-OK，自由的写文章" class="headerlink" title="8. OK，自由的写文章"></a>8. OK，自由的写文章</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. hexo new &quot;&lt;&lt;文章名&gt;&gt;&quot;，新建文章</span><br><span class="line">2. ~/hexo/blog/source/_post 下找到对应&lt;&lt;文章名&gt;&gt;.md文件，自由编辑</span><br><span class="line">3. hexo g，生成静态html文件</span><br><span class="line">4. hexo s，部署到线上</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">其他：</span><br><span class="line">1. 只显示摘要，只需要在你想展示内容的位置，添加一行：&lt;!-- more --&gt;</span><br><span class="line">2. 设置Tab：tags: [Hexo,Github]</span><br><span class="line">3. 设置分类category: Hexo</span><br><span class="line">4. Markdown文章内显示图：</span><br><span class="line">	* 图片统一放在source/images文件夹 （source/images/image.jpg）</span><br><span class="line">	* 引用：![](/images/image.jpg)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="9-参考链接"><a href="#9-参考链接" class="headerlink" title="9. 参考链接"></a>9. 参考链接</h2><p><a href="https://hexo.io/zh-cn/docs/">Hexo中文官方文档</a><br><a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak">hexo-theme-tranquilpeak主题文档</a></p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java Byte Code Analyze</title>
+    <url>/2018/11/25/Java-Byte-Code-Analyze/</url>
+    <content><![CDATA[<p>看懂字节码文件</p>
+<span id="more"></span>
+
+<p><img src="/images/Java-Byte-Code.png"></p>
+<p><a href="http://skyui.cn/images/Java-Byte-Code.png">打开大图</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java ByteCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Scrum Introduction</title>
+    <url>/2018/11/25/Scrum-Introduction/</url>
+    <content><![CDATA[<p>敏捷开发扫盲</p>
+<span id="more"></span>
+
+<p><img src="/images/scrum-introduction.png"></p>
+<p><a href="http://skyui.cn/images/scrum-introduction.png">打开大图</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://msdn.microsoft.com/zh-cn/library/dd997578.aspx">敏捷原则和价值 - Jeff Sutherland 著</a></li>
+<li><a href="http://agilemanifesto.org/">敏捷软件开发宣言</a></li>
+<li><a href="http://www.scrumcn.com/agile/scrum-knowledge-library/scrum.html">Scurm 是一个用于开发和维护复杂产品的框架</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Scrum</category>
+      </categories>
+      <tags>
+        <tag>Scrum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jenkins Android自动打包平台配置</title>
+    <url>/2016/02/14/Jenkins-Android%E8%87%AA%E5%8A%A8%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>目标：1. 自动打包；2. 自动上传；3. 友好下载</p>
+<span id="more"></span>	
+
+
+<h1 id="一、Jenkins自动打包配置"><a href="#一、Jenkins自动打包配置" class="headerlink" title="一、Jenkins自动打包配置"></a>一、Jenkins自动打包配置</h1><pre><code>目标：1. 自动打包；2. 自动上传；3. 友好下载
+</code></pre>
+<h2 id="1-Jenkins简介"><a href="#1-Jenkins简介" class="headerlink" title="1. Jenkins简介"></a>1. Jenkins简介</h2><pre><code>Jenkins是基于Java开发的一种持续集成工具，用于监控持续重复的工作。
+减少重复劳动，减少人工成本。
+</code></pre>
+<ul>
+<li>持续、自动地构建&#x2F;测试软件项目；</li>
+<li>监控一些定时执行的任务；</li>
+</ul>
+<h2 id="2-Jenkins配置"><a href="#2-Jenkins配置" class="headerlink" title="2. Jenkins配置"></a>2. Jenkins配置</h2><ul>
+<li>添加git plugin和 role插件 </li>
+<li>设置人员权限，根据角色授权</li>
+<li>启动访问<a href="http://ip/8080%E5%8D%B3%E5%8F%AF%EF%BC%8C%E8%A7%81%E4%B8%8B%603.1">http://ip/8080即可，见下`3.1</a> 开机自启脚本&#96;</li>
+<li>添加git项目，配置脚本，见下<code>3.2 项目打包脚本</code>和<code>3.3 Apk上传脚本</code></li>
+</ul>
+<h2 id="3-自动化脚本"><a href="#3-自动化脚本" class="headerlink" title="3. 自动化脚本"></a>3. 自动化脚本</h2><h3 id="3-1-开机自启脚本"><a href="#3-1-开机自启脚本" class="headerlink" title="3.1 开机自启脚本"></a>3.1 开机自启脚本</h3><ul>
+<li>jenkins.sh</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line"># chkconfig: 2345 10 90</span><br><span class="line"># description: jenkins ....</span><br><span class="line"># This script will be executed *after* all the other init scripts.</span><br><span class="line"># You can put your own initialization stuff in here if you don&#x27;t</span><br><span class="line"># want to do the full Sys V style init stuff.</span><br><span class="line">#prefix=/Users/laifeng/jenkins</span><br><span class="line">#nohup $prefix/jenkins_start.sh &gt;&gt; $prefix/jenkins.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line">JENKINS_ROOT=/Users/laifeng/jenkins</span><br><span class="line">JENKINSFILENAME=jenkins.war</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    echo &quot;Stoping $JENKINSFILENAME &quot;</span><br><span class="line">        ps -ef|grep $JENKINSFILENAME |awk &#x27;&#123;print $2&#125;&#x27;|while read pid</span><br><span class="line">        do</span><br><span class="line">           kill -9 $pid</span><br><span class="line">           echo &quot; $pid kill&quot;</span><br><span class="line">        done</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">start)</span><br><span class="line">    echo &quot;Starting $JENKINSFILENAME &quot;</span><br><span class="line">        nohup java -jar $JENKINS_ROOT/jenkins.war --httpPort=8080 &gt;&gt; $JENKINS_ROOT/jenkins.log 2&gt;&amp;1 &amp;</span><br><span class="line">  ;;</span><br><span class="line">stop)</span><br><span class="line">  stop</span><br><span class="line">  ;;</span><br><span class="line">restart)</span><br><span class="line">  stop</span><br><span class="line">  start</span><br><span class="line">  ;;</span><br><span class="line">status)</span><br><span class="line">  ps -ef|grep $JENKINSFILENAME</span><br><span class="line">  ;;</span><br><span class="line">*)</span><br><span class="line">  printf &#x27;Usage: %s &#123;start|stop|restart|status&#125;\n&#x27; &quot;$prog&quot;</span><br><span class="line">  exit 1</span><br><span class="line">  ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>jenkins_start.sh</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">export ANDROID_HOME=/usr/local/android-sdk</span><br><span class="line">export GRADLE_HOME=/usr/local/gradle-2.2.1</span><br><span class="line">export JENKINS_HOME=/Users/laifeng/.jenkins</span><br><span class="line"></span><br><span class="line">/Users/laifeng/jenkins/jenkins.sh start</span><br><span class="line">/usr/local/apache-tomcat-7.0.67/bin/startup.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Mac上开机自启</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo defaults write com.apple.loginwindow LoginHook /path/to/script </span><br><span class="line"></span><br><span class="line">设置/path/to/script ＝ /Users/laifeng/jenkins/jenkins_start.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-自动化打包和上传"><a href="#3-2-自动化打包和上传" class="headerlink" title="3.2 自动化打包和上传"></a>3.2 自动化打包和上传</h3><h4 id="项目打包脚本"><a href="#项目打包脚本" class="headerlink" title="项目打包脚本"></a>项目打包脚本</h4><p>目前是直接运行Gradle命令，可脚本完成复杂需求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./gradlew clean assembleDebug</span><br></pre></td></tr></table></figure>
+
+<h4 id="Apk上传脚本"><a href="#Apk上传脚本" class="headerlink" title="Apk上传脚本"></a>Apk上传脚本</h4><ul>
+<li>deploy.sh</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">echo &quot;deploy begin......&quot;</span><br><span class="line"></span><br><span class="line">apkName=$1</span><br><span class="line"></span><br><span class="line">currDay=$(date +%Y-%m-%d)</span><br><span class="line">currTime=$(date +%H-%M-%S)</span><br><span class="line">deployPath=&quot;/Users/laifeng/jenkins/android-apks/$&#123;currDay&#125;&quot;</span><br><span class="line"></span><br><span class="line">#echo &quot;$deployPath&quot;</span><br><span class="line"></span><br><span class="line"># 创建文件夹</span><br><span class="line">if [ ! -d &quot;$deployPath&quot; ]; then</span><br><span class="line">        mkdir &quot;$deployPath&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># 拷贝文件到目录</span><br><span class="line">workspaceApkFile=&quot;$&#123;WORKSPACE&#125;/crazytogether/build/outputs/apk/crazytogether-debug.apk&quot;</span><br><span class="line">deployApkFile=&quot;$&#123;deployPath&#125;/$&#123;apkName&#125;-$&#123;currTime&#125;.apk&quot;</span><br><span class="line">#echo &quot;$workspaceApkFile&quot;</span><br><span class="line">#echo &quot;deployApkFile&quot;</span><br><span class="line"></span><br><span class="line">cp $&#123;workspaceApkFile&#125; $&#123;deployApkFile&#125;</span><br><span class="line"></span><br><span class="line">echo &quot;deploy success......&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Tomcat-文件服务器"><a href="#Tomcat-文件服务器" class="headerlink" title="Tomcat 文件服务器"></a>Tomcat 文件服务器</h4><ol>
+<li><p>在tomcat安装目录\conf\Catalina\localhost下建立任意文件名xml文件，比如：download.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;Context  path=&quot;/download&quot; docBase=&quot;D://download&quot; crossContext=&quot;true&quot;&gt;</span><br><span class="line">&lt;/Context&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>修改tomcat配置文件，文件目录\conf\web.xml，要将红色的false改为true</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">	&lt;servlet-name&gt;default&lt;/servlet-name&gt;</span><br><span class="line">	&lt;servlet-class&gt;org.apache.catalina.servlets.DefaultServlet&lt;/servlet-class&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;debug&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;0&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">	&lt;init-param&gt;</span><br><span class="line">		&lt;param-name&gt;listings&lt;/param-name&gt;</span><br><span class="line">		&lt;param-value&gt;false&lt;/param-value&gt;</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">	&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启tomcat，访问<a href="http://127.0.0.1:8080/download">http://127.0.0.1:8080/download</a></p>
+</li>
+</ol>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ul>
+<li><p>添加git 项目无法获得权限，创建ssh key ，把本地ssh key 公钥上传到你用户的git server ，在Jenkins 添加认证，ssh 私钥。</p>
+</li>
+<li><p>自启动脚本无法顺利执行，缺少环境变量，启动的用户不一致，启动顺序有先后，在启动脚本里添加必须的环境变量</p>
+</li>
+<li><p>自启动的脚本是系统启动的，和登陆用户不是一个环境</p>
+</li>
+<li><p>先在本地运行保证脚本的正确性</p>
+</li>
+<li><p>根据Log 查看什么错误</p>
+</li>
+</ul>
+<h1 id="二、Jenkins邮件配置"><a href="#二、Jenkins邮件配置" class="headerlink" title="二、Jenkins邮件配置"></a>二、Jenkins邮件配置</h1><pre><code>目标：1. 构建自动发邮件；2. 邮件模板；3. 组织友好下载链接；
+</code></pre>
+<h2 id="1-邮件配置"><a href="#1-邮件配置" class="headerlink" title="1. 邮件配置"></a>1. 邮件配置</h2><ol>
+<li><p>添加插件：Email Extension Plugin</p>
+</li>
+<li><p>设置SMTP服务器：系统管理-&gt;系统设置-&gt;在Extended E-mail Notification项设置smtp service。注意设置的不是jenkins邮件通知项。</p>
+</li>
+<li><p>设置job邮件配置：</p>
+<ul>
+<li>在“增加构建后操作步骤”选择“Editable Email Notification”</li>
+<li>Project Recipient List，设置接受邮箱，多个邮箱空格隔开即可</li>
+<li>Content Type，选择为HTML</li>
+<li>Default Subject，邮件标题</li>
+<li>Default Content，邮件内容，可以写html</li>
+<li>注意：这些选项里面都可以使用“全局邮件变量”，<a href="http://wcp88888888.iteye.com/blog/2211565">参见链接</a></li>
+</ul>
+</li>
+<li><p>如何设置友好的下载链接：</p>
+<ul>
+<li>下载地址每次都会发生变化，主要是“时间变量”</li>
+<li>“时间变量”，Day，Time需要设置到jenkins的环境变量中，这样后续执行才能共用这些变量，使用</li>
+<li>“构建环境”：勾选“Inject environment variables to the build process”，在下面”Evaluated Groovy script”选项中设置groovy脚本，添加到环境变量</li>
+<li>修改“构建 Excute shell“ deploy.sh脚本，脚本中的时间变量不在是本地定义，而是使用上面设置的构建变量 <code>$&#123;CURR_DAY&#125;</code>, <code>$&#123;CURR_TIME&#125;</code></li>
+<li>修改“Editable Email Notification”-&gt; “Default Content”，当前版本根据“时间变量”<code>$&#123;CURR_DAY&#125;</code>, <code>$&#123;CURR_TIME&#125;</code>动态生产下载地址</li>
+</ul>
+</li>
+<li><p>Evaluated Groovy script 添加如下脚本内容，后续的脚本中，可以引用<code>$&#123;CURR_DAY&#125;</code>, <code>$&#123;CURR_TIME&#125;</code></p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TimeZone.setDefault(TimeZone.getTimeZone(&#x27;Asia/Shanghai&#x27;))</span><br><span class="line">def now = new Date()</span><br><span class="line">def map = [CURR_DAY: now.format(&#x27;yyyy-MM-dd&#x27;), CURR_TIME: now.format(&#x27;HH-mm-ss&#x27;)]</span><br><span class="line">return map</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>Email Default Content 内容</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">文件下载：&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line">当前版本：&lt;a href=&quot;http://10.155.59.205:8081/download/$&#123;CURR_DAY&#125;/branch-2.6.1-$&#123;CURR_TIME&#125;.apk&quot; target=&quot;_blank&quot;&gt;点击下载&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">历史版本：&lt;a href=&quot;http://10.155.59.205:8081/download&quot; target=&quot;_blank&quot;&gt;http://10.155.59.205:8081/download&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;</span><br><span class="line"></span><br><span class="line">构建信息：&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line">项目名称：$PROJECT_NAME&lt;br/&gt;</span><br><span class="line">构建编号：$BUILD_NUMBER&lt;br/&gt;</span><br><span class="line">构建状态：$BUILD_STATUS&lt;br/&gt;</span><br><span class="line">触发原因：$&#123;CAUSE&#125;&lt;br/&gt;</span><br><span class="line">构建日志地址：&lt;a href=&quot;$&#123;BUILD_URL&#125;console&quot;&gt;$&#123;BUILD_URL&#125;console&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">构建地址：&lt;a href=&quot;$BUILD_URL&quot;&gt;$BUILD_URL&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">变更集:$&#123;JELLY_SCRIPT,template=&quot;html&quot;&#125;&lt;br/&gt;&lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">(本邮件是程序自动下发的，请勿回复！&lt;br	&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-其他问题"><a href="#2-其他问题" class="headerlink" title="2. 其他问题"></a>2. 其他问题</h2><ul>
+<li>smtp邮件服务一致无法正常发生，原因可能出在，ssl授权，smtp端口等问题上</li>
+<li>时区问题默认获得的时间少8小时，需要TimeZone为“Asia&#x2F;Shanghai”</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The Software Defined Delivery Manifesto</title>
+    <url>/2018/11/24/The-Software-Defined-Delivery-Manifesto/</url>
+    <content><![CDATA[<p>22 日，近十位开发者联名发布了软件定义交付宣言（The Software Defined Delivery Manifesto）。该宣言指出交付是每个软件团队和组织的基础和战略能力，只有在交付时，代码才有它的价值，才能精准地塑造精彩的世界。交付是如此重要，现在是时候定义交付，并将其应用到开发工作中。</p>
+<p><img src="/images/2c37bbbdc002aa1.jpg"></p>
+<span id="more"></span>
+
+<p>宣言中表示交付工作本质上是独一无二的，应用程序、组织、部署环境和团队的每个组合都有自己的上下文，每个团队都需要理解这种独特的交付和自动化。虽然持续交付对满足业务需求至关重要，但自动化执行所有重复任务也是重中之重。</p>
+<p>工作思路是人类做决策，任务则由自动化去完成，而加速自动化的方式与加速应用的方式相同：使用现代架构、编程语言以及通用框架、代码库与服务。</p>
+<p>Software Defined Delivery 的定义：</p>
+<p><strong>Core:</strong> Delivery is a fundamental and strategic capability for every software team and organization.</p>
+<ul>
+<li><strong>First-class:</strong> Delivery code is production code.</li>
+<li><strong>Strategic:</strong> Decide policy at the team and organization level; implement it with precision, without toil, in code.</li>
+<li><strong>Evolving:</strong> As we learn, we continually improve our delivery.</li>
+</ul>
+<p><strong>Engineered:</strong> In robust, testable code.</p>
+<ul>
+<li><strong>Modern software architecture:</strong> Event-driven and extensible.</li>
+<li><strong>Modern programming languages:</strong> Logic is best specified in code, not pictures or GUIs. Scripts don’t scale.</li>
+<li><strong>Model-based:</strong> Backed by a model of the software domain, with understanding of code.</li>
+<li><strong>Testable:</strong> Enabling short trips to spot errors before production.</li>
+</ul>
+<p><strong>Collaborative:</strong></p>
+<ul>
+<li><strong>Among people:</strong> Each person can express their expertise in code for everyone’s benefit.</li>
+<li><strong>Among software:</strong> We use best-of-breed tools, but how we combine them is unique.</li>
+<li><strong>Between people and software:</strong> Collaborative automation enhances our perception and implements our decisions. It brings information and actions to where we are and makes automated behavior comprehensible to us. Using code, we distinguish between a team’s shared set of delivery objectives, and their implementations.</li>
+</ul>
+<p><strong>Accelerated:</strong></p>
+<ul>
+<li><strong>Through automation:</strong> We automate repeated tasks to speed our work and avoid errors.</li>
+<li><strong>Through reuse:</strong> Common functionality is shared between developers, teams, and organizations.</li>
+</ul>
+<p><strong>Observable:</strong> Common means to observe and troubleshoot what happens in the delivery process as a production system.</p>
+<ul>
+<li><strong>Trace:</strong> Observe activity in a system and trace the relationships between actions.</li>
+<li><strong>Debug:</strong> Interact with and inspect a delivery flow.</li>
+<li><strong>Metrics:</strong> Derive metrics from activity across the entire delivery flow.</li>
+</ul>
+<p><strong>Authors:</strong> (alphabetical by last name): Kenny Bastani, Marc Holmes, Rod Johnson, Jessica Kerr, Mik Kersten, Russ Miles, Erin Schnabel, Matt Stine. With the help and refinement of many members in the community.</p>
+<p>© 2018, the above authors, this declaration may be freely copied in any form, but only in its entirety through this notice.</p>
+<p><strong>宣言见：</strong><a href="https://sdd-manifesto.org/">https://sdd-manifesto.org</a></p>
+<p><strong>GitHub：</strong><a href="https://github.com/sdd-manifesto/manifesto">https://github.com/sdd-manifesto/manifesto</a></p>
+]]></content>
+      <categories>
+        <category>Manifesto</category>
+      </categories>
+      <tags>
+        <tag>Manifesto</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vysor Pro 破解</title>
+    <url>/2018/06/23/Vysor-Pro-%E7%A0%B4%E8%A7%A3/</url>
+    <content><![CDATA[<p>参考链接：<a href="https://www.jianshu.com/p/66608ffebc31">Vysor Pro巧妙破解</a></p>
+]]></content>
+      <categories>
+        <category>Vysor</category>
+      </categories>
+      <tags>
+        <tag>Vysor</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小米手机不能安装Charles证书</title>
+    <url>/2018/06/17/%E5%B0%8F%E7%B1%B3%E6%89%8B%E6%9C%BA%E4%B8%8D%E8%83%BD%E5%AE%89%E8%A3%85Charles%E8%AF%81%E4%B9%A6/</url>
+    <content><![CDATA[<p>姿势很重要</p>
+<span id="more"></span>
+
+<h2 id="安装ssl证书"><a href="#安装ssl证书" class="headerlink" title="安装ssl证书"></a>安装ssl证书</h2><h3 id="失败现场"><a href="#失败现场" class="headerlink" title="失败现场"></a>失败现场</h3><ul>
+<li>按照Charles的提示，手机打开 chls.pro&#x2F;ssl</li>
+<li>小米通过自带浏览器（QQ浏览器或者其它浏览器未测）下载得到一个 getssl.crt 证书</li>
+<li>设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+<li><strong>选择第二步骤获取到的证书，会弹窗提示 没有可安装的证书。，换个姿势再来一次。</strong></li>
+</ul>
+<h3 id="再试一次"><a href="#再试一次" class="headerlink" title="再试一次"></a>再试一次</h3><ul>
+<li>按照Charles的提示，PC打开 chls.pro&#x2F;ssl</li>
+<li>下载得到一个 charles-proxy-ssl-proxying-certificate.pem 证书</li>
+<li>传送到手机（姿势自选）</li>
+<li>设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+<li><strong>姿势正确。</strong></li>
+</ul>
+<h3 id="或者，使用非自带浏览器安装"><a href="#或者，使用非自带浏览器安装" class="headerlink" title="或者，使用非自带浏览器安装"></a>或者，使用非自带浏览器安装</h3><ul>
+<li>手机下载Chrom浏览器</li>
+<li>打开 chls.pro&#x2F;ssl，下载完成后会自动安装证书</li>
+<li>如果没提示安装，在Download下可以找到charles-proxy-ssl-proxying-certificate.pem证书</li>
+<li>手动安装：设置 &gt; 更多设置(系统和设备) &gt; 系统安全 &gt; 从存储设备安装</li>
+</ul>
+<h3 id="PS"><a href="#PS" class="headerlink" title="PS"></a>PS</h3><ul>
+<li>Https无法抓到包，通过就是Charles证书没有正确造成的。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Charles</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android 组件化</title>
+    <url>/2018/12/31/Android-%E7%BB%84%E4%BB%B6%E5%8C%96/</url>
+    <content><![CDATA[<ol>
+<li><a href="/2018/12/31/Android-%E7%BB%84%E4%BB%B6%E5%8C%96%E6%80%9D%E8%B7%AF/">Android 组件化思路</a></li>
+<li><a href="/2018/12/31/Andriod-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/">Andriod 组件化实用技巧</a></li>
+<li><a href="">Andriod 组件化之后的问题和思考 - 未完待续</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>组件化</tag>
+        <tag>模块化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android Vector 使用与兼容</title>
+    <url>/2018/11/17/Android-Vector-%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%85%BC%E5%AE%B9/</url>
+    <content><![CDATA[<p>使用开源图标构建你的App；</p>
+<span id="more"></span>
+
+<h2 id="兼容5-0之前版本"><a href="#兼容5-0之前版本" class="headerlink" title="兼容5.0之前版本"></a>兼容5.0之前版本</h2><h3 id="1-修改一下gradle配置：在Android-5-0之前使用Vector，需要aapt来对资源进行一些处理"><a href="#1-修改一下gradle配置：在Android-5-0之前使用Vector，需要aapt来对资源进行一些处理" class="headerlink" title="1. 修改一下gradle配置：在Android 5.0之前使用Vector，需要aapt来对资源进行一些处理"></a>1. 修改一下gradle配置：在Android 5.0之前使用Vector，需要aapt来对资源进行一些处理</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        vectorDrawables.useSupportLibrary = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-依赖appcompat-v7-23-2"><a href="#2-依赖appcompat-v7-23-2" class="headerlink" title="2. 依赖appcompat-v7:23.2 +"></a>2. 依赖appcompat-v7:23.2 +</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">compile <span class="string">&#x27;com.android.support:appcompat-v7:27.0.2&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-使用AppCompatActivity，同时增加下面这段代码，放在Activity的前面，建议写一个BaseActivity"><a href="#3-使用AppCompatActivity，同时增加下面这段代码，放在Activity的前面，建议写一个BaseActivity" class="headerlink" title="3. 使用AppCompatActivity，同时增加下面这段代码，放在Activity的前面，建议写一个BaseActivity"></a>3. 使用AppCompatActivity，同时增加下面这段代码，放在Activity的前面，建议写一个BaseActivity</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">public class BaseActivity extends AppCompatActivity &#123;</span><br><span class="line">    static &#123;</span><br><span class="line">        AppCompatDelegate.setCompatVectorFromResourcesEnabled(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-控件使用Vector"><a href="#4-控件使用Vector" class="headerlink" title="4. 控件使用Vector"></a>4. 控件使用Vector</h3><p>虽然经过上面3步设置，在低版本系统里面可以使用Vector图标，一些注意地方：</p>
+<ul>
+<li>ImageView，ImageButton要兼容Vector图像，只需要将之前的android:src属性，换成app:srcCompat即可；</li>
+<li>Button，RadioButton，TextView的drawableTop&#x2F;Right&#x2F;Bottom&#x2F;Left，并能直接设置vector drawable，否则在4.x手机上回报资源找不到。解决办法是，使用selector或者layer，包装一下vector drawable，再设置到控件上即可；</li>
+<li>如：selector_bottom_bar_explore.xml</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/ic_explore_primary_24px&quot; android:state_enabled=&quot;true&quot; android:state_focused=&quot;true&quot; android:state_pressed=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/ic_explore_accent_24px&quot; android:state_enabled=&quot;true&quot; android:state_pressed=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/ic_explore_accent_24px&quot; android:state_checked=&quot;true&quot; android:state_enabled=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/ic_explore_primary_24px&quot; /&gt;</span><br><span class="line">&lt;/selector&gt;</span><br></pre></td></tr></table></figure>
+<p>如：ic_arrow_right_gray_wrapped.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">    &lt;item android:drawable=&quot;@drawable/ic_arrow_right_gray_24dp&quot;/&gt;</span><br><span class="line">&lt;/layer-list&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="AS使用说明"><a href="#AS使用说明" class="headerlink" title="AS使用说明"></a>AS使用说明</h2><ol>
+<li><p>在AS项目drawable下右键，new-&gt;Vector Asset</p>
+<p> <img src="/images/C80EAF74-99C4-4E3E-B72E-9D855F909437.png"></p>
+</li>
+<li><p>选择Material Icon可以导入自带库的图标</p>
+<p> <img src="/images/C0A9DCFF-64EC-4CEB-AA3D-7922991DD374.png"></p>
+<p> <img src="/images/1AF05884-41E5-40EA-8311-0D225007DB39.png"></p>
+<p> <img src="/images/A2750078-2CC2-4FE4-8CB5-4274D5CA7734.png"></p>
+</li>
+<li><p>也可以选择导入本地 Local file（SVG, PSD)</p>
+<p> <img src="/images/610708F4-0D4F-46D3-A1B9-63FAEDF591BF.png"></p>
+<p> <img src="/images/F21184E4-168F-470D-8922-3E636B96EC38.png"></p>
+</li>
+<li><p>最后会生产一个xml到drawable下，就可以在控件内部引用了</p>
+</li>
+</ol>
+<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><pre><code>例如：在RadioButton内通过selector使用vector icon:
+</code></pre>
+<h3 id="1-比如从AS自带库导入：ic-home-black-24px-xml，作为selector的默认图"><a href="#1-比如从AS自带库导入：ic-home-black-24px-xml，作为selector的默认图" class="headerlink" title="1. 比如从AS自带库导入：ic_home_black_24px.xml，作为selector的默认图"></a>1. 比如从AS自带库导入：<code>ic_home_black_24px.xml</code>，作为selector的默认图</h3><p><img src="/images/9637F727-879E-4360-930D-87F4445936DA.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:width=&quot;24dp&quot;</span><br><span class="line">    android:height=&quot;24dp&quot;</span><br><span class="line">    android:viewportHeight=&quot;24.0&quot;</span><br><span class="line">    android:viewportWidth=&quot;24.0&quot;&gt;</span><br><span class="line">    &lt;path</span><br><span class="line">        android:fillColor=&quot;#FF000000&quot;</span><br><span class="line">        android:pathData=&quot;M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z&quot; /&gt;</span><br><span class="line">&lt;/vector&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-拷贝一份，并修改-fillColor-色值：ic-home-orange-24px-xml"><a href="#2-拷贝一份，并修改-fillColor-色值：ic-home-orange-24px-xml" class="headerlink" title="2. 拷贝一份，并修改 fillColor 色值：ic_home_orange_24px.xml"></a>2. 拷贝一份，并修改 fillColor 色值：<code>ic_home_orange_24px.xml</code></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">		android:width=&quot;24dp&quot;</span><br><span class="line">		android:height=&quot;24dp&quot;</span><br><span class="line">		android:viewportHeight=&quot;24.0&quot;</span><br><span class="line">		android:viewportWidth=&quot;24.0&quot;&gt;</span><br><span class="line">		&lt;path</span><br><span class="line">    		android:fillColor=&quot;#FF601C&quot;</span><br><span class="line">    		android:pathData=&quot;M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z&quot; /&gt;</span><br><span class="line">&lt;/vector&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-创建selector：widget-bar-home-bg-xml，添加这两个vector-icon"><a href="#3-创建selector：widget-bar-home-bg-xml，添加这两个vector-icon" class="headerlink" title="3. 创建selector：widget_bar_home_bg.xml，添加这两个vector icon"></a>3. 创建selector：<code>widget_bar_home_bg.xml</code>，添加这两个vector icon</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;selector xmlns:android=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">&quot;@drawable/ic_home_black_24dp&quot;</span> android:state_enabled=<span class="string">&quot;true&quot;</span> android:state_focused=<span class="string">&quot;true&quot;</span> android:state_pressed=<span class="string">&quot;false&quot;</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">&quot;@drawable/ic_home_orange_24dp&quot;</span> android:state_enabled=<span class="string">&quot;true&quot;</span> android:state_pressed=<span class="string">&quot;true&quot;</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">&quot;@drawable/ic_home_orange_24dp&quot;</span> android:state_checked=<span class="string">&quot;true&quot;</span> android:state_enabled=<span class="string">&quot;true&quot;</span> /&gt;</span><br><span class="line">	&lt;item android:drawable=<span class="string">&quot;@drawable/ic_home_black_24dp&quot;</span> /&gt;</span><br><span class="line">&lt;/selector&gt;	</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-应用的RadioButton"><a href="#4-应用的RadioButton" class="headerlink" title="4. 应用的RadioButton"></a>4. 应用的RadioButton</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;RadioButton</span><br><span class="line">	android:id=&quot;@+id/foot_bar_home&quot;</span><br><span class="line">	style=&quot;@style/main_footer_bar_radio&quot;</span><br><span class="line">	android:checked=&quot;true&quot;</span><br><span class="line">	android:drawableTop=&quot;@drawable/widget_bar_home_bg&quot;</span><br><span class="line">	android:text=&quot;@string/main_navigation_home&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="5-预览效果"><a href="#5-预览效果" class="headerlink" title="5. 预览效果"></a>5. 预览效果</h3><p><img src="/images/8C442F2C-C9C5-48B6-8A3A-F8F662501CFE.png"></p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>目的是充分利用Google和三方提供的已有资源，提高效率；</li>
+<li>简单的 Vector Icon 图标，(小图标)在资源、内存大小和性能要优于PNG；</li>
+<li>不依赖设计师，就可以做很多漂亮的事情；</li>
+<li>拥抱Material Design，需要跳过的障碍之一;</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>参考项目内 <a href="https://github.com/tianshaojie/android-library">android-library</a> MainActivty</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>用常用的矢量图标获取站：<a href="http://iconfont.cn/">iconfont.cn</a></li>
+<li><a href="https://material.io/icons/">https://material.io/icons/</a></li>
+<li><a href="https://www.jianshu.com/p/e3614e7abc03">Android Vector曲折的兼容之路</a>    </li>
+<li><a href="https://developer.android.com/studio/write/vector-asset-studio.html">官网-添加多密度矢量图形</a></li>
+</ul>
+<h2 id="Log"><a href="#Log" class="headerlink" title="Log"></a>Log</h2><ul>
+<li><p>在5.0之前的系统的，入Android 4.4，drawableLeft, drawableRight，解析layout.xml直接报错：Android invalid drawable tag vector，解决办法，通过代码设置，或者用selector包裹SVG图标，再设置给view</p>
+<p>  <a href="https://stackoverflow.com/questions/36867298/using-android-vector-drawables-on-pre-lollipop-crash/36899459">https://stackoverflow.com/questions/36867298/using-android-vector-drawables-on-pre-lollipop-crash/36899459</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>Vector</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS开发环境配置</title>
+    <url>/2018/12/10/CentOS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>CentOS + JDK、Nexus、Redis、Nginx、MySql</p>
+<span id="more"></span>
+
+
+<h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 官网下载 [JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)</span><br><span class="line">2. 解压到  /usr/local</span><br><span class="line">	tar -zxvf jdk-8u181-linux-x64.tar.gz</span><br><span class="line">3. 设置别名：</span><br><span class="line">	ln -s jdk1.8.0_181/ jdk</span><br><span class="line">4. 设置环境变量</span><br><span class="line">	vi /etc/profile</span><br><span class="line"></span><br><span class="line">	JAVA_HOME=/usr/local/jdk</span><br><span class="line">	JRE_HOME=/usr/local/jdk/jre</span><br><span class="line">	CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">	PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin:$ANT_HOME/bin:$NEXUS_HOME/bin</span><br><span class="line">	export PATH JAVA_HOME CLASSPATH M2_HOME ANT_HOME NEXUS_HOME</span><br><span class="line"></span><br><span class="line">5. source /etc/profile</span><br><span class="line">6. java -version</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nexus"><a href="#Nexus" class="headerlink" title="Nexus"></a>Nexus</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 官网下载：https://help.sonatype.com/repomanager3/download</span><br><span class="line">tar -zxvf nexus-3.13.0-01-unix.tar.gz</span><br><span class="line">ln -s nexus-3.13.0-01 nexus</span><br><span class="line"></span><br><span class="line"># nexus 官网建议不要使用 root 帐户启动应用，所以创建一个 nexus 用户</span><br><span class="line">useradd nexus</span><br><span class="line"></span><br><span class="line"># 修改 nexus 配置，使用 nexus 作为应用启动的帐户</span><br><span class="line">vi nexus/bin/nexus.rc</span><br><span class="line">将内容修改为</span><br><span class="line">run_as_user=&quot;nexus&quot;</span><br><span class="line"></span><br><span class="line"># 修改 nexus 的目录权限</span><br><span class="line">chown nexus nexus</span><br><span class="line"></span><br><span class="line"># 使用</span><br><span class="line">Usage: /usr/local/nexus/bin/nexus &#123;start|stop|run|run-redirect|status|restart|force-reload&#125;</span><br><span class="line"></span><br><span class="line"># 访问</span><br><span class="line">http://ip:8081/nexus/</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 下载最新稳定版：http://download.redis.io/releases/</span><br><span class="line">wget  [http://download.redis.io/releases/redis-4.0.11.tar.gz](http://download.redis.io/releases/redis-4.0.11.tar.gz) </span><br><span class="line">cd /usr/local/</span><br><span class="line">tar zxvf redis-4.0.11.tar.gz</span><br><span class="line">cd redis-4.0.11</span><br><span class="line">ln -s redis-4.0.11 redis</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">cd src/</span><br><span class="line">make install</span><br><span class="line">make test</span><br><span class="line">yum install tcl</span><br><span class="line">make test</span><br><span class="line"></span><br><span class="line"># 常用命令</span><br><span class="line">/usr/local/redis/src/redis-server &amp;</span><br><span class="line">/usr/local/redis/src/redis-cli </span><br><span class="line"></span><br><span class="line"># 设置登录密码</span><br><span class="line">vi /usr/local/redis/redis.conf</span><br><span class="line">去掉行前的注释，并修改密码，保存文件</span><br><span class="line">requirepass xxx</span><br><span class="line"></span><br><span class="line"># 使用密码登录</span><br><span class="line">/usr/local/redis/src/redis-cli -h 127.0.0.1 -p 6379 -a xxx</span><br><span class="line"></span><br><span class="line"># 多端口多实例配置</span><br><span class="line">cd /usr/local/redis</span><br><span class="line">cp redis.conf redis6380.conf</span><br><span class="line">vi redis6380.conf</span><br><span class="line">// 主要修改下面几个配置项就可以了</span><br><span class="line">pidfile /var/run/redis_6380.pid</span><br><span class="line">port 6380</span><br><span class="line">dbfilename dump6380.rdb</span><br><span class="line">appendfilename &quot;appendonly6380.aof&quot;</span><br><span class="line">// 启动</span><br><span class="line">/usr/local/redis/src/redis-server redis6380.conf &amp;</span><br><span class="line">// 查看</span><br><span class="line">ps -ef | grep redis</span><br><span class="line"></span><br><span class="line"># 数据备份、恢复与持久化</span><br><span class="line">[初识Redis（三）：Redis数据备份、恢复与持久化 - 简书](https://www.jianshu.com/p/e04a9e80a998)</span><br><span class="line">[redis备份和恢复的方式 - 简书](https://www.jianshu.com/p/09710f6ad75a)</span><br><span class="line"></span><br><span class="line"># 开放外部访问</span><br><span class="line">vi /usr/local/redis/redis.conf </span><br><span class="line">找到bind 127.0.0.1将其编辑为bind 0.0.0.0 </span><br><span class="line">然后以redis.conf运行</span><br><span class="line">redis-server redis.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="CentOS-7-手动安装-Nginx-1-9-9"><a href="#CentOS-7-手动安装-Nginx-1-9-9" class="headerlink" title="CentOS 7 手动安装 Nginx-1.9.9"></a>CentOS 7 手动安装 Nginx-1.9.9</h2><ul>
+<li>当时最新的版本</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nginx-1.9.9.tar.gz</span><br><span class="line">openssl-1.0.2o.tar.gz  // nginx-1.9.9需使用openssl-1.0.2，最新版本1.1.0会报错</span><br><span class="line">pcre-8.42.tar.gz</span><br><span class="line">zlib-1.2.11.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>安装gcc gcc-c++</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum install -y gcc gcc-c++</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装PCRE库</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cd /usr/local/</span><br><span class="line">$ wget http://jaist.dl.sourceforge.net/project/pcre/pcre/8.42/pcre-8.42.tar.gz</span><br><span class="line">$ tar -zxvf pcre-8.42.tar.gz</span><br><span class="line">$ cd pcre-8.42</span><br><span class="line">$ ./configure</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>安装SSL库</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cd /usr/local/</span><br><span class="line">$ wget http://www.openssl.org/source/openssl-1.0.2o.tar.gz</span><br><span class="line">$ tar -zxvf openssl-1.0.1j.tar.gz</span><br><span class="line">$ cd openssl-1.0.2o</span><br><span class="line">$ ./config</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>安装zlib库存</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cd /usr/local/</span><br><span class="line">$ wget http://zlib.net/zlib-1.2.11.tar.gz</span><br><span class="line">$ tar -zxvf zlib-1.2.11.tar.gz</span><br><span class="line">$ cd zlib-1.2.11</span><br><span class="line">$ ./configure</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>安装Nginx</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 解压</span><br><span class="line">$ cd /usr/local/</span><br><span class="line">$ wget http://nginx.org/download/nginx-1.9.9.tar.gz</span><br><span class="line">$ tar -zxvf nginx-1.9.9.tar.gz</span><br><span class="line">$ cd nginx-1.9.9</span><br><span class="line"></span><br><span class="line"># 配置，注意下面的zlib，pcre，openssl 和你下载的版本号要对应上</span><br><span class="line">./configure —prefix=/usr/local/nginx \</span><br><span class="line">—user=www \</span><br><span class="line">—group=www \</span><br><span class="line">—sbin-path=/usr/local/nginx/sbin/nginx \</span><br><span class="line">—conf-path=/usr/local/nginx/conf/nginx.conf \</span><br><span class="line">—error-log-path=/home/www/log/error.log \</span><br><span class="line">—http-log-path=/home/www/log/access.log \</span><br><span class="line">—pid-path=/home/www/pid/nginx.pid \</span><br><span class="line">—lock-path=/home/www/pid/nginx.lock \</span><br><span class="line">—with-mail \</span><br><span class="line">—with-file-aio \</span><br><span class="line">—with-http_ssl_module \</span><br><span class="line">—with-http_flv_module \</span><br><span class="line">—with-http_dav_module \</span><br><span class="line">—with-http_sub_module \</span><br><span class="line">—with-http_v2_module \</span><br><span class="line">—with-http_realip_module \</span><br><span class="line">—with-http_addition_module \</span><br><span class="line">—with-http_gunzip_module \</span><br><span class="line">—with-http_gzip_static_module \</span><br><span class="line">—with-http_stub_status_module \</span><br><span class="line">—with-zlib=/usr/local/zlib-1.2.11 \</span><br><span class="line">—with-pcre=/usr/local/pcre-8.42 \</span><br><span class="line">—with-openssl=/usr/local/openssl-1.0.2o \</span><br><span class="line">—without-select_module \</span><br><span class="line">—without-poll_module \</span><br><span class="line">—http-client-body-temp-path=/tmp/clientbody \</span><br><span class="line">—http-proxy-temp-path=/tmp/proxy \</span><br><span class="line">—http-fastcgi-temp-path=/tmp/fastcgi \</span><br><span class="line">—http-uwsgi-temp-path=/tmp/uwsgi \</span><br><span class="line">—http-scgi-temp-path=/tmp/scgi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># make</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"># 启动</span><br><span class="line"></span><br><span class="line">/usr/local/nginx/sbin/nginx              # 启动Nginx</span><br><span class="line">/usr/local/nginx/sbin/nginx -t           # 测试配置文件是否有错误</span><br><span class="line">/usr/local/nginx/sbin/nginx -v           # 查看Nginx版本</span><br><span class="line">/usr/local/nginx/sbin/nginx -V           # 查看Nginx版本和编译安装时的编译参数</span><br><span class="line">/usr/local/nginx/sbin/nginx -s stop      # 强制停止Nginx服务</span><br><span class="line">/usr/local/nginx/sbin/nginx -s quit      # 优雅地停止Nginx服务（即处理完所有请求后再停止服务）</span><br><span class="line">/usr/local/nginx/sbin/nginx -s reload    # 重新加载Nginx配置文件，然后以优雅的方式重启Nginx</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 可能遇到的报错解决：nginx: [emerg] getpwnam(“www”) failed，错误的原因是没有创建www这个用户，应该在服务器系统中添加www用户组和用户www，如下命令：</span><br><span class="line"></span><br><span class="line">/usr/sbin/groupadd -f www</span><br><span class="line">/usr/sbin/useradd -g www www</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h2><h3 id="安装说明"><a href="#安装说明" class="headerlink" title="安装说明"></a>安装说明</h3><p>官文足矣，<a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/">MySQL :: A Quick Guide to Using the MySQL Yum Repository</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Go to the download page for MySQL Yum repository at http://dev.mysql.com/downloads/repo/yum/.  下载rpm文件</span><br><span class="line">2. sudo rpm -Uvh mysql80-community-release-el7-1.noarch.rpm   下载的rpm包</span><br><span class="line">3. yum repolist all | grep mysql  检查安装版本，看看enabled的是不是你想要安装的版本</span><br><span class="line">4. sudo yum install mysql-community-server  安装完成了！</span><br><span class="line">5. sudo service mysqld start  启动</span><br><span class="line">6. sudo grep &#x27;temporary password&#x27; /var/log/mysqld.log  查看root原始密码</span><br><span class="line">7. mysql -uroot -p  输入上面的密码</span><br><span class="line">8. ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;MyNewPass4!’ 最后修改密码</span><br></pre></td></tr></table></figure>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo service mysqld start</span><br><span class="line">sudo service mysqld stop</span><br><span class="line">sudo service mysqld status</span><br></pre></td></tr></table></figure>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config=/etc/my.cnf</span><br><span class="line">datadir=/var/lib/mysql</span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line">log-error=/var/log/mysqld.log</span><br><span class="line">pid-file=/var/run/mysqld/mysqld.pid</span><br></pre></td></tr></table></figure>
+<h3 id="MySql-8-远程连接"><a href="#MySql-8-远程连接" class="headerlink" title="MySql 8 远程连接"></a>MySql 8 远程连接</h3><ol>
+<li>使用工具连接时，多半会遇到如下错误：<code>MySQL said: Authentication plugin &#39;caching_sha2_password&#39; cannot be loaded</code><br>参考：<a href="https://blog.csdn.net/vkingnew/article/details/80105323">MySQL 8.0报错：error 2059: Authentication plugin ‘caching_sha2_password’ cannot be loaded</a><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 只需运行此句，注意user要对上，默认是‘root’@‘localhost’</span><br><span class="line">ALTER USER ‘root’@‘%’ IDENTIFIED WITH mysql_native_password BY ‘yourpassword’;</span><br></pre></td></tr></table></figure></li>
+<li>Sequel Pro <a href="https://sequelpro.com/test-builds">Test Builds</a>，目前只有build版本才能连接MySql 8</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MacOS CMake 简单入门</title>
+    <url>/2022/12/04/MacOS-CMake-%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="CMake的安装配置"><a href="#CMake的安装配置" class="headerlink" title="CMake的安装配置"></a>CMake的安装配置</h2><p><strong>安装</strong> <a href="https://cmake.org/download/">https://cmake.org/download/</a></p>
+<p><strong>配置命令行</strong><br>安装完成后打开程序，在菜单栏Tools选项里选择How to install For Command Line Use提供3种配置方式；这里使用第1种方式，写到环境变量里，然后执行cmake –version显示如下表示配置正常</p>
+<span id="more"></span>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203174208.png"><br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203183730.png"></p>
+<h2 id="CMake简介"><a href="#CMake简介" class="headerlink" title="CMake简介"></a>CMake简介</h2><p>CMake是一个开源的跨平台构建工具，可以对代码进行编译、测试及打包操作。<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203182031.png"><br>CMake名字是“cross platform make”的缩写。Make工具里面比较出名的有GNU Make，QT 的qmake，微软的MS nmake，BSD Make（pmake），Makepp，等等。这些 Make 工具遵循着不同的规范和标准，所执行的 Makefile 格式也千差万别。这样就带来了一个严峻的问题：如果软件想跨平台，必须要保证能够在不同平台编译。而如果使用上面的 Make 工具，就得为每一种标准写一次 Makefile ，这将是一件让人抓狂的工作。因此CMake应运而生，它可以让程序员<strong>通过一个与开发平台无关的CMakeList.txt文件来定制整个编译流程，然后再根据目标用户的平台进一步生成所需的Makefile和工程文件</strong>。</p>
+<p>在 linux平台下使用CMake生成 Makefile并编译的流程如下:</p>
+<ol>
+<li>CmakeLists.txt。</li>
+<li>命令“cmake PATH”或者“ccmake PATH”生成 Makefile( PATH是 CMakeLists.txt所在的目录 )。</li>
+<li>make命令进行编译。</li>
+</ol>
+<h2 id="CMake语法规则"><a href="#CMake语法规则" class="headerlink" title="CMake语法规则"></a>CMake语法规则</h2><p>CMake 通过 CMakeLists.txt文件来产生特定平台的标准的构建文件，CMakeLists.txt 的语法比较简单，由 命令、注释 和 空格 组成。命令可以是一个内置命令（如project），也可以是一个用户定义的宏（macro）或者函数（function）。</p>
+<ul>
+<li>CMake 的指令大小写都可以，但变量大小写是有区分的，使用<code>$&#123;&#125;</code>对进行变量的引用，在 IF 等语句中，是直接使用变量名而不通过<code>$&#123;&#125;</code>取值</li>
+<li>CMake 指令的参数使用括弧括起，参数之间使用空格或分号分开</li>
+<li>Cmake 支持正则表达式</li>
+</ul>
+<h2 id="VSCode-CMake-简单使用"><a href="#VSCode-CMake-简单使用" class="headerlink" title="VSCode + CMake 简单使用"></a>VSCode + CMake 简单使用</h2><p>安装VSCode后，安装C++相关插件：C++, CMake, CMake Tools。</p>
+<ol>
+<li>mkdir cmake-helloworld，并使用VSCode打开；</li>
+<li>按F1 或 Command + Shift + P，选择CMake:Quick Start即可创建一个CMake工程；<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121509.png"><br>我电脑是M1平台，这里选择第3个Clang即可<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121641.png"><br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121846.png"><br>接着输入名称创建project<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204122410.png"><br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/9296c16be34945b09a0c02469af92d18.png"><br>project生成完成<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204123025.png"></li>
+<li>运行<br>左侧栏切换到CMake工具目录，右键在终端中运行，即可看到结果<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204201047.png"><br>或者cd到build目录，直接执行可执行文件，也可以看到结果<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/7d3d568bc855438db9b6b1b88e0c7ad6.png"></li>
+</ol>
+<h2 id="LLVM-x2F-Clang-x2F-GCC"><a href="#LLVM-x2F-Clang-x2F-GCC" class="headerlink" title="LLVM&#x2F;Clang&#x2F;GCC"></a>LLVM&#x2F;Clang&#x2F;GCC</h2><h3 id="LLVM是什么？"><a href="#LLVM是什么？" class="headerlink" title="LLVM是什么？"></a>LLVM是什么？</h3><p>LLVM(Low Level Virtual Machine)是一个底层虚拟机，LLVM曾经有一部分功能对虚拟机有所帮助。<br>但是现在，LLVM所代表的基本和虚拟机没有关系了，也不再作为一个缩写使用了，而是直接作为一个名字使用。</p>
+<p>那么LLVM到底是什么？</p>
+<p>LLVM可以被看作是一系列的编译器和工具链技术的集合，而且它们是模块化并且是可重用的。这是LLVM官方的解释。<br>原话是：<br>The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.<br>(官方定义永远是准确精练的)</p>
+<p>LLVM是一个编译器；<br>LLVM是一个编译器框架；<br>LLVM是一系列的编译器工具；<br>LLVM是一个编译器工具链；<br>LLVM是一个C++实现的开源软件；</p>
+<p>这几种对LLVM的理解都对，但是也都是LLVM的一个方面，综合起来就是一个完整的LLVM。<br>所以，从狭义上来说，可以把LLVM理解为一个编译器，但是这个编译器可不仅仅是个编译器，它包含了编译相关的各种工具链，并且有一些相对独立的工具，而且它还是开源的。关键一点LLVM是搞编译的，跟虚拟机已经完全没关系了。</p>
+<h3 id="Clang是什么？"><a href="#Clang是什么？" class="headerlink" title="Clang是什么？"></a>Clang是什么？</h3><p>Clang是一个C、C++、OC语言的轻量级编译器。<br>Clang由Apple公司开发，源代码授权使用BSD的开源授权。<br>Clang是由C++编写，基于LLVM，发布于LLVM BSD许可证下的编译器。<br>它与GNU C语言规范几乎完全兼容，并增加了额外的特性。</p>
+<h3 id="GCC是什么？"><a href="#GCC是什么？" class="headerlink" title="GCC是什么？"></a>GCC是什么？</h3><p>GNU 编译器套件（GNU Compiler Collection），简称为 GCC，是一组编译器和开发工具组合，可用于 Linux、Windows、多种 BSD 以及其他操作系统。几乎所有的 Linux 发行版都预装了 GCC。</p>
+<p>GCC 是一个工具链，用于编译代码，将代码与各种库依赖项连接，并为程序集，最后形成可执行文件。使用 GCC 进行编译的过程很简单，比如：<code>gcc hello.c -o hello</code>，运行这个命令，处理 hello.c 文件，并生成一个名为“hello”的二进制文件</p>
+<h3 id="Clang和GCC比较"><a href="#Clang和GCC比较" class="headerlink" title="Clang和GCC比较"></a>Clang和GCC比较</h3><p>Clang编译速度更快，编译产出更小、出错提示更友好。<br>clang采用的是BSD协议，这是苹果资助LLVM、FreeBSD淘汰GCC换用Clang的重要原因。<br>Clang是LLVM的一个编译器前端。<br>由于优秀的设计，使得Clang非常适合用于开发源代码级别的分析工具。<br>Clang对源程序进行语法分析和语义分析，并将分析结果转换为Abstract Syntax Tree(抽象语法树)，最后使用LLVM作为后端代码的生成器。<br>Clang的开发目标是提供一个可以替代GCC的前端编译器。<br>由于GNU编译器套装（GCC）系统庞大，而且Apple大量使用的OC在GCC中优先级较低，同时GCC作为一个纯粹的编译系统，与IDE配合并不优秀。</p>
+]]></content>
+      <tags>
+        <tag>cmake</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GCC/make/Makefile知识点</title>
+    <url>/2022/12/07/GCC-make-Makefile%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+    <content><![CDATA[<h2 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h2><p>GCC的初衷是为GNU操作系统专门编写一款<strong>编译器</strong>，现已被大多数类Unix操作系统（如Linux、BSD、MacOS X等）采纳为标准的编译器，甚至在微软的Windows上也可以使用GCC。GCC支持多种计算机体系结构芯片，如x86、ARM、MIPS等，并已被移植到其他多种硬件平台。</p>
+<p>GCC原名为GNU C语言编译器（GNU C Compiler），只能处理C语言。但其很快扩展，变得可处理C++，后来又扩展为能够支持更多编程语言，如Fortran、Pascal、Objective -C、Java、Ada、Go以及各类处理器架构上的汇编语言等，所以改名GNU编译器套件（GNU Compiler Collection）。</p>
+<span id="more"></span>
+<p>GCC是编译器，可以把源码编译 <code>可执行文件</code> 或 <code>动态链接库</code> ，例如：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span>, <span class="type">char</span>**)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello, world!\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译动态dll库(–shared选项指定生成动态连接库)：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -lstdc++ --shared main.cpp -o main.dll</span><br></pre></td></tr></table></figure>
+
+<p>编译可执行文件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc -lstdc++ main.cpp -o main</span><br></pre></td></tr></table></figure>
+
+<p><em>mac下使用clang命令执行</em></p>
+<h2 id="make-amp-Makefile"><a href="#make-amp-Makefile" class="headerlink" title="make &amp; Makefile"></a>make &amp; Makefile</h2><p>make只是一个根据指定的Shell命令进行构建的工具，它的规则很简单，你规定要构建哪个文件、它依赖哪些源文件，当那些文件有变动时，如何重新构建它。</p>
+<p>源文件首先会生成中间目标文件（O文件或是OBJ文件），再由中间目标文件生成执行文件。无论是C、C++，首先要把源文件编译成<strong>中间代码文件</strong>，在Windows下也就是 .obj 文件，UNIX下是 .o 文件，即 Object File，这个动作叫做编译（compile）。然后再把大量的Object File合成执行文件，这个动作叫作链接（link）。</p>
+<p>make命令执行时，需要一个 Makefile 文件，以告诉make命令需要怎么样的去编译和链接程序。</p>
+<p>Makefile 文件<strong>描述</strong>了 Linux 系统下 C&#x2F;C++ 工程的<strong>编译规则</strong>，<strong>它用来自动化编译 C&#x2F;C++ 项目</strong>。一旦写编写好 Makefile 文件，只需要一个 make 命令，整个工程就开始自动编译，<strong>不再需要手动执行 GCC 命令</strong>。</p>
+<h2 id="CMake"><a href="#CMake" class="headerlink" title="CMake"></a>CMake</h2><p>CMake(cross platform make)是一个开源的跨平台构建工具，可以对代码进行编译、测试及打包操作。</p>
+<p>Make工具里面比较出名的有GNU Make，QT 的qmake，微软的MS nmake，BSD Make（pmake），Makepp，等等。这些 Make 工具遵循着不同的规范和标准，所执行的 Makefile 格式也千差万别。</p>
+<p>这样就带来了一个严峻的问题：如果软件想跨平台，必须要保证能够在不同平台编译。而如果使用上面的 Make 工具，就得为每一种标准写一次 Makefile ，这将是一件让人抓狂的工作。</p>
+<p>因此CMake应运而生，它可以让程序员<strong>通过一个与开发平台无关的CMakeList.txt文件来定制整个编译流程，然后再根据目标用户的平台进一步生成所需的Makefile和工程文件</strong>。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Flutter FFI 插件库开发</title>
+    <url>/2022/12/10/Flutter-FFI-%E6%8F%92%E4%BB%B6%E5%BA%93%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h2 id="FFI-plugin-插件库创建命令"><a href="#FFI-plugin-插件库创建命令" class="headerlink" title="FFI plugin 插件库创建命令"></a>FFI plugin 插件库创建命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flutter create --org com.cnht.flutter.hello --template=plugin_ffi --platforms=android,ios,macos,windows hello</span><br></pre></td></tr></table></figure>
+
+<p>使用–template&#x3D;plugin_ffi可以创建一个ffi plugin，此处是通过命令行生产ffi接口，如果自定义接口，可以参考文末链接，制作ffi接口。</p>
+<p>这种方式是<strong>dart依赖c源码方式提供插件库</strong>，不用预先编译动态链接库放到插件工程，通过CMake编译生成各个Native平台的动态链接库，源码都在src目录下管理。</p>
+<p>ios和macos的Classes目录下hello.c，通过include引用src目录下的源码，源码放在一个目录方便维护。</p>
+<span id="more"></span>
+
+<h2 id="FFI-plugin-插件库代码结构"><a href="#FFI-plugin-插件库代码结构" class="headerlink" title="FFI plugin 插件库代码结构"></a>FFI plugin 插件库代码结构</h2><p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221209171826.png"><br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221209174236.png"></p>
+<h2 id="FFI-plugin-调用Native构建方式"><a href="#FFI-plugin-调用Native构建方式" class="headerlink" title="FFI plugin 调用Native构建方式"></a>FFI plugin 调用Native构建方式</h2><ul>
+<li>对于Android：通过Gradle调用Android NDK为原生构建。 <ul>
+<li>参考.android&#x2F;build.gradle中的配置</li>
+</ul>
+</li>
+<li>对于iOS、MacOS：通过Xcode CocoaPods构建<ul>
+<li>参考.ios&#x2F;hello.podspec中的配置</li>
+<li>参考.macos&#x2F;hello.podspec中的配置</li>
+</ul>
+</li>
+<li>对于Linux、Windows：通过CMake构建<ul>
+<li>参考.linux&#x2F;CMakeLists.txt中的配置</li>
+<li>参考.windows&#x2F;CMakeLists.txt中的配置</li>
+</ul>
+</li>
+</ul>
+<p>例如运行Android时，通过gradle调用CMake生成libhello.so，然后再把so文件打包到hello-debug.aar内，就生成了一个完整的Android AAR库，可以给Android项目使用。<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221210145423.png"><br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221209173334.png"></p>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="FFI-库只能与-C-符号绑定"><a href="#FFI-库只能与-C-符号绑定" class="headerlink" title="FFI 库只能与 C 符号绑定"></a>FFI 库只能与 C 符号绑定</h3><p>因此在 C++ 中，这些符号添加 extern C 标记。还应该添加属性来表明符号是需要被 Dart 引用的，以防止链接器在优化链接时会丢弃符号。</p>
+<p>例如，创建一个 C++ 文件 native_add.cpp</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __attribute__((<span class="built_in">visibility</span>(<span class="string">&quot;default&quot;</span>))) __attribute__((used))</span><br><span class="line"><span class="function"><span class="type">int32_t</span> <span class="title">native_add</span><span class="params">(<span class="type">int32_t</span> x, <span class="type">int32_t</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="CMakeList文件内指定Language"><a href="#CMakeList文件内指定Language" class="headerlink" title="CMakeList文件内指定Language"></a>CMakeList文件内指定Language</h3><p>目前在生成FFI库时，碰到当指定<code>LANGUAGES C</code>会影响Android CMake编译，改成<code>LANGUAGES CXX</code>运行正常。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">project</span>(xxx_library VERSION <span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span> LANGUAGES CXX)</span><br><span class="line"><span class="comment"># project(xxx_library VERSION 0.0.1 LANGUAGES C)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://flutter.cn/docs/development/packages-and-plugins/developing-packages">Flutter Packages 的开发和提交</a></li>
+<li><a href="https://dart.cn/guides/libraries/c-interop">使用 dart:ffi 与 C 进行交互</a></li>
+<li><a href="https://flutter.cn/docs/development/platform-integration/android/c-interop">Android 上使用 dart:ffi 调用本地代码</a></li>
+<li><a href="https://flutter.cn/docs/development/platform-integration/ios/c-interop">在 iOS 中使用 dart:ffi 调用本地代码</a></li>
+<li><a href="https://flutter.cn/docs/development/platform-integration/macos/c-interop">在 macOS 中使用 dart:ffi 调用本地代码</a></li>
+<li><a href="https://github.com/dart-lang/samples/tree/master/ffi/">Dart FFI Samples</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Flutter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Flutter 使用 ffigen 生成 FFI 的绑定</title>
+    <url>/2022/12/11/Flutter-%E4%BD%BF%E7%94%A8-ffigen-%E7%94%9F%E6%88%90-FFI-%E7%9A%84%E7%BB%91%E5%AE%9A/</url>
+    <content><![CDATA[<h2 id="ffigen-的作用"><a href="#ffigen-的作用" class="headerlink" title="ffigen 的作用"></a>ffigen 的作用</h2><hr>
+<p>当你使用的C代码库内有大量API时，要花费大量时间编写 C 函数的 FFI 类型定义 及 对应的调用 C 函数 Dart Function，如下面两段代码。此时你可以使用 package:ffigen 绑定生成器，自动地从 C 头文件生成 FFI 包装，从而减少时间消耗。</p>
+<p>为 C 函数的 FFI 类型签名的定义一个类型。</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> hello_world_func = ffi.Void <span class="built_in">Function</span>();</span><br></pre></td></tr></table></figure>
+<p>为调用 C 函数的变量定义一个类型。</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> HelloWorld = <span class="keyword">void</span> <span class="built_in">Function</span>();</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="安装-LLVM"><a href="#安装-LLVM" class="headerlink" title="安装 LLVM"></a>安装 LLVM</h2><hr>
+<p>package:ffigen 依赖 LLVM，首先安装LLVM (9+) </p>
+<h3 id="ubuntu-x2F-linux"><a href="#ubuntu-x2F-linux" class="headerlink" title="ubuntu&#x2F;linux"></a>ubuntu&#x2F;linux</h3><ol>
+<li>Install libclangdev - <code>sudo apt-get install libclang-dev</code>.</li>
+</ol>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ol>
+<li>Install Visual Studio with C++ development support.</li>
+<li>Install LLVM or winget install -e –id LLVM.LLVM.</li>
+</ol>
+<h3 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h3><ol>
+<li>Install Xcode.</li>
+<li>Install LLVM - <code>brew install llvm</code>.</li>
+<li>设置到环境变量，使用如下命令，或者自行添加到 .bash_profile</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">If you need to have llvm first in your PATH, run:</span><br><span class="line">  echo &#x27;export PATH=&quot;/opt/homebrew/opt/llvm/bin:$PATH&quot;&#x27; &gt;&gt; ~/.zshrc</span><br><span class="line"></span><br><span class="line">For compilers to find llvm you may need to set:</span><br><span class="line">  export LDFLAGS=&quot;-L/opt/homebrew/opt/llvm/lib&quot;</span><br><span class="line">  export CPPFLAGS=&quot;-I/opt/homebrew/opt/llvm/include&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><hr>
+<p>两种配置方式：</p>
+<ol>
+<li>In the project’s pubspec.yaml file under the key ffigen, running - <code>dart run ffigen</code></li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line">ffigen:</span><br><span class="line">  output: <span class="string">&#x27;hello_bindings_generated.dart&#x27;</span></span><br><span class="line">  headers:</span><br><span class="line">    entry-points:</span><br><span class="line">      - <span class="string">&#x27;hello.h&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Via a custom YAML file, then specify this file while running - <code>dart run ffigen --config config.yaml</code></li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"># Run <span class="keyword">with</span> `flutter pub run ffigen --config ffigen.yaml`.</span><br><span class="line">name: HelloBindings</span><br><span class="line">description: |</span><br><span class="line">  Bindings <span class="keyword">for</span> `src/hello.h`.</span><br><span class="line"></span><br><span class="line">  Regenerate bindings <span class="keyword">with</span> `flutter pub run ffigen --config ffigen.yaml`.</span><br><span class="line">output: <span class="string">&#x27;lib/hello_bindings_generated.dart&#x27;</span></span><br><span class="line">headers:</span><br><span class="line">  entry-points:</span><br><span class="line">    - <span class="string">&#x27;src/hello.h&#x27;</span></span><br><span class="line">  include-directives:</span><br><span class="line">    - <span class="string">&#x27;src/hello.h&#x27;</span></span><br><span class="line">preamble: |</span><br><span class="line">  <span class="comment">// ignore_for_file: always_specify_types</span></span><br><span class="line">  <span class="comment">// ignore_for_file: camel_case_types</span></span><br><span class="line">  <span class="comment">// ignore_for_file: non_constant_identifier_names</span></span><br><span class="line">comments:</span><br><span class="line">  style: any</span><br><span class="line">  length: full</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://pub.flutter-io.cn/packages/ffigen">https://pub.flutter-io.cn/packages/ffigen</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Flutter</tag>
+      </tags>
+  </entry>
+</search>
