@@ -151,18 +151,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -187,6 +187,100 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://skyui.cn/2022/12/25/Shell-sed-%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tianshaojie">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tianshaojie's blog">
+      <meta itemprop="description" content="耐心是不会让你吃亏的">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Tianshaojie's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/25/Shell-sed-%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Shell sed 命令</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-25 20:33:48 / 修改时间：20:44:42" itemprop="dateCreated datePublished" datetime="2022-12-25T20:33:48+08:00">2022-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>sed是stream editor的简称，是一款功能强大的流式文本编辑器。由于sed是以行为单位进行编辑文件 , 因此也称为行编辑器。</p>
+<p>sed由标准输入读取编辑文件，读入一行或指定行放到模式空间”pattern space”，然后将所有编辑指令逐一对模式空间的内容进行编辑，之后将结果输出到标准输出，同时清除模式空间。接下来再将下一行资料读入模式空间，如此重复之前的操作，直到最后一行，流编辑器停止。</p>
+<p>默认情况下所有的输出行都被打印到屏幕上，源文件内容并没有改变，除非你使用重定向存储输出。</p>
+<p>sed 可以配合正则表达式使用，对文件内容进行替换、删除、新增、选取特定行等功能，用来自动编辑一个或多个文件，简化对文件的反复操作，编写转换程序等，功能十分强大。</p>
+<h2 id="系统差异"><a href="#系统差异" class="headerlink" title="系统差异"></a>系统差异</h2><p>linux 环境默认是 <a target="_blank" rel="noopener" href="http://www.gnu.org/software/sed/">GNU sed</a>, macOS 默认使用的 <a target="_blank" rel="noopener" href="https://www.freebsd.org/cgi/man.cgi?query=sed">BSD sed</a>。</p>
+<p>macOS下sed总是会碰到一些奇怪的问题，或者查到命令执行无效，所以在macOS下最好安装gnu-sed，用gsed与linux下的sed是几乎一样的。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew install gnu-sed</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">然后设置到环境变量 .bash_profile 或 .zshrc 即可</span></span><br><span class="line">PATH=&quot;/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><p><code>sed [option] &#39;command&#39; input_file</code></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/12/25/Shell-sed-%E5%91%BD%E4%BB%A4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -224,9 +318,24 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-12-18 22:32:10 / 修改时间：22:38:36" itemprop="dateCreated datePublished" datetime="2022-12-18T22:32:10+08:00">2022-12-18</time>
+      <time title="创建时间：2022-12-18 22:32:10" itemprop="dateCreated datePublished" datetime="2022-12-18T22:32:10+08:00">2022-12-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-25 20:42:14" itemprop="dateModified" datetime="2022-12-25T20:42:14+08:00">2022-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+        </span>
     </span>
 
   
@@ -301,9 +410,24 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-12-11 22:45:12 / 修改时间：22:49:52" itemprop="dateCreated datePublished" datetime="2022-12-11T22:45:12+08:00">2022-12-11</time>
+      <time title="创建时间：2022-12-11 22:45:12" itemprop="dateCreated datePublished" datetime="2022-12-11T22:45:12+08:00">2022-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-25 20:41:39" itemprop="dateModified" datetime="2022-12-25T20:41:39+08:00">2022-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
+        </span>
     </span>
 
   
@@ -391,7 +515,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-11 22:31:47" itemprop="dateModified" datetime="2022-12-11T22:31:47+08:00">2022-12-11</time>
+      <time title="修改时间：2022-12-25 20:40:31" itemprop="dateModified" datetime="2022-12-25T20:40:31+08:00">2022-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
+        </span>
     </span>
 
   
@@ -470,9 +603,24 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-12-07 22:44:20 / 修改时间：22:44:43" itemprop="dateCreated datePublished" datetime="2022-12-07T22:44:20+08:00">2022-12-07</time>
+      <time title="创建时间：2022-12-07 22:44:20" itemprop="dateCreated datePublished" datetime="2022-12-07T22:44:20+08:00">2022-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-25 20:41:04" itemprop="dateModified" datetime="2022-12-25T20:41:04+08:00">2022-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CMake/" itemprop="url" rel="index"><span itemprop="name">CMake</span></a>
+        </span>
     </span>
 
   
@@ -556,7 +704,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-07 22:28:22" itemprop="dateModified" datetime="2022-12-07T22:28:22+08:00">2022-12-07</time>
+      <time title="修改时间：2022-12-25 20:42:42" itemprop="dateModified" datetime="2022-12-25T20:42:42+08:00">2022-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CMake/" itemprop="url" rel="index"><span itemprop="name">CMake</span></a>
+        </span>
     </span>
 
   
@@ -937,89 +1094,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://skyui.cn/2018/12/31/Android-%E7%BB%84%E4%BB%B6%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tianshaojie">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tianshaojie's blog">
-      <meta itemprop="description" content="耐心是不会让你吃亏的">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Tianshaojie's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/31/Android-%E7%BB%84%E4%BB%B6%E5%8C%96/" class="post-title-link" itemprop="url">Android 组件化</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2018-12-31 10:45:43 / 修改时间：14:45:51" itemprop="dateCreated datePublished" datetime="2018-12-31T10:45:43+08:00">2018-12-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol>
-<li><a href="/2018/12/31/Android-%E7%BB%84%E4%BB%B6%E5%8C%96%E6%80%9D%E8%B7%AF/">Android 组件化思路</a></li>
-<li><a href="/2018/12/31/Andriod-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/">Andriod 组件化实用技巧</a></li>
-<li><a href="">Andriod 组件化之后的问题和思考 - 未完待续</a></li>
-</ol>
-
       
     </div>
 
