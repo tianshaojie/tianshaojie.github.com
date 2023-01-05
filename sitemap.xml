@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://skyui.cn/guestbook/index.html</loc>
+    
+    <lastmod>2023-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2022/12/25/Shell-sed-%E5%91%BD%E4%BB%A4/</loc>
+    
+    <lastmod>2022-12-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2022/12/04/MacOS-CMake-%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2022-12-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2022/12/18/Shell-%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E7%AC%A6%E5%92%8C%E9%99%90%E5%AE%9A%E7%AC%A6/</loc>
+    
+    <lastmod>2022-12-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2022/12/11/Flutter-%E4%BD%BF%E7%94%A8-ffigen-%E7%94%9F%E6%88%90-FFI-%E7%9A%84%E7%BB%91%E5%AE%9A/</loc>
+    
+    <lastmod>2022-12-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2022/12/07/GCC-make-Makefile%E7%9F%A5%E8%AF%86%E7%82%B9/</loc>
+    
+    <lastmod>2022-12-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2022/12/10/Flutter-FFI-%E6%8F%92%E4%BB%B6%E5%BA%93%E5%BC%80%E5%8F%91/</loc>
+    
+    <lastmod>2022-12-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/404.html</loc>
+    
+    <lastmod>2022-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/index.html</loc>
+    
+    <lastmod>2022-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/index.html</loc>
+    
+    <lastmod>2022-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/archives/index.html</loc>
+    
+    <lastmod>2022-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/11/17/Android-Vector-%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%85%BC%E5%AE%B9/</loc>
+    
+    <lastmod>2019-04-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2019/04/11/Android-Q-%E9%80%82%E9%85%8D/</loc>
+    
+    <lastmod>2019-04-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2019/01/01/Andriod-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%90%8E%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E6%80%9D%E8%80%83/</loc>
+    
+    <lastmod>2019-01-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/12/31/Android-%E7%BB%84%E4%BB%B6%E5%8C%96/</loc>
+    
+    <lastmod>2018-12-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/12/31/Android-%E7%BB%84%E4%BB%B6%E5%8C%96%E6%80%9D%E8%B7%AF/</loc>
+    
+    <lastmod>2018-12-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/12/31/Andriod-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/</loc>
+    
+    <lastmod>2018-12-31</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/12/10/CentOS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2018-12-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/11/25/Scrum-Introduction/</loc>
+    
+    <lastmod>2018-11-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/11/25/Java-Byte-Code-Analyze/</loc>
+    
+    <lastmod>2018-11-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/11/24/The-Software-Defined-Delivery-Manifesto/</loc>
+    
+    <lastmod>2018-11-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2016/02/06/Hexo-Github-Pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2018-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2016/02/14/Android-Code-Style/</loc>
+    
+    <lastmod>2018-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/06/17/%E5%B0%8F%E7%B1%B3%E6%89%8B%E6%9C%BA%E4%B8%8D%E8%83%BD%E5%AE%89%E8%A3%85Charles%E8%AF%81%E4%B9%A6/</loc>
+    
+    <lastmod>2018-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2016/02/14/Jenkins-Android%E8%87%AA%E5%8A%A8%E6%89%93%E5%8C%85%E5%B9%B3%E5%8F%B0%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2018-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/06/23/Vysor-Pro-%E7%A0%B4%E8%A7%A3/</loc>
+    
+    <lastmod>2018-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/11/17/Android-Fragment-%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98/</loc>
+    
+    <lastmod>2018-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/11/17/Android-Toolbar-%E9%81%BF%E5%9D%91%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
+    
+    <lastmod>2018-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/2018/11/17/Android-SplashActivity-%E5%90%AF%E5%B1%8F%E9%A1%B5%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
+    
+    <lastmod>2018-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  <url>
+    <loc>http://skyui.cn/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>http://skyui.cn/tags/Android/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Fragment/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Vector/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Toolbar/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Splash/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Linux/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Flutter/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/ffi/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/CMake/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Jenkins/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Java-ByteCode/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Hexo/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Github/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Shell/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/sed/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Scrum/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Manifesto/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Vysor/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/tags/Charles/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>http://skyui.cn/categories/Android/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/Linux/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/Flutter/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/CMake/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/Java/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/Hexo/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/Shell/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/Scrum/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/Manifesto/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://skyui.cn/categories/Vysor/</loc>
+    <lastmod>2023-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+</urlset>
