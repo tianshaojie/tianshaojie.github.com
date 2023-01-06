@@ -404,6 +404,9 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Tianshaojie</span>
+    <span class="beian">
+      &nbsp;<a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备18057983号 </a>
+    </span>
 </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
@@ -478,8 +481,12 @@ document.addEventListener('page:loaded', () => {
     .then(() => {
       new Valine(CONFIG.valine);
       //隐藏Valine信息
-      document.querySelector('.vempty').style.display = 'none';
-      document.querySelector('.vpower').style.display = 'none';
+      if(document.querySelector('.vempty')) {
+        document.querySelector('.vempty').style.display = 'none';
+      }
+      if(document.querySelector('.vpower')) {
+        document.querySelector('.vpower').style.display = 'none';
+      }
     });
 });
 </script>
