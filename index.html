@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -187,6 +187,119 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://skyui.cn/post/9d33.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tianshaojie">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tianshaojie's blog">
+      <meta itemprop="description" content="耐心是不会让你吃亏的">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Tianshaojie's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/9d33.html" class="post-title-link" itemprop="url">Flutter Windows Desktop 应用开发</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-07 12:20:26 / 修改时间：20:21:19" itemprop="dateCreated datePublished" datetime="2023-01-07T12:20:26+08:00">2023-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/post/9d33.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/9d33.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Windows应用开发环境准备"><a href="#Windows应用开发环境准备" class="headerlink" title="Windows应用开发环境准备"></a>Windows应用开发环境准备</h2><h3 id="1-安装Flutter-SDK"><a href="#1-安装Flutter-SDK" class="headerlink" title="1. 安装Flutter SDK"></a>1. 安装Flutter SDK</h3><p>安装到C盘或D盘根目录即可，*<em>不要安装到 C:\Program Files*</em> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/flutter/flutter.git -b master</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-设置环境变量"><a href="#2-设置环境变量" class="headerlink" title="2. 设置环境变量"></a>2. 设置环境变量</h3><p>编辑path环境变量，点击新建，输入复制的flutter bin目录地址。点击确定<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230107122333.png"></p>
+<h3 id="3-开启Desktop平台支持"><a href="#3-开启Desktop平台支持" class="headerlink" title="3. 开启Desktop平台支持"></a>3. 开启Desktop平台支持</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter config --enable-macos-desktop</span><br><span class="line">flutter config --enable-linux-desktop</span><br><span class="line">flutter config --enable-windows-desktop</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-检查安装是否成功"><a href="#4-检查安装是否成功" class="headerlink" title="4. 检查安装是否成功"></a>4. 检查安装是否成功</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter doctor -v</span><br></pre></td></tr></table></figure>
+
+<p>看到此项是对钩表示成功<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230107122625.png"></p>
+<p>查看Flutter支持devices，看到有Windows (desktop)即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter devices</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-安装Visual-Studio"><a href="#5-安装Visual-Studio" class="headerlink" title="5. 安装Visual Studio"></a>5. 安装Visual Studio</h3><p>安装 <a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/downloads/">Visual Studio 2022</a> 或<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/releases/2019/release-notes">Visual Studio 2019</a>，需要选择「使用 C++ 的桌面开发」，包括其所有默认组件，以安装必要的 C++ 工具链和 Windows SDK 的头文件。<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230107122514.png"></p>
+<h3 id="6-安装Android-Studio"><a href="#6-安装Android-Studio" class="headerlink" title="6. 安装Android Studio"></a>6. 安装Android Studio</h3><p>安装 <a target="_blank" rel="noopener" href="https://developer.android.com/studio">Android Studio</a>，并且安装 flutter 和 dart 插件。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/post/9d33.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1147,118 +1260,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/8e6d.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://skyui.cn/post/6314.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tianshaojie">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tianshaojie's blog">
-      <meta itemprop="description" content="耐心是不会让你吃亏的">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Tianshaojie's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/post/6314.html" class="post-title-link" itemprop="url">Android 组件化思路</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-31 11:03:35" itemprop="dateCreated datePublished" datetime="2018-12-31T11:03:35+08:00">2018-12-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-05 22:32:57" itemprop="dateModified" datetime="2023-01-05T22:32:57+08:00">2023-01-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/post/6314.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/post/6314.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h2><ul>
-<li>几十万行甚至上百万行代码的大工程，100%代码编译，打包时间长；</li>
-<li>业务交叉、耦合严重、修改一个问题可能引出多个问题；</li>
-<li>非本次迭代业务代码被修改上线；</li>
-<li>代码零乱影响开发心情和效率；</li>
-<li>并行开发难，上线测试范围广；</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/post/6314.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
