@@ -226,7 +226,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-01-07 20:28:47 / 修改时间：20:58:59" itemprop="dateCreated datePublished" datetime="2023-01-07T20:28:47+08:00">2023-01-07</time>
+      <time title="创建时间：2023-01-07 20:28:47 / 修改时间：22:17:03" itemprop="dateCreated datePublished" datetime="2023-01-07T20:28:47+08:00">2023-01-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -280,10 +280,6 @@
 <li>开始菜单找到Ubuntu程序点击打开（推荐）</li>
 <li>在命令提示符中输入 wsl（看到的linux目录比较奇怪）</li>
 </ol>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6991626371608903694">如何在windows 11中安装WSLG(WSL2)</a></li>
-<li><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/308742">Windows11上WSL2子系统Ubuntu安装Gnome桌面</a></li>
-</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/9a3d.html#more" rel="contents">
@@ -347,7 +343,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-01-07 12:20:26 / 修改时间：22:04:29" itemprop="dateCreated datePublished" datetime="2023-01-07T12:20:26+08:00">2023-01-07</time>
+      <time title="创建时间：2023-01-07 12:20:26 / 修改时间：22:17:25" itemprop="dateCreated datePublished" datetime="2023-01-07T12:20:26+08:00">2023-01-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -383,8 +379,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="Flutter-on-Windows"><a href="#Flutter-on-Windows" class="headerlink" title="Flutter on Windows"></a>Flutter on Windows</h2><p>本章节是官网对 Flutter on Windows 的一些关键描述</p>
-<p>Flutter 跨平台的核心是：便携、 Skia 图形引擎、Flutter 渲染系统、动画、主题、文本输入和国际化以及 Flutter 提供的数百个控件 。</p>
+          <h2 id="Flutter-on-Windows"><a href="#Flutter-on-Windows" class="headerlink" title="Flutter on Windows"></a>Flutter on Windows</h2><p>Flutter on Windows 的一些关键描述</p>
+<p>Flutter 跨平台的核心是：便携、 Skia 图形引擎、Flutter 渲染系统、动画、主题、文本输入和国际化以及 Flutter 提供的数百个控件。</p>
 <p>但桌面应用不仅仅是在更大屏幕上运行的移动应用：</p>
 <ul>
 <li>它还有专用的输入设备，例如键盘和鼠标，并且有可调整大小的窗口，通常在宽屏显示器上运；</li>
@@ -397,32 +393,6 @@
 <p>Flutter 与 Windows 协调以将开发者的 UI 绘制到屏幕上，处理窗口大小的调整和 DPI 更改等事件，并与现有的 Windows 模式配合使用以实现国际化，例如输入法编辑器。</p>
 </blockquote>
 <p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230107215704.png"></p>
-<p>在 Windows 上 Flutter 使用完全相同的 Dart 代码，但利用了原生的 Windows API，所以你的应用可以使用 Flutter 框架的所有能力。</p>
-<p><strong>在 Windows 上它还可以直接通过 Dart’s C Layer 或使用 C++ 编写的平台插件与 Win32、COM 和 Windows 运行时 API 通信</strong>，另外我们还调整了一些常用插件以支持 Windows，包括：<code>camera</code>、<code>file_picker</code> 和 <code>shared_preferences</code> 等等。 </p>
-<h3 id="使用-Windows-UI-库"><a href="#使用-Windows-UI-库" class="headerlink" title="使用 Windows UI 库"></a>使用 Windows UI 库</h3><p>对于完全定制的 Windows UI 可以使用 <a target="_blank" rel="noopener" href="https://pub.dev/packages/fluent_ui">fluent_ui</a> 和 <a target="_blank" rel="noopener" href="https://pub.dev/packages/flutter_acrylic">flutter_acrylic</a> 之类的包来创建一个   Microsoft Fluent 设计的应用程序。</p>
-<p>使用 <a target="_blank" rel="noopener" href="https://pub.dev/packages/msix">msix</a> 工具可以将应用包装在一个安装程序中，该安装可以上传到 Windows 上的 Microsoft Store。</p>
-<h3 id="用于-Windows-开发的工具生态系统"><a href="#用于-Windows-开发的工具生态系统" class="headerlink" title="用于 Windows 开发的工具生态系统"></a>用于 Windows 开发的工具生态系统</h3><p>我们的工具合作伙伴也在增加对 Windows 的支持，这里主要强调一些：</p>
-<ul>
-<li>FlutterFlow 是低代码 Flutter 应用程序设计工具，今天宣布支持 Windows，以及帮助 Flutter 开发人员为构建桌面应用量身定制了对于的功能。 </li>
-<li><a href="https://link.juejin.cn/?target=https://docs.mongodb.com/realm/sdk/flutter/">Realm</a>是一个超快速的本地数据存储，今天发布的最新版本现在支持使用 Flutter 构建 Windows 应用程序，其使用Dart FFI快速访问底层数据库，增加了对 iOS 和 Android 等移动平台的现有支持。 </li>
-<li>Nevercode 已更新其<a href="https://link.juejin.cn/?target=https://flutterci.com/">Codemagic CI&#x2F;CD</a> 工具以支持 Windows，现在你能够在云中测试和构建你的 Windows 应用，并自动将你的应用程序部署到 Microsoft Store。 </li>
-<li>Syncfusion已更新其控件套件以支持 Windows，如果你订阅了他们的工具包，你会发现有丰富的数据可视化组件，如树形图和图表、丰富的数据网格小部件、日历，甚至支持 PDF 创建和 Excel 电子表格等。 </li>
-<li>最后 Rive今天宣布了他们的图形工具套件即将推出的 Windows 版本，允许设计人员和开发人员创建可以使用状态机实时响应代码的交互式矢量动画，他们即将推出的 Windows 版本的应用程序提供了惊人的快速性能和更低的内存占用，并且很快将在 Microsoft Store 中提供下载。</li>
-</ul>
-<h2 id="Windows应用开发环境准备"><a href="#Windows应用开发环境准备" class="headerlink" title="Windows应用开发环境准备"></a>Windows应用开发环境准备</h2><h3 id="1-安装Flutter-SDK"><a href="#1-安装Flutter-SDK" class="headerlink" title="1. 安装Flutter SDK"></a>1. 安装Flutter SDK</h3><p>安装到C盘或D盘根目录即可，*<em>不要安装到 C:\Program Files*</em> </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/flutter/flutter.git -b master</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-设置环境变量"><a href="#2-设置环境变量" class="headerlink" title="2. 设置环境变量"></a>2. 设置环境变量</h3><p>编辑path环境变量，点击新建，输入复制的flutter bin目录地址。点击确定<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230107122333.png"></p>
-<h3 id="3-开启Desktop平台支持"><a href="#3-开启Desktop平台支持" class="headerlink" title="3. 开启Desktop平台支持"></a>3. 开启Desktop平台支持</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter config --enable-macos-desktop</span><br><span class="line">flutter config --enable-linux-desktop</span><br><span class="line">flutter config --enable-windows-desktop</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-检查安装是否成功"><a href="#4-检查安装是否成功" class="headerlink" title="4. 检查安装是否成功"></a>4. 检查安装是否成功</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter doctor -v</span><br></pre></td></tr></table></figure>
-
-<p>看到此项是对钩表示成功<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230107122625.png"></p>
-<p>查看Flutter支持devices，看到有Windows (desktop)即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter devices</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-安装Visual-Studio"><a href="#5-安装Visual-Studio" class="headerlink" title="5. 安装Visual Studio"></a>5. 安装Visual Studio</h3><p>安装 <a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/downloads/">Visual Studio 2022</a> 或<br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/releases/2019/release-notes">Visual Studio 2019</a>，需要选择「使用 C++ 的桌面开发」，包括其所有默认组件，以安装必要的 C++ 工具链和 Windows SDK 的头文件。<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230107122514.png"></p>
-<h3 id="6-安装Android-Studio"><a href="#6-安装Android-Studio" class="headerlink" title="6. 安装Android Studio"></a>6. 安装Android Studio</h3><p>安装 <a target="_blank" rel="noopener" href="https://developer.android.com/studio">Android Studio</a>，并且安装 flutter 和 dart 插件。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/9d33.html#more" rel="contents">
