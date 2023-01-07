@@ -151,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -162,7 +162,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -187,6 +187,127 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://skyui.cn/post/9a3d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tianshaojie">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tianshaojie's blog">
+      <meta itemprop="description" content="耐心是不会让你吃亏的">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Tianshaojie's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/post/9a3d.html" class="post-title-link" itemprop="url">Flutter Linux Desktop 开发环境搭建，Windows11 WSL2 安装 Ubuntu</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-07 20:28:47 / 修改时间：20:56:51" itemprop="dateCreated datePublished" datetime="2023-01-07T20:28:47+08:00">2023-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/post/9a3d.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/9a3d.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Windows启用WSL2安装Ubuntu"><a href="#Windows启用WSL2安装Ubuntu" class="headerlink" title="Windows启用WSL2安装Ubuntu"></a>Windows启用WSL2安装Ubuntu</h2><h3 id="Windows设置里开启虚拟化"><a href="#Windows设置里开启虚拟化" class="headerlink" title="Windows设置里开启虚拟化"></a>Windows设置里开启虚拟化</h3><h4 id="开启开发者模式"><a href="#开启开发者模式" class="headerlink" title="开启开发者模式"></a>开启开发者模式</h4><ul>
+<li>设置里，搜索开发者选项，打开即可</li>
+</ul>
+<h4 id="开启虚拟化"><a href="#开启虚拟化" class="headerlink" title="开启虚拟化"></a>开启虚拟化</h4><ul>
+<li>按下 Win + R，调出命令输入窗口。输入指令 appwiz.cpl </li>
+<li>点击左侧的 【启动或关闭 Windows 功能】 </li>
+<li>勾选【适用于 Linux 的 Windows 子系统】和【虚拟机平台】和【Hyper-V】</li>
+</ul>
+<h3 id="执行更新wsl命令已确认wsl为最新版"><a href="#执行更新wsl命令已确认wsl为最新版" class="headerlink" title="执行更新wsl命令已确认wsl为最新版"></a>执行更新wsl命令已确认wsl为最新版</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wsl --set-default-version 2</span><br><span class="line">wsl --update</span><br><span class="line">wsl --install // 安装wslg</span><br></pre></td></tr></table></figure>
+
+<h3 id="应用商店安装Ubuntu"><a href="#应用商店安装Ubuntu" class="headerlink" title="应用商店安装Ubuntu"></a>应用商店安装Ubuntu</h3><ul>
+<li>启动 【Windows Store】并搜索 Ubuntu，然后选择要安装的系统；</li>
+<li><strong>注意，需要先执行上面的 install 命令</strong>，要不然应用商店安装的Ubuntu都打不开；</li>
+</ul>
+<h3 id="启动Ubuntu"><a href="#启动Ubuntu" class="headerlink" title="启动Ubuntu"></a>启动Ubuntu</h3><ol>
+<li>开始菜单找到Ubuntu程序点击打开（推荐）</li>
+<li>在命令提示符中输入 wsl（看到的linux目录比较奇怪）</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6991626371608903694">如何在windows 11中安装WSLG(WSL2)</a></li>
+<li><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/308742">Windows11上WSL2子系统Ubuntu安装Gnome桌面</a></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/post/9a3d.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1154,112 +1275,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/341c.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://skyui.cn/post/8e6d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Tianshaojie">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tianshaojie's blog">
-      <meta itemprop="description" content="耐心是不会让你吃亏的">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Tianshaojie's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/post/8e6d.html" class="post-title-link" itemprop="url">Andriod 组件化实用技巧</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-31 14:04:37" itemprop="dateCreated datePublished" datetime="2018-12-31T14:04:37+08:00">2018-12-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-05 22:32:57" itemprop="dateModified" datetime="2023-01-05T22:32:57+08:00">2023-01-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/post/8e6d.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/post/8e6d.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="第一步：拆分前清理无用文件"><a href="#第一步：拆分前清理无用文件" class="headerlink" title="第一步：拆分前清理无用文件"></a>第一步：拆分前清理无用文件</h2><p>组件化拆分代码前，最好做一次lint检查，主要删除无用代码和资源。避免组件独立成git仓库后，因调用关系不完整，静态检查可能出现更多误判，而且删除无效资源和代码，可以减轻一部分拆分工作量。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/post/8e6d.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
