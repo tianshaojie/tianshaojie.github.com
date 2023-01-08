@@ -27,7 +27,7 @@
 <meta property="og:description" content="Windows启用WSL2安装UbuntuWindows设置里开启虚拟化开启开发者模式 设置里，搜索开发者选项，打开即可  开启虚拟化 按下 Win + R，调出命令输入窗口。输入指令 appwiz.cpl  点击左侧的 【启动或关闭 Windows 功能】  勾选【适用于 Linux 的 Windows 子系统】和【虚拟机平台】和【Hyper-V】  执行更新wsl命令已确认wsl为最新版wsl">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-07T12:28:47.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:17:03.271Z">
+<meta property="article:modified_time" content="2023-01-08T06:39:29.715Z">
 <meta property="article:author" content="Tianshaojie">
 <meta property="article:tag" content="Flutter Linux Desktop">
 <meta name="twitter:card" content="summary">
@@ -229,9 +229,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-01-07 20:28:47 / 修改时间：22:17:03" itemprop="dateCreated datePublished" datetime="2023-01-07T20:28:47+08:00">2023-01-07</time>
+      <time title="创建时间：2023-01-07 20:28:47" itemprop="dateCreated datePublished" datetime="2023-01-07T20:28:47+08:00">2023-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-08 14:39:29" itemprop="dateModified" datetime="2023-01-08T14:39:29+08:00">2023-01-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -282,7 +288,7 @@
 <li>点击左侧的 【启动或关闭 Windows 功能】 </li>
 <li>勾选【适用于 Linux 的 Windows 子系统】和【虚拟机平台】和【Hyper-V】</li>
 </ul>
-<h3 id="执行更新wsl命令已确认wsl为最新版"><a href="#执行更新wsl命令已确认wsl为最新版" class="headerlink" title="执行更新wsl命令已确认wsl为最新版"></a>执行更新wsl命令已确认wsl为最新版</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wsl --set-default-version 2</span><br><span class="line">wsl --update</span><br><span class="line">wsl --install // 安装wslg</span><br></pre></td></tr></table></figure>
+<h3 id="执行更新wsl命令已确认wsl为最新版"><a href="#执行更新wsl命令已确认wsl为最新版" class="headerlink" title="执行更新wsl命令已确认wsl为最新版"></a>执行更新wsl命令已确认wsl为最新版</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wsl --set-default-version 2</span><br><span class="line">wsl --update</span><br><span class="line">wsl --install // 安装wslg</span><br></pre></td></tr></table></figure>
 
 <h3 id="应用商店安装Ubuntu"><a href="#应用商店安装Ubuntu" class="headerlink" title="应用商店安装Ubuntu"></a>应用商店安装Ubuntu</h3><ul>
 <li>启动 【Windows Store】并搜索 Ubuntu，然后选择要安装的系统；</li>
@@ -298,10 +304,10 @@
 <li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6991626371608903694">如何在windows 11中安装WSLG(WSL2)</a></li>
 <li><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/308742">Windows11上WSL2子系统Ubuntu安装Gnome桌面</a></li>
 </ul>
-<h2 id="配置-WSL2-图形界面"><a href="#配置-WSL2-图形界面" class="headerlink" title="配置 WSL2 图形界面"></a>配置 WSL2 图形界面</h2><h3 id="安装-GUI-组件"><a href="#安装-GUI-组件" class="headerlink" title="安装 GUI 组件"></a>安装 GUI 组件</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install -y tasksel</span><br><span class="line">sudo tasksel install xubuntu-desktop</span><br><span class="line">sudo apt install gtk2-engines</span><br></pre></td></tr></table></figure>
+<h2 id="配置-WSL2-图形界面"><a href="#配置-WSL2-图形界面" class="headerlink" title="配置 WSL2 图形界面"></a>配置 WSL2 图形界面</h2><h3 id="安装-GUI-组件"><a href="#安装-GUI-组件" class="headerlink" title="安装 GUI 组件"></a>安装 GUI 组件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install -y tasksel</span><br><span class="line">sudo tasksel install xubuntu-desktop</span><br><span class="line">sudo apt install gtk2-engines</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置显示器信息"><a href="#配置显示器信息" class="headerlink" title="配置显示器信息"></a>配置显示器信息</h3><p>接下来要配置显示器信息，方便 Linux 使用：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk &#x27;&#123;print $2; exit;&#125;&#x27;):0.0</span><br><span class="line">export LIBGL_ALWAYS_INDIRECT=1</span><br><span class="line">sudo /etc/init.d/dbus start &amp;&gt; /dev/null</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk &#x27;&#123;print $2; exit;&#125;&#x27;):0.0</span><br><span class="line">export LIBGL_ALWAYS_INDIRECT=1</span><br><span class="line">sudo /etc/init.d/dbus start &amp;&gt; /dev/null</span><br></pre></td></tr></table></figure>
 
 <p>把上面这段配置加入 ~&#x2F;.bashrc，当我们登入 WSL 时，就会自动完成配置。不过这样一来，每次登入都要敲密码，也有点麻烦，所以可以自己取舍一下。或者把上面的配置单独存放一个脚本文件，需要使用 GUI 的时候再运行启动。</p>
 <h3 id="安装-X-server"><a href="#安装-X-server" class="headerlink" title="安装 X-server"></a>安装 X-server</h3><p>下载，安装，启动 VcXsrv。接下来 VcXsrv 会要求我们配置使用方式，依次选择“Multiple Windows”、“Start no client”，并且勾选“Disable access control”，然后保存配置文件到本地，完成启动。以后可以通过双击配置文件启动 VcXsrv。<br>此时，在系统托盘里可以看到 VcXsrv 服务。</p>
@@ -309,7 +315,7 @@
 <p>X server是Linux系统里面图形接口服务器的简称。Windows系统的界面是这个系统不可分割的一部分，各种窗口操作界面显示都是由系统核心直接管理的，而Linux的图形界面并不是系统的必要组成部分，它可以在无界面的条件下运行。当需要Linux提供界面的时候，系统就会建立一个或者数个X server，通过X协议跟窗口管理器交互，由独立于系统的应用程序来产生窗口，状态栏，按钮之类的交互界面。<br>比较常见的Linux界面操作环境有KDE和GNOME，为它们提供系统支持的就是X server，而并非Linux核心。总结一下linux图形界面层次关系：linux本身–&gt;X服务器&lt;-[通过X协议交谈]-&gt;窗口管理器（综合桌面环境）–&gt;X应用程序。</p>
 </blockquote>
 <h3 id="启动-GUI-程序"><a href="#启动-GUI-程序" class="headerlink" title="启动 GUI 程序"></a>启动 GUI 程序</h3><p>接下来正常启动 GUI 程序即可，比如 Firefox：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install firefox</span><br><span class="line"></span><br><span class="line"># 安装完成后，启动 firefox</span><br><span class="line"># 注意，这里必须用 sudo</span><br><span class="line">sudo firefox </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install firefox</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装完成后，启动 firefox</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">注意，这里必须用 sudo</span></span><br><span class="line">sudo firefox </span><br></pre></td></tr></table></figure>
 
 <h3 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://blog.meathill.com/tools/install-wsl2-on-windows-10-and-config-gui-for-applications.html">Windows 10 配置 WSL2 以及图形界面</a></li>
@@ -319,13 +325,14 @@
 <li>下载tar文件，解压到 ~&#x2F;development</li>
 <li>环境变量设置</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 把$PATH写到后面</span><br><span class="line">export PATH=/home/tiansj/development/flutter/bin:$PATH</span><br><span class="line"># 添加到文件末尾</span><br><span class="line">vi ~/.bashrc</span><br><span class="line"># 生效</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">把<span class="variable">$PATH</span>写到后面</span></span><br><span class="line">export PATH=/home/tiansj/development/flutter/bin:$PATH</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加到文件末尾</span></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生效</span></span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
 
 <p>否则执行 flutter 命令时会出现错误</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/bin/env: ‘bash\r’: No such file or directory</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/usr/bin/env: ‘bash\r’: No such file or directory</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装JDK1-8"><a href="#安装JDK1-8" class="headerlink" title="安装JDK1.8"></a>安装JDK1.8</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Deadly_97/article/details/111657908">Linux之Ubuntu20.04安装Java JDK8的两种方式</a></p>
-<p><code>sudo apt-get install openjdk-8-jdk</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openjdk-8-jdk</span><br></pre></td></tr></table></figure>
+
 <h2 id="安装Android-Studio"><a href="#安装Android-Studio" class="headerlink" title="安装Android Studio"></a>安装Android Studio</h2><p>下载，解压</p>
 <p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio#downloads">Download Android Studio &amp; App Tools - Android Developers</a></p>
 <p><code>tar xvf AS文件</code></p>
@@ -334,42 +341,42 @@
 <li><p>需要先启动Windows下的VcXsrv，在开始-应用程序里，打开XLaunch</p>
 </li>
 <li><p>然后在Ubuntu里执行android-studio&#x2F;bin&#x2F;studio.sh启动AS</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /home/tiansj/development/android-studio/bin</span><br><span class="line">./studio.sh &gt; run.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /home/tiansj/development/android-studio/bin</span><br><span class="line">./studio.sh &gt; run.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>OK，就像打开windows里的应用一样开发</p>
 </li>
 </ol>
 <h2 id="运行Flutter"><a href="#运行Flutter" class="headerlink" title="运行Flutter"></a>运行Flutter</h2><p>1、提示cmake不可用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Launching lib/main.dart on Linux in debug mode...</span><br><span class="line">Building Linux application...</span><br><span class="line">ProcessException: Failed to find &quot;cmake&quot; in the search path.</span><br><span class="line">  Command: cmake </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Launching lib/main.dart on Linux in debug mode...</span><br><span class="line">Building Linux application...</span><br><span class="line">ProcessException: Failed to find &quot;cmake&quot; in the search path.</span><br><span class="line">  Command: cmake </span><br></pre></td></tr></table></figure>
 
 <p>解决</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev</span><br><span class="line">flutter config --enable-linux-desktop</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev</span><br><span class="line">flutter config --enable-linux-desktop</span><br></pre></td></tr></table></figure>
 
 <p>2、CMake Error at cmake_install.cmake</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter tools fails on flutter run -d linux</span><br><span class="line">CMake Error at cmake_install.cmake:61 (file): file INSTALL cannot copy file &quot;/home/taimoor/junkcode/desk/build/linux/debug/desk&quot; to &quot;/usr/local/desk&quot;: Permission denied. </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">flutter tools fails on flutter run -d linux</span><br><span class="line">CMake Error at cmake_install.cmake:61 (file): file INSTALL cannot copy file &quot;/home/taimoor/junkcode/desk/build/linux/debug/desk&quot; to &quot;/usr/local/desk&quot;: Permission denied. </span><br></pre></td></tr></table></figure>
 
 
 <p>解决：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fixed by running flutter clean </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fixed by running flutter clean </span><br></pre></td></tr></table></figure>
 
 <h2 id="Linux中文字体乱码显示方框"><a href="#Linux中文字体乱码显示方框" class="headerlink" title="Linux中文字体乱码显示方框"></a>Linux中文字体乱码显示方框</h2><p>Ubuntu默认安装包管理是apt-get和apt命令，不要使用yum安装，yum在Ubuntu 20.04上不可用</p>
-<h3 id="1-安装mkfontscale-mkfontdir和fc-cache命令"><a href="#1-安装mkfontscale-mkfontdir和fc-cache命令" class="headerlink" title="1.安装mkfontscale mkfontdir和fc-cache命令"></a>1.安装mkfontscale mkfontdir和fc-cache命令</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> # 使mkfontscale和mkfontdir命令正常运行</span><br><span class="line">sudo apt-get install ttf-mscorefonts-installer</span><br><span class="line"></span><br><span class="line"># 使fc-cache命令正常运行</span><br><span class="line">sudo apt-get install fontconfig</span><br></pre></td></tr></table></figure>
+<h3 id="1-安装mkfontscale-mkfontdir和fc-cache命令"><a href="#1-安装mkfontscale-mkfontdir和fc-cache命令" class="headerlink" title="1.安装mkfontscale mkfontdir和fc-cache命令"></a>1.安装mkfontscale mkfontdir和fc-cache命令</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"> # </span><span class="language-bash">使mkfontscale和mkfontdir命令正常运行</span></span><br><span class="line">sudo apt-get install ttf-mscorefonts-installer</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使fc-cache命令正常运行</span></span><br><span class="line">sudo apt-get install fontconfig</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-安装字体"><a href="#2-安装字体" class="headerlink" title="2. 安装字体"></a>2. 安装字体</h3><p>1）准备中文字体文件</p>
 <p>从Windows C盘搜索simsun.ttc文件，就是宋体文件，或者网络下载</p>
 <p><code>拷贝到 ubuntu  ~/myfonts下</code></p>
 <p>2 创建&#x2F;usr&#x2F;share&#x2F;fonts&#x2F;myfonts 目录 </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /usr/share/fonts/</span><br><span class="line">mkdir myfonts</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /usr/share/fonts/</span><br><span class="line">mkdir myfonts</span><br></pre></td></tr></table></figure>
 
 <p>3）把下载好的字体拷贝到&#x2F;usr&#x2F;share&#x2F;fonts&#x2F;myfonts目录下 </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo cp ~/myfonts/* /usr/share/fonts/myfonts/  </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cp ~/myfonts/* /usr/share/fonts/myfonts/  </span><br></pre></td></tr></table></figure>
 <p>4）建立字体缓存</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /usr/share/fonts/myfonts</span><br><span class="line">sudo mkfontscale</span><br><span class="line">sudo mkfontdir</span><br><span class="line">sudo fc-cache</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /usr/share/fonts/myfonts</span><br><span class="line">sudo mkfontscale</span><br><span class="line">sudo mkfontdir</span><br><span class="line">sudo fc-cache</span><br></pre></td></tr></table></figure>
 
 <p>5）OK，重新运行，就没有中文乱码了</p>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e7f12b8c8602">Ubuntu系统字体命令和字体的安装</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/HappyLife_haha/article/details/52489231">linux生成文字变成小框框，无法正常显示汉字</a></p>
-<h2 id="安装Chrome"><a href="#安装Chrome" class="headerlink" title="安装Chrome"></a>安装Chrome</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br><span class="line">sudo apt install ./google-chrome-stable_current_amd64.deb</span><br><span class="line"></span><br><span class="line"># 启动 Chrome</span><br><span class="line">google-chrome</span><br></pre></td></tr></table></figure>
+<h2 id="安装Chrome"><a href="#安装Chrome" class="headerlink" title="安装Chrome"></a>安装Chrome</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br><span class="line">sudo apt install ./google-chrome-stable_current_amd64.deb</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动 Chrome</span></span><br><span class="line">google-chrome</span><br></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://www.myfreax.com/how-to-install-google-chrome-web-browser-on-ubuntu-20-04/">如何在Ubuntu 20.04安装Google Chrome Web浏览器</a></p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
 <li>WSL里网络和Windows网络是公用的，包括VPN</li>
