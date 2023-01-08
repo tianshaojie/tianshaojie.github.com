@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"skyui.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="你将了解到 Flutter Web 架构概览及渲染器 Flutter Web 适用场景及注意点 Flutter Web 首次加载慢的优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter Web 开发实践及优化">
+<meta property="og:url" content="http://skyui.cn/post/c453.html">
+<meta property="og:site_name" content="Tianshaojie&#39;s blog">
+<meta property="og:description" content="你将了解到 Flutter Web 架构概览及渲染器 Flutter Web 适用场景及注意点 Flutter Web 首次加载慢的优化">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108105629.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108124026.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108123802.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108123902.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108124639.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108125119.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108125342.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108125358.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108134547.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108134558.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108135438.png">
+<meta property="article:published_time" content="2023-01-08T06:14:31.000Z">
+<meta property="article:modified_time" content="2023-01-08T06:21:35.122Z">
+<meta property="article:author" content="Tianshaojie">
+<meta property="article:tag" content="Flutter Web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108105629.png">
+
+
+<link rel="canonical" href="http://skyui.cn/post/c453.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://skyui.cn/post/c453.html","path":"post/c453.html","title":"Flutter Web 开发实践及优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Flutter Web 开发实践及优化 | Tianshaojie's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tianshaojie's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Slow is fast.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E5%B0%86%E4%BA%86%E8%A7%A3%E5%88%B0"><span class="nav-number">1.</span> <span class="nav-text">你将了解到</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E6%A6%82%E8%A7%88"><span class="nav-number">2.</span> <span class="nav-text">架构概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">两种编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81dartdevc-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">1、dartdevc 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81dart2js-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">2、dart2js 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81dartdevc%E3%80%81dart2js%E6%80%BB%E7%BB%93"><span class="nav-number">3.3.</span> <span class="nav-text">3、dartdevc、dart2js总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D-Web-%E6%B8%B2%E6%9F%93%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">两种 Web 渲染器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E4%BD%BF%E7%94%A8-HTML-%E6%B8%B2%E6%9F%93"><span class="nav-number">4.1.</span> <span class="nav-text">1、使用 HTML 渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8-CanvasKit-%E6%B8%B2%E6%9F%93"><span class="nav-number">4.2.</span> <span class="nav-text">2、使用 CanvasKit 渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%91%BD%E4%BB%A4%E6%8E%A7%E5%88%B6"><span class="nav-number">4.3.</span> <span class="nav-text">3、命令控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E6%B8%B2%E6%9F%93%E5%99%A8"><span class="nav-number">4.4.</span> <span class="nav-text">4、选择合适的渲染器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9F%A5%E8%AF%86"><span class="nav-number">5.</span> <span class="nav-text">浏览器知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81WebGL"><span class="nav-number">5.1.</span> <span class="nav-text">1、WebGL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81-lt-canvas-gt-%E6%A0%87%E7%AD%BE"><span class="nav-number">5.2.</span> <span class="nav-text">2、&lt;canvas&gt; 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81Canvas-API"><span class="nav-number">5.3.</span> <span class="nav-text">3、Canvas API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81CSS-Painting-API"><span class="nav-number">5.4.</span> <span class="nav-text">4、CSS Painting API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81CSS-Houdini"><span class="nav-number">5.5.</span> <span class="nav-text">5、CSS Houdini</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flutter-Web-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="nav-number">6.</span> <span class="nav-text">Flutter Web 适用场景的注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flutter-Web-%E9%A6%96%E6%AC%A1%E5%8A%A0%E8%BD%BD%E6%85%A2%E4%BC%98%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">Flutter Web 首次加载慢优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvaskit%E6%B8%B2%E6%9F%93%E5%8A%A0%E8%BD%BD%E6%85%A2%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">7.1.</span> <span class="nav-text">Canvaskit渲染加载慢的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvaskit%E6%B8%B2%E6%9F%93%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">7.2.</span> <span class="nav-text">Canvaskit渲染的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E6%9C%89-canvaskit-%E5%8A%A0%E8%BD%BD%E5%9C%B0%E5%9D%80"><span class="nav-number">7.2.1.</span> <span class="nav-text">1、有 canvaskit 加载地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%8A%A0%E8%BD%BD%E5%AD%97%E4%BD%93"><span class="nav-number">7.2.2.</span> <span class="nav-text">2、本地化加载字体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%8A%A0%E8%BD%BDcss2-family-x3D-Noto-Sans-SC"><span class="nav-number">7.2.3.</span> <span class="nav-text">3、本地化加载css2?family&#x3D;Noto_Sans+SC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81Canvaskit%E6%B8%B2%E6%9F%93%E7%9A%84%E7%BB%93%E8%AE%BA"><span class="nav-number">7.3.</span> <span class="nav-text">4、Canvaskit渲染的结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Html%E6%B8%B2%E6%9F%93%E6%9E%84%E5%BB%BA%E5%8F%8A%E4%BC%98%E5%8C%96"><span class="nav-number">7.4.</span> <span class="nav-text">使用Html渲染构建及优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E4%BD%BF%E7%94%A8HTML%E6%B8%B2%E6%9F%93%E6%9E%84%E5%BB%BA"><span class="nav-number">7.4.1.</span> <span class="nav-text">1、使用HTML渲染构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%8A%A0%E5%85%A5tree-shake%E4%BC%98%E5%8C%96"><span class="nav-number">7.4.2.</span> <span class="nav-text">2、加入tree-shake优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81tree-shake%E4%BC%98%E5%8C%96%E5%90%8E%E6%95%88%E6%9E%9C"><span class="nav-number">7.4.3.</span> <span class="nav-text">3、tree-shake优化后效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E7%A6%81%E7%94%A8PWA-%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8"><span class="nav-number">7.4.4.</span> <span class="nav-text">4、禁用PWA 渐进式web应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%8E%BB%E6%8E%89%E6%97%A0%E7%94%A8%E7%9A%84%E5%AD%97%E4%BD%93"><span class="nav-number">7.5.</span> <span class="nav-text">5、去掉无用的字体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81HTML%E6%B8%B2%E6%9F%93%E6%9E%84%E5%BB%BA%E7%BB%93%E8%AE%BA"><span class="nav-number">7.5.1.</span> <span class="nav-text">6、HTML渲染构建结论</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tianshaojie</p>
+  <div class="site-description" itemprop="description">耐心是不会让你吃亏的</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/tianshaojie" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tianshaojie" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tianshaojie@foxmail.com" title="E-Mail → mailto:tianshaojie@foxmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://skyui.cn/post/c453.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tianshaojie">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tianshaojie's blog">
+      <meta itemprop="description" content="耐心是不会让你吃亏的">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Flutter Web 开发实践及优化 | Tianshaojie's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flutter Web 开发实践及优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-08 14:14:31 / 修改时间：14:21:35" itemprop="dateCreated datePublished" datetime="2023-01-08T14:14:31+08:00">2023-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/post/c453.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/c453.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="你将了解到"><a href="#你将了解到" class="headerlink" title="你将了解到"></a>你将了解到</h2><ol>
+<li>Flutter Web 架构概览及渲染器</li>
+<li>Flutter Web 适用场景及注意点</li>
+<li>Flutter Web 首次加载慢的优化</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="架构概览"><a href="#架构概览" class="headerlink" title="架构概览"></a>架构概览</h2><p>虽然 Flutter 支持的所有平台的都适用于同一个架构概念，但是在 Web 平台的支持上有一些独特的特征值得说明。</p>
+<p>Dart 语言存在之初就已经支持直接编译成 JavaScript，并且针对开发和生产目的对其工具链进行了优化。许多重要的应用已经使用 Dart 编译成的 JavaScript 在生产环境上运行，包括 Google Ads 的广告商工具 。由于<br>Flutter 框架是 Dart 编写的，将其编译成 JavaScript 相对而言更为简单。</p>
+<p>然而，使用 C++ 编写的 Flutter 引擎是为了与底层操作系统进行交互的，而不是 Web 浏览器。因此我们需要另辟蹊径。<strong>Flutter 在 Web 平台上以浏览器的标准 API 重新实现了引擎。</strong> 目前我们<strong>有两种在 Web 上呈现内容的选项：HTML 和 WebGL</strong>。在 HTML 模式下，Flutter 使用 HTML、CSS、Canvas 和 SVG 进行渲染。而在 WebGL 模式下，Flutter 使用了一个编译为 WebAssembly 的 Skia 版本，名为 CanvasKit 。HTML 模式提供了最佳的代码大小，CanvasKit 则提供了浏览器图形堆栈渲染的最快途径，并为原生平台的内容 5 提供了更高的图形保真度。</p>
+<p>Web 版本的分层架构图如下所示：</p>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108105629.png"><br>与其他运行 Flutter 的平台相比，<strong>最明显的区别</strong>也许是 Flutter <strong>不再需要提供 Dart 的运行时</strong>。取而代之的是 <strong>Flutter 框架本身（和你写的代码）一并编译成 JavaScript</strong>。另外值得注意的是，Dart 在不同模式下（JIT 和 AOT、平台原生和 Web 编译）的语义几乎没有差异，大部分开发者绝对可以无差异地编写这两种模式下的代码。</p>
+<h2 id="两种编译器"><a href="#两种编译器" class="headerlink" title="两种编译器"></a>两种编译器</h2><p>Flutter 官方给我们提供了 dart2js 和 dartdevc 两个编译器，<strong>本质上都是编译成JavaScript</strong></p>
+<ul>
+<li>在<strong>进行开发时，Web 版本的 Flutter 使用支持增量编译的编译器 dartdevc 进行编译</strong>，以支持应用热重启（尽管目前尚未支持热重载）。</li>
+<li>相反，当你准备好创建一个<strong>生产环境的 Web 应用时，Dart 深度优化的编译器 dart2js 将会用于编译</strong>，将 Flutter 核心框架和你的应用打包至缩小的源文件中，可部署在任何服务器上。代码可以在单个文件中提供，也可拆分至多个文件以 延迟加载库 提供。</li>
+</ul>
+<h3 id="1、dartdevc-命令"><a href="#1、dartdevc-命令" class="headerlink" title="1、dartdevc 命令"></a>1、dartdevc 命令</h3><p>Dart 开发编译器（dartdevc，也称为DDC） 允许您在 Chrome 浏览器中运行和调试您的 Dart Web 应用程序。</p>
+<blockquote>
+<p>备忘： dartdevc 编译器仅用于开发。继续使用dart2js 编译部署。</p>
+</blockquote>
+<blockquote>
+<p>备忘： 开发编译器 (dartdevc)仅支持 Chrome。</p>
+</blockquote>
+<p>与 dart2js 不同，<strong>dartdevc 支持增量编译并发出模块化 JavaScript</strong>。像webdev serve这样使用 dartdevc 的工具，你可以编辑你的 Dart 文件，在 Chrome 中刷新，并且几乎可以立即看到你的编辑。这个速度是可能的，因为 dartdevc 只编译更新的模块，而不是你的应用程序依赖的所有包。</p>
+<p><strong>第一次使用 dartdevc 编译耗时最长，因为必须编译整个应用程序</strong>。之后，只要serve命令继续运行，dartdevc 的刷新时间就会比 dart2js 快得多。</p>
+<h3 id="2、dart2js-命令"><a href="#2、dart2js-命令" class="headerlink" title="2、dart2js 命令"></a>2、dart2js 命令</h3><p><strong>Dart 生成 JS 编译器</strong></p>
+<p>使用dart2js工具将 Dart 代码编译为可部署的 JavaScript。<br>另一个 Dart-to-JavaScript 编译器dartdevc仅供开发使用。<br><a target="_blank" rel="noopener" href="https://dart.cn/tools/webdev#build">webdev</a> 构建命令默认使用dart2js。<br><a target="_blank" rel="noopener" href="https://dart.cn/tools/webdev#serve">webdev serve</a> 命令默认使用dartdevc，但您可以使用–release标志切换到 dart2js。 </p>
+<p>基本用法，下面是一个将 Dart 文件编译为 JavaScript 的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ dart2js -O2 -o test.js test.dart</span><br></pre></td></tr></table></figure>
+<h3 id="3、dartdevc、dart2js总结"><a href="#3、dartdevc、dart2js总结" class="headerlink" title="3、dartdevc、dart2js总结"></a>3、dartdevc、dart2js总结</h3><ul>
+<li><p>dartdevc: 它提供渐进式编译和热启动。你可以编辑Dart文件，在Chrome中刷新，并立即查看文件修改后的结果。dartdevc只编译更新的模块，而不是编译应用所依赖的所有软件包。</p>
+</li>
+<li><p>dart2js: 为了部署环境而生成优化的精简的代码。使用dart2js工具将Dart代码编译为可部署的JavaScript</p>
+</li>
+</ul>
+<h2 id="两种-Web-渲染器"><a href="#两种-Web-渲染器" class="headerlink" title="两种 Web 渲染器"></a>两种 Web 渲染器</h2><p>可以选择两种不同的渲染器来运行和构建 Web 应用。<br>下文介绍两种渲染器以及它们的适用场景。</p>
+<h3 id="1、使用-HTML-渲染"><a href="#1、使用-HTML-渲染" class="headerlink" title="1、使用 HTML 渲染"></a>1、使用 HTML 渲染</h3><p>使用 HTML，CSS，Canvas 和 SVG 元素来渲染，应用的大小相对较小。</p>
+<h3 id="2、使用-CanvasKit-渲染"><a href="#2、使用-CanvasKit-渲染" class="headerlink" title="2、使用 CanvasKit 渲染"></a>2、使用 CanvasKit 渲染</h3><p>将 Skia 编译成 WebAssembly 格式，<strong>并使用 WebGL 渲染（见下面的WebGL说明）</strong>。应用在移动和桌面端保持一致，有更好的性能，以及降低不同浏览器渲染效果不一致的风险。但是应用的大小会<strong>增加大约 2MB</strong>。</p>
+<h3 id="3、命令控制"><a href="#3、命令控制" class="headerlink" title="3、命令控制"></a>3、命令控制</h3><p>通过 <code>run</code> 和 <code>build</code> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter run -d chrome --web-renderer html</span><br><span class="line">flutter build web --web-renderer canvaskit</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、选择合适的渲染器"><a href="#4、选择合适的渲染器" class="headerlink" title="4、选择合适的渲染器"></a>4、选择合适的渲染器</h3><ul>
+<li><strong>如果您在移动端浏览器平台上更关心应用大小，而桌面端浏览器更关心性能</strong>，请选择 auto 选项（默认）。</li>
+<li>如果您在移动端和桌面端都更关心应用大小，请选择 html 选项。</li>
+<li>canvaskit：移动端和桌面端都更关心性能，和跨浏览器的像素级一致性。</li>
+</ul>
+<h2 id="浏览器知识"><a href="#浏览器知识" class="headerlink" title="浏览器知识"></a>浏览器知识</h2><h3 id="1、WebGL"><a href="#1、WebGL" class="headerlink" title="1、WebGL"></a>1、WebGL</h3><p>WebGL（Web图形库）是一个JavaScript API，可在任何兼容的Web浏览器中渲染高性能的交互式3D和2D图形，而无需使用插件。<code>WebGL</code>通过引入一个与OpenGL ES 2.0非常一致的API来做到这一点，该API可以在HTML5 <code>&lt;canvas&gt;</code> 元素中使用。 这种一致性使API可以利用用户设备提供的硬件图形加速。<br>目前支持 WebGL 的浏览器有：Firefox 4+, Google Chrome 9+, Opera 12+, Safari 5.1+, Internet Explorer 11+和Microsoft Edge build 10240+；然而, <code>WebGL</code> 一些特性也需要用户的硬件设备支持。</p>
+<p><code>WebGL 2 </code>是WebGL的一个主要更新，它基于OpenGL ES 3.0，引入了对大部分的OpenGL ES 3.0功能集的支持，它是通过WebGL2RenderingContext界面提供的。</p>
+<p><code>&lt;canvas&gt;</code>元素也被 Canvas API 用 于在网页上进行2D图形处理。 </p>
+<h3 id="2、-lt-canvas-gt-标签"><a href="#2、-lt-canvas-gt-标签" class="headerlink" title="2、&lt;canvas&gt; 标签"></a>2、<code>&lt;canvas&gt;</code> 标签</h3><p><code>&lt;canvas&gt;</code>元素可被用来通过 JavaScript（Canvas API 或 WebGL API）绘制图形及图形动画。 示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;canvas id=&quot;canvas&quot; width=&quot;300&quot; height=&quot;300&quot;&gt;</span><br><span class="line">  抱歉，您的浏览器不支持 canvas 元素</span><br><span class="line"> （这些内容将会在不支持&lt;canvas&gt;元素的浏览器或是禁用了 JavaScript 的浏览器内渲染并展现）</span><br><span class="line">&lt;/canvas&gt;</span><br><span class="line"> &lt;canvas&gt; 元素本身只是一个位图，不提供任何绘制对象的信息。 </span><br></pre></td></tr></table></figure>
+
+<h3 id="3、Canvas-API"><a href="#3、Canvas-API" class="headerlink" title="3、Canvas API"></a>3、Canvas API</h3><p><code>Canvas API </code>提供了一个通过JavaScript 和 HTML的<code>&lt;canvas&gt;</code>元素来绘制图形的方式。它可以用于动画、游戏画面、数据可视化、图片编辑以及实时视频处理等方面。<br>Canvas API主要聚焦于2D图形。而同样使用<code>&lt;canvas&gt;</code>元素的 WebGL API 则用于绘制硬件加速的2D和3D图形。 </p>
+<h3 id="4、CSS-Painting-API"><a href="#4、CSS-Painting-API" class="headerlink" title="4、CSS Painting API"></a>4、CSS Painting API</h3><p>CSS Painting API — CSS Houdini API 的一部分— 允许开发人员编写 JavaScript 函数，这些函数可以直接绘制到元素的背景、边框或内容中。</p>
+<p>使用 CSS 绘画 API<br>CSS Paint API 旨在使开发人员能够以编程方式定义图像，然后可以在任何可以调用 CSS 图像的地方使用这些图像，例如 CSS background-image、border-image、mask-image等。</p>
+<h3 id="5、CSS-Houdini"><a href="#5、CSS-Houdini" class="headerlink" title="5、CSS Houdini"></a>5、CSS Houdini</h3><p>Houdini是一组底层API，它们公开了CSS引擎的各个部分，从而使开发人员能够通过加入浏览器渲染引擎的样式和布局过程来扩展CSS。 Houdini是一组API，它们使开发人员可以直接访问CSS 对象模型 （CSSOM），使开发人员可以编写浏览器可以解析为CSS的代码，从而创建新的CSS功能，而无需等待它们在浏览器中本地实现。</p>
+<h2 id="Flutter-Web-适用场景的注意点"><a href="#Flutter-Web-适用场景的注意点" class="headerlink" title="Flutter Web 适用场景的注意点"></a>Flutter Web 适用场景的注意点</h2><ul>
+<li><p>适合的场景：渐进式web应用、单页应用、现有Flutter移动应用拓展到Web（以应用为中心）</p>
+</li>
+<li><p>不适合的场景：富文本和瀑布流的页面（以文档未中心的模式）</p>
+</li>
+<li><p>Web应用中不能使用 dart:io 库（文件系统在浏览器中无法访问）</p>
+</li>
+<li><p>Web应用的网络功能，使用 http package库</p>
+</li>
+<li><p>目前在 Web 中尚未支持 Dart 通过 isolates 机制实现并发。Flutter Web 没有内置并发的支持，但你可以尝试通过 web workers 来解决这个问题。</p>
+</li>
+<li><p><strong>Platform.is 这个API 在Web内还不能用</strong></p>
+</li>
+<li><p>不支持的API加上逻辑判断，在Web平台不调用，即可正常编译Web产物</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import &#x27;package:flutter/foundation.dart&#x27; show kIsWeb;</span><br><span class="line">if (kIsWeb) &#123;</span><br><span class="line">  //do something</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Flutter-Web-首次加载慢优化"><a href="#Flutter-Web-首次加载慢优化" class="headerlink" title="Flutter Web 首次加载慢优化"></a>Flutter Web 首次加载慢优化</h2><p>Flutter Web项目部署后，首次加载耗时12秒！</p>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108124026.png"></p>
+<h3 id="Canvaskit渲染加载慢的原因"><a href="#Canvaskit渲染加载慢的原因" class="headerlink" title="Canvaskit渲染加载慢的原因"></a>Canvaskit渲染加载慢的原因</h3><p><code>flutter build web --release </code> 默认是Canvaskit渲染构建Web产物</p>
+<p>1、默认使用外网地址加载JS库、字体库、CSS等资源文件</p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://unpkg.com/canvaskit-wasm@0.24.0/bin/</span><br><span class="line">https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf</span><br><span class="line">https://fonts.googleapis.com/css2?family=Noto+Sans+JP</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>2、 资源文件过大</p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">canvaskit.wasm  # canvaskit 库 2.8MB</span><br><span class="line">main.dart.js  # 业务及UI逻辑代码 600KB</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h3 id="Canvaskit渲染的优化"><a href="#Canvaskit渲染的优化" class="headerlink" title="Canvaskit渲染的优化"></a>Canvaskit渲染的优化</h3><h4 id="1、有-canvaskit-加载地址"><a href="#1、有-canvaskit-加载地址" class="headerlink" title="1、有 canvaskit 加载地址"></a>1、有 canvaskit 加载地址</h4><ul>
+<li>使用cdn地址</li>
+</ul>
+<p>使用CDN地址的构建命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flutter build web --release --base-href &#x27;/web/&#x27; --dart-define=FLUTTER_WEB_CANVASKIT_URL=https://cdn.cnht.com.cn/cdn_resources/common/canvaskit-wasm/0.31.0/bin/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用服务的本地文件加载 canvaskit 库</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#/web是Tomcat里项目的名称</span><br><span class="line">flutter build web --release --base-href &#x27;/web/&#x27; --dart-define=FLUTTER_WEB_CANVASKIT_URL=/web/canvaskit/</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、本地化加载字体"><a href="#2、本地化加载字体" class="headerlink" title="2、本地化加载字体"></a>2、本地化加载字体</h4><p>1）KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf字体下载放到工程内<br>2）生产Web产物后，需要修改build目录下的main.dart.js<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108123802.png"><br>路径修改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Bn(&quot;assets/fonts/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf&quot;,&quot;Roboto&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、本地化加载css2-family-x3D-Noto-Sans-SC"><a href="#3、本地化加载css2-family-x3D-Noto-Sans-SC" class="headerlink" title="3、本地化加载css2?family&#x3D;Noto_Sans+SC"></a>3、本地化加载css2?family&#x3D;Noto_Sans+SC</h4><p>1）css文件以及css文件内的所有woff2文件，下载放到工程内</p>
+<p>2）生产Web产物后，需要修改build目录下的main.dart.js</p>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108123902.png"><br>修改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">return A.a1(p.vy(&quot;assets/fonts/googlefonts.css&quot;),$async$mc)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、Canvaskit渲染的结论"><a href="#4、Canvaskit渲染的结论" class="headerlink" title="4、Canvaskit渲染的结论"></a>4、Canvaskit渲染的结论</h3><p>对比上图，减少4秒，但总体耗时还在4秒左右，不够理想。<br>主要原因是canvaskit.wasm文件太大，下载耗时3秒多。<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108124639.png"></p>
+<h3 id="使用Html渲染构建及优化"><a href="#使用Html渲染构建及优化" class="headerlink" title="使用Html渲染构建及优化"></a>使用Html渲染构建及优化</h3><p>此次更换了一个更复杂的页面，包含几个网络请求、图表绘制、列表数据等</p>
+<h4 id="1、使用HTML渲染构建"><a href="#1、使用HTML渲染构建" class="headerlink" title="1、使用HTML渲染构建"></a>1、使用HTML渲染构建</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#  --base-href 可以根据服务器域名的path来设置</span><br><span class="line">flutter build web --release --web-renderer html  --base-href &#x27;/h/f/demo_web/&#x27;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="2、加入tree-shake优化"><a href="#2、加入tree-shake优化" class="headerlink" title="2、加入tree-shake优化"></a>2、加入tree-shake优化</h4><p>flutter 构建 web 不支持 <code>--tree-shake-icons</code> 命令，不能直接使用，报错如下<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108125119.png"></p>
+<p>借助构建其他平台做资源文件的摇树优化，然后拷贝到Web产物内</p>
+<ol>
+<li>flutter build apk –tree-shake-icons 构建Android产物</li>
+<li>找到优化后的资源文件使用rar工具解压缩得到优化后的MaterialIcons-Regular.otf，<br> <code>build/host/intermediates/compressed_assets/release/out/assets/flutter_assets/fonts/MaterialIcons-Regular.otf.jar</code></li>
+<li>把优化后的MaterialIcons-Regular.otf替换Web产物的文件<br> <code>web/assets/fonts/MaterialIcons-Regular.otf</code></li>
+<li>优化后 MaterialIcons-Regular.otf <strong>大小从1.6MB优化到1KB</strong></li>
+</ol>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108125342.png"></p>
+<p>优化后，只把使用的返回箭头保留了下来</p>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108125358.png"></p>
+<h4 id="3、tree-shake优化后效果"><a href="#3、tree-shake优化后效果" class="headerlink" title="3、tree-shake优化后效果"></a>3、tree-shake优化后效果</h4><p>1、部署到本地Tomcat，耗时1.62s</p>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108134547.png"></p>
+<p>2、部署到服务器，耗时2.59s<br>&#x2F;h&#x2F;f&#x2F;demo_web&#x2F;assets&#x2F;NOTICES 许可证文件，比较大，耗时较长，可以优化<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108134558.png"></p>
+<h4 id="4、禁用PWA-渐进式web应用"><a href="#4、禁用PWA-渐进式web应用" class="headerlink" title="4、禁用PWA 渐进式web应用"></a>4、禁用PWA <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903461645991943">渐进式web应用</a></h4><p>修改index.html内的js即可，去掉flutter.js，去掉flutter_service_worker.js。<br>flutter_service_worker.js 这个文件的作用是提供 PWA 功能支持，国内很少用这个特性。<br>加载flutter_service_worker.js，内部会下载如下4个文件，<strong>去掉后减少5个请求，减少1.2秒</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// The application shell files that are downloaded before a service worker can</span><br><span class="line">// start.</span><br><span class="line">const CORE = [</span><br><span class="line">  &quot;/&quot;,</span><br><span class="line">&quot;main.dart.js&quot;,</span><br><span class="line">&quot;index.html&quot;,</span><br><span class="line">&quot;assets/NOTICES&quot;,</span><br><span class="line">&quot;assets/AssetManifest.json&quot;,</span><br><span class="line">&quot;assets/FontManifest.json&quot;];</span><br><span class="line">// During install, the TEMP cache is populated with the application shell files.</span><br><span class="line">self.addEventListener(&quot;install&quot;, (event) =&gt; &#123;</span><br><span class="line">  self.skipWaiting();</span><br><span class="line">  return event.waitUntil(</span><br><span class="line">    caches.open(TEMP).then((cache) =&gt; &#123;</span><br><span class="line">      return cache.addAll(</span><br><span class="line">        CORE.map((value) =&gt; new Request(value, &#123;&#x27;cache&#x27;: &#x27;reload&#x27;&#125;)));</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、去掉无用的字体"><a href="#5、去掉无用的字体" class="headerlink" title="5、去掉无用的字体"></a>5、去掉无用的字体</h3><p>如下：<code>build/web/assets/FontManifest.json</code> 生成的原文件内容，为什么会有这么多字体？<br>后来经过查看，是因为工程pubspec.yaml里引用了 ，<code>font_awesome_flutter: ^8.8.1</code> 和 <code>cupertino_icons: ^1.0.1 </code>两个字体图标库造成的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">	&quot;family&quot;: &quot;MaterialIcons&quot;,</span><br><span class="line">	&quot;fonts&quot;: [&#123;</span><br><span class="line">		&quot;asset&quot;: &quot;fonts/MaterialIcons-Regular.otf&quot;</span><br><span class="line">	&#125;]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">	&quot;family&quot;: &quot;packages/cupertino_icons/CupertinoIcons&quot;,</span><br><span class="line">	&quot;fonts&quot;: [&#123;</span><br><span class="line">		&quot;asset&quot;: &quot;packages/cupertino_icons/assets/CupertinoIcons.ttf&quot;</span><br><span class="line">	&#125;]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">	&quot;family&quot;: &quot;packages/font_awesome_flutter/FontAwesomeBrands&quot;,</span><br><span class="line">	&quot;fonts&quot;: [&#123;</span><br><span class="line">		&quot;weight&quot;: 400,</span><br><span class="line">		&quot;asset&quot;: &quot;packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf&quot;</span><br><span class="line">	&#125;]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">	&quot;family&quot;: &quot;packages/font_awesome_flutter/FontAwesomeRegular&quot;,</span><br><span class="line">	&quot;fonts&quot;: [&#123;</span><br><span class="line">		&quot;weight&quot;: 400,</span><br><span class="line">		&quot;asset&quot;: &quot;packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf&quot;</span><br><span class="line">	&#125;]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">	&quot;family&quot;: &quot;packages/font_awesome_flutter/FontAwesomeSolid&quot;,</span><br><span class="line">	&quot;fonts&quot;: [&#123;</span><br><span class="line">		&quot;weight&quot;: 900,</span><br><span class="line">		&quot;asset&quot;: &quot;packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf&quot;</span><br><span class="line">	&#125;]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>删除pubspec内两个库后</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">	&quot;family&quot;: &quot;MaterialIcons&quot;,</span><br><span class="line">	&quot;fonts&quot;: [&#123;</span><br><span class="line">		&quot;asset&quot;: &quot;fonts/MaterialIcons-Regular.otf&quot;</span><br><span class="line">	&#125;]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、HTML渲染构建结论"><a href="#6、HTML渲染构建结论" class="headerlink" title="6、HTML渲染构建结论"></a>6、HTML渲染构建结论</h4><p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230108135438.png"></p>
+<p>使用html渲染构建 + 3步优化，清空缓存加载耗时1.23秒，基本和正常Web开发的页面加载速度一致。</p>
+<p>3步优化里，图标摇树优化目前还是手动处理，其他2步都在工程那修改。</p>
+<p><strong>根据文档说明和实践，目前我们用 HTML 方式构建渲染是最佳选择；</strong></p>
+<p><a target="_blank" rel="noopener" href="https://flutter.dev/">Flutter</a> 官网看着也是使用 HTML 构建方式.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flutter-Web/" rel="tag"># Flutter Web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/9a3d.html" rel="prev" title="Flutter Linux Desktop 开发环境搭建，Windows11 WSL2 安装 Ubuntu">
+                  <i class="fa fa-chevron-left"></i> Flutter Linux Desktop 开发环境搭建，Windows11 WSL2 安装 Ubuntu
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tianshaojie</span>
+    <span class="beian">
+      &nbsp;<a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备18057983号 </a>
+    </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/tianshaojie" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"mp3YXKl7UOhTqLe3GoflyBx1-gzGzoHsz","appKey":"Yjef5oBfsu1WuRmO1eq8Kdtf","serverURLs":"http://skyui.cn/","placeholder":"输入评论，提交即可。\n希望收到推送通知，可以填写邮箱。","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":true,"enableQQ":false,"requiredFields":[],"el":"#valine-comments","path":"/post/c453.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://fastly.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+      //隐藏Valine信息
+      if(document.querySelector('.vempty')) {
+        document.querySelector('.vempty').style.display = 'none';
+      }
+      if(document.querySelector('.vpower')) {
+        document.querySelector('.vpower').style.display = 'none';
+      }
+    });
+});
+</script>
+
+</body>
+</html>
