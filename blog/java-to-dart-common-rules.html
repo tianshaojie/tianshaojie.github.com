@@ -21,40 +21,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"skyui.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.14.0","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="CMake的安装配置安装 https:&#x2F;&#x2F;cmake.org&#x2F;download&#x2F; 配置命令行安装完成后打开程序，在菜单栏Tools选项里选择How to install For Command Line Use提供3种配置方式；这里使用第1种方式，写到环境变量里，然后执行cmake –version显示如下表示配置正常">
+    <meta name="description" content="Java代码转Dart代码的常用规则，Java to Dart common rules">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MacOS CMake 简单入门">
-<meta property="og:url" content="https://skyui.cn/blog/macos-cmake-simple-practice.html">
+<meta property="og:title" content="Java转Dart常用规则">
+<meta property="og:url" content="https://skyui.cn/blog/java-to-dart-common-rules.html">
 <meta property="og:site_name" content="Tianshaojie&#39;s blog">
-<meta property="og:description" content="CMake的安装配置安装 https:&#x2F;&#x2F;cmake.org&#x2F;download&#x2F; 配置命令行安装完成后打开程序，在菜单栏Tools选项里选择How to install For Command Line Use提供3种配置方式；这里使用第1种方式，写到环境变量里，然后执行cmake –version显示如下表示配置正常">
+<meta property="og:description" content="Java代码转Dart代码的常用规则，Java to Dart common rules">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203174208.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203183730.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203182031.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121509.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121641.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121846.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204122410.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/9296c16be34945b09a0c02469af92d18.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204123025.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204201047.png">
-<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/7d3d568bc855438db9b6b1b88e0c7ad6.png">
-<meta property="article:published_time" content="2022-12-04T14:23:07.000Z">
-<meta property="article:modified_time" content="2023-01-15T14:14:54.949Z">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230217202213.png">
+<meta property="og:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230217202228.png">
+<meta property="article:published_time" content="2023-02-17T13:29:21.000Z">
+<meta property="article:modified_time" content="2023-02-17T13:40:10.292Z">
 <meta property="article:author" content="Tianshaojie">
-<meta property="article:tag" content="CMake">
+<meta property="article:tag" content="Java2Dart">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203174208.png">
+<meta name="twitter:image" content="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230217202213.png">
 
 
-<link rel="canonical" href="https://skyui.cn/blog/macos-cmake-simple-practice.html">
+<link rel="canonical" href="https://skyui.cn/blog/java-to-dart-common-rules.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://skyui.cn/blog/macos-cmake-simple-practice.html","path":"blog/macos-cmake-simple-practice.html","title":"MacOS CMake 简单入门"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://skyui.cn/blog/java-to-dart-common-rules.html","path":"blog/java-to-dart-common-rules.html","title":"Java转Dart常用规则"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>MacOS CMake 简单入门 | Tianshaojie's blog</title>
+<title>Java转Dart常用规则 | Tianshaojie's blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXYDCNSEMF"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-PXYDCNSEMF","only_pageview":false}</script>
@@ -148,7 +139,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -161,7 +152,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CMake%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">CMake的安装配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMake%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">CMake简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMake%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="nav-number">3.</span> <span class="nav-text">CMake语法规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VSCode-CMake-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">VSCode + CMake 简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LLVM-x2F-Clang-x2F-GCC"><span class="nav-number">5.</span> <span class="nav-text">LLVM&#x2F;Clang&#x2F;GCC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LLVM%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.1.</span> <span class="nav-text">LLVM是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clang%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.2.</span> <span class="nav-text">Clang是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.3.</span> <span class="nav-text">GCC是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clang%E5%92%8CGCC%E6%AF%94%E8%BE%83"><span class="nav-number">5.4.</span> <span class="nav-text">Clang和GCC比较</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -220,7 +210,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://skyui.cn/blog/macos-cmake-simple-practice.html">
+    <link itemprop="mainEntityOfPage" href="https://skyui.cn/blog/java-to-dart-common-rules.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -233,12 +223,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="MacOS CMake 简单入门 | Tianshaojie's blog">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Java转Dart常用规则 | Tianshaojie's blog">
+      <meta itemprop="description" content="Java代码转Dart代码的常用规则，Java to Dart common rules">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MacOS CMake 简单入门
+          Java转Dart常用规则
         </h1>
 
         <div class="post-meta-container">
@@ -248,15 +238,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-12-04 22:23:07" itemprop="dateCreated datePublished" datetime="2022-12-04T22:23:07+08:00">2022-12-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-15 22:14:54" itemprop="dateModified" datetime="2023-01-15T22:14:54+08:00">2023-01-15</time>
+      <time title="创建时间：2023-02-17 21:29:21 / 修改时间：21:40:10" itemprop="dateCreated datePublished" datetime="2023-02-17T21:29:21+08:00">2023-02-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -264,7 +248,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CMake/" itemprop="url" rel="index"><span itemprop="name">CMake</span></a>
+          <a href="/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
         </span>
     </span>
 
@@ -284,14 +268,15 @@
     </span>
     <span class="post-meta-item-text">Valine：</span>
   
-    <a title="valine" href="/blog/macos-cmake-simple-practice.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/blog/macos-cmake-simple-practice.html" itemprop="commentCount"></span>
+    <a title="valine" href="/blog/java-to-dart-common-rules.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/blog/java-to-dart-common-rules.html" itemprop="commentCount"></span>
     </a>
   </span>
   
   
 </div>
 
+            <div class="post-description">Java代码转Dart代码的常用规则，Java to Dart common rules</div>
         </div>
       </header>
 
@@ -299,38 +284,155 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="CMake的安装配置"><a href="#CMake的安装配置" class="headerlink" title="CMake的安装配置"></a>CMake的安装配置</h2><p><strong>安装</strong> <span class="exturl" data-url="aHR0cHM6Ly9jbWFrZS5vcmcvZG93bmxvYWQv">https://cmake.org/download/<i class="fa fa-external-link-alt"></i></span></p>
-<p><strong>配置命令行</strong><br>安装完成后打开程序，在菜单栏Tools选项里选择How to install For Command Line Use提供3种配置方式；这里使用第1种方式，写到环境变量里，然后执行cmake –version显示如下表示配置正常</p>
-<span id="more"></span>
-<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203174208.png"><br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203183730.png"></p>
-<h2 id="CMake简介"><a href="#CMake简介" class="headerlink" title="CMake简介"></a>CMake简介</h2><p>CMake是一个开源的跨平台构建工具，可以对代码进行编译、测试及打包操作。<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221203182031.png"><br>CMake名字是“cross platform make”的缩写。Make工具里面比较出名的有GNU Make，QT 的qmake，微软的MS nmake，BSD Make（pmake），Makepp，等等。这些 Make 工具遵循着不同的规范和标准，所执行的 Makefile 格式也千差万别。这样就带来了一个严峻的问题：如果软件想跨平台，必须要保证能够在不同平台编译。而如果使用上面的 Make 工具，就得为每一种标准写一次 Makefile ，这将是一件让人抓狂的工作。因此CMake应运而生，它可以让程序员<strong>通过一个与开发平台无关的CMakeList.txt文件来定制整个编译流程，然后再根据目标用户的平台进一步生成所需的Makefile和工程文件</strong>。</p>
-<p>在 linux平台下使用CMake生成 Makefile并编译的流程如下:</p>
-<ol>
-<li>CmakeLists.txt。</li>
-<li>命令“cmake PATH”或者“ccmake PATH”生成 Makefile( PATH是 CMakeLists.txt所在的目录 )。</li>
-<li>make命令进行编译。</li>
-</ol>
-<h2 id="CMake语法规则"><a href="#CMake语法规则" class="headerlink" title="CMake语法规则"></a>CMake语法规则</h2><p>CMake 通过 CMakeLists.txt文件来产生特定平台的标准的构建文件，CMakeLists.txt 的语法比较简单，由 命令、注释 和 空格 组成。命令可以是一个内置命令（如project），也可以是一个用户定义的宏（macro）或者函数（function）。</p>
-<ul>
-<li>CMake 的指令大小写都可以，但变量大小写是有区分的，使用<code>$&#123;&#125;</code>对进行变量的引用，在 IF 等语句中，是直接使用变量名而不通过<code>$&#123;&#125;</code>取值</li>
-<li>CMake 指令的参数使用括弧括起，参数之间使用空格或分号分开</li>
-<li>Cmake 支持正则表达式</li>
-</ul>
-<h2 id="VSCode-CMake-简单使用"><a href="#VSCode-CMake-简单使用" class="headerlink" title="VSCode + CMake 简单使用"></a>VSCode + CMake 简单使用</h2><p>安装VSCode后，安装C++相关插件：C++, CMake, CMake Tools。</p>
-<ol>
-<li>mkdir cmake-helloworld，并使用VSCode打开；</li>
-<li>按F1 或 Command + Shift + P，选择CMake:Quick Start即可创建一个CMake工程；<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121509.png"><br>我电脑是M1平台，这里选择第3个Clang即可<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121641.png"><br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204121846.png"><br>接着输入名称创建project<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204122410.png"><br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/9296c16be34945b09a0c02469af92d18.png"><br>project生成完成<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204123025.png"></li>
-<li>运行<br>左侧栏切换到CMake工具目录，右键在终端中运行，即可看到结果<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20221204201047.png"><br>或者cd到build目录，直接执行可执行文件，也可以看到结果<br><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/7d3d568bc855438db9b6b1b88e0c7ad6.png"></li>
-</ol>
-<h2 id="LLVM-x2F-Clang-x2F-GCC"><a href="#LLVM-x2F-Clang-x2F-GCC" class="headerlink" title="LLVM&#x2F;Clang&#x2F;GCC"></a>LLVM&#x2F;Clang&#x2F;GCC</h2><h3 id="LLVM是什么？"><a href="#LLVM是什么？" class="headerlink" title="LLVM是什么？"></a>LLVM是什么？</h3><p>LLVM(Low Level Virtual Machine)是一个底层虚拟机，LLVM曾经有一部分功能对虚拟机有所帮助。<br>但是现在，LLVM所代表的基本和虚拟机没有关系了，也不再作为一个缩写使用了，而是直接作为一个名字使用。</p>
-<p>那么LLVM到底是什么？</p>
-<p>LLVM可以被看作是一系列的编译器和工具链技术的集合，而且它们是模块化并且是可重用的。这是LLVM官方的解释。<br>原话是：<br>The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.<br>(官方定义永远是准确精练的)</p>
-<p>LLVM是一个编译器；<br>LLVM是一个编译器框架；<br>LLVM是一系列的编译器工具；<br>LLVM是一个编译器工具链；<br>LLVM是一个C++实现的开源软件；</p>
-<p>这几种对LLVM的理解都对，但是也都是LLVM的一个方面，综合起来就是一个完整的LLVM。<br>所以，从狭义上来说，可以把LLVM理解为一个编译器，但是这个编译器可不仅仅是个编译器，它包含了编译相关的各种工具链，并且有一些相对独立的工具，而且它还是开源的。关键一点LLVM是搞编译的，跟虚拟机已经完全没关系了。</p>
-<h3 id="Clang是什么？"><a href="#Clang是什么？" class="headerlink" title="Clang是什么？"></a>Clang是什么？</h3><p>Clang是一个C、C++、OC语言的轻量级编译器。<br>Clang由Apple公司开发，源代码授权使用BSD的开源授权。<br>Clang是由C++编写，基于LLVM，发布于LLVM BSD许可证下的编译器。<br>它与GNU C语言规范几乎完全兼容，并增加了额外的特性。</p>
-<h3 id="GCC是什么？"><a href="#GCC是什么？" class="headerlink" title="GCC是什么？"></a>GCC是什么？</h3><p>GNU 编译器套件（GNU Compiler Collection），简称为 GCC，是一组编译器和开发工具组合，可用于 Linux、Windows、多种 BSD 以及其他操作系统。几乎所有的 Linux 发行版都预装了 GCC。</p>
-<p>GCC 是一个工具链，用于编译代码，将代码与各种库依赖项连接，并为程序集，最后形成可执行文件。使用 GCC 进行编译的过程很简单，比如：<code>gcc hello.c -o hello</code>，运行这个命令，处理 hello.c 文件，并生成一个名为“hello”的二进制文件</p>
-<h3 id="Clang和GCC比较"><a href="#Clang和GCC比较" class="headerlink" title="Clang和GCC比较"></a>Clang和GCC比较</h3><p>Clang编译速度更快，编译产出更小、出错提示更友好。<br>clang采用的是BSD协议，这是苹果资助LLVM、FreeBSD淘汰GCC换用Clang的重要原因。<br>Clang是LLVM的一个编译器前端。<br>由于优秀的设计，使得Clang非常适合用于开发源代码级别的分析工具。<br>Clang对源程序进行语法分析和语义分析，并将分析结果转换为Abstract Syntax Tree(抽象语法树)，最后使用LLVM作为后端代码的生成器。<br>Clang的开发目标是提供一个可以替代GCC的前端编译器。<br>由于GNU编译器套装（GCC）系统庞大，而且Apple大量使用的OC在GCC中优先级较低，同时GCC作为一个纯粹的编译系统，与IDE配合并不优秀。</p>
+        <span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Java</strong></th>
+<th align="left"><strong>Dart</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">public、private等作用域关键字</td>
+<td align="left">没有作用域关键字，直接去掉<br>成员变量和常量的声明，参考下面两项</td>
+</tr>
+<tr>
+<td align="left">同名方法重载</td>
+<td align="left">Dart不支持方法重载，同名方法只能有一个，使用可选参数替代<br>method(var p1, [p2, p3]);<br>method(var p1, {String p2, int p3 &#x3D; 1});<br>“[]”包围的参数属于可选位置参数<br>“{}”包围的参数属于可选命名参数</td>
+</tr>
+<tr>
+<td align="left">声明成员变量，未赋值情况<br>String s;</td>
+<td align="left">Dart空安全声明，需要显式声明可能为null的变量，解决办法<br>1、字段或变量设置默认值，String s &#x3D; “”<br>2、将类型更改为可为 null, String? s<br>3、将其标记为 late【注意：在使用变量之前的后期确保变量稍后必须初始化。否则在使用变量时可能会遇到运行时错误。】<br>late String s;<br>static late String s;</td>
+</tr>
+<tr>
+<td align="left">声明常量<br>static final String s;</td>
+<td align="left">const声明的常量必须赋值明确的值;<br>final声明的常量可以在运行时再赋值<br>static const String s &#x3D; “”;<br>static final String s;</td>
+</tr>
+<tr>
+<td align="left">boolean</td>
+<td align="left">bool</td>
+</tr>
+<tr>
+<td align="left">float、double</td>
+<td align="left">浮点型都用double表示<br>dart 中没有float类型只有double</td>
+</tr>
+<tr>
+<td align="left">short、int、long</td>
+<td align="left">在dart中都是用 int<br>dart中数值类型只有两种：int和double;整型和浮点型</td>
+</tr>
+<tr>
+<td align="left">byte数组<br>byte[] bytes</td>
+<td align="left">dart中的字节流为int数组<br>List<int> bytes &#x3D; utf8.encode(“Hello”);</td>
+</tr>
+<tr>
+<td align="left">HashMap、HashSet、ConcurrentHashMap等集合类</td>
+<td align="left">Dart 集合中原生支持了四种类型：list， map， queue，和 set</td>
+</tr>
+<tr>
+<td align="left">map.put(k, v)</td>
+<td align="left">map[k] &#x3D; v</td>
+</tr>
+<tr>
+<td align="left">int[] a &#x3D; new int[]{1, 2, 3, 4};<br>new int[5]</td>
+<td align="left">1、非常常用的字面量创建方式<br>List a &#x3D; [1, 2, 3, 4];<br><br>2、创建一个空数组或者 length 长度的数组<br>List<E>([<span class="exturl" data-url="aHR0cHM6Ly9hcGkuZGFydGxhbmcub3JnL3N0YWJsZS8yLjMuMC9kYXJ0LWNvcmUvaW50LWNsYXNzLmh0bWw=">int<i class="fa fa-external-link-alt"></i></span> length]) <br>new List<int>(5); &#x2F;&#x2F; 固定长度和类型<br>new List(5); &#x2F;&#x2F; 固定长度<br><br>3、创建一个 list，每个元素共享相同的值，growable 表示是 list 长度是否可变，默认 false 固定长度<br>List<E>.filled(<span class="exturl" data-url="aHR0cHM6Ly9hcGkuZGFydGxhbmcub3JnL3N0YWJsZS8yLjMuMC9kYXJ0LWNvcmUvaW50LWNsYXNzLmh0bWw=">int<i class="fa fa-external-link-alt"></i></span> length,E fill, {<span class="exturl" data-url="aHR0cHM6Ly9hcGkuZGFydGxhbmcub3JnL3N0YWJsZS8yLjMuMC9kYXJ0LWNvcmUvYm9vbC1jbGFzcy5odG1s">bool<i class="fa fa-external-link-alt"></i></span> growable: false})<br>List a &#x3D; new List.filled(10, 1);<br><br>4、根据 iterable 对象创新一个新数组<br>List.from(iterable elements,{bool growable:true})<br>List a &#x3D; new List.from([1, “2”, 3, 4]); <br><br>5、创建一个元素，每个位置创建一个新对象<br>List.generate(int length, E generator(int index)<br>List a &#x3D; new List.generate(10, (value) &#x3D;&gt; value + 1);<br></td>
+</tr>
+<tr>
+<td align="left">List添加集合，把新集合加到最前面<br>list.addAll(0, otherList);</td>
+<td align="left">使用 spread collections 扩展集合<br>var y &#x3D; [4,5,6];<br>var x &#x3D; […y,1,2];</td>
+</tr>
+<tr>
+<td align="left">List 克隆<br>List<String> list &#x3D; new ArrayList(Arrays.<em>asList</em>(ipList))<br><br><br></td>
+<td align="left">deep clone of List and Map<br>&#x2F;&#x2F; clone list<br>List a &#x3D; [‘x’,’y’, ‘z’];<br>List b &#x3D; […a];<br><br>&#x2F;&#x2F; clone map <br>Map mapA &#x3D; {“a”:”b”};<br>Map mapB &#x3D; {…mapA};</td>
+</tr>
+<tr>
+<td align="left">List 排序<br>List numList &#x3D; Arrays.asList(1,2,3);<br>a.sort((num1,num2)-&gt;{return num1.compareTo(num2);});<br></td>
+<td align="left">1、对整数列表进行排序<br>List a &#x3D; [1, 2, 3, 4];<br>a.sort();<br><br>2、使用compareTo条件排序<br>var list &#x3D; [‘two’, ‘three’, ‘four’]; <br>list.sort((a, b) &#x3D;&gt; a.length.compareTo(b.length));<br>或者<br>list.sort((a, b) &#x3D;&gt; a.length - b.length));</td>
+</tr>
+<tr>
+<td align="left">List删除另外一个集合<br>list.removeAll(otherList);</td>
+<td align="left">使用List的removeWhere方法替代<br>list.removeWhere((item) &#x3D;&gt; otherList.contains(item));</td>
+</tr>
+<tr>
+<td align="left">一维数组<br>String[]</td>
+<td align="left">使用List替代<br>List<String></td>
+</tr>
+<tr>
+<td align="left">二维数组<br>String[][]<br><br>初始化一个二维数组<br>int a &#x3D; 10, b &#x3D; 5;<br>String[][] arr &#x3D; line &#x3D; new String[a][b];</td>
+<td align="left">使用Map替代<br>List&lt;List<String>&gt;<br><br>初始化一个二维数组<br>int a &#x3D; 10, b &#x3D; 5;<br>List&lt;List<String>&gt; arr &#x3D; line &#x3D; List.filled(a, List.filled(b, “”))</td>
+</tr>
+<tr>
+<td align="left">字符串拼接</td>
+<td align="left">String txt &#x3D; “$str $num”<br>$符号后面跟的是变量&#x2F;表达式</td>
+</tr>
+<tr>
+<td align="left">StringBuilder sb &#x3D; new StringBuilder();<br>sb.append(“ip&#x3D;”).append(<em>userIp</em>);</td>
+<td align="left">StringBuffer sb &#x3D; StringBuffer()<br>    ..write(“ip&#x3D;”)..write(<em>userIp</em>);</td>
+</tr>
+<tr>
+<td align="left">for (String ip : ips)</td>
+<td align="left">使用 for-in 循环：for (String ip in ips)<br>或使用变量的forEach方法</td>
+</tr>
+<tr>
+<td align="left">判空+赋值<br>if(obj &#x3D;&#x3D; null) obj &#x3D; new Object()</td>
+<td align="left">可以用双问号替代<br>例如obj ?? {}</td>
+</tr>
+<tr>
+<td align="left">多线程，线程池，同步synchronized等</td>
+<td align="left">这些在dart里面都没有，需要转变思路理解Dart单线程异步编程思想，使用async、await、Future、isolate等解决</td>
+</tr>
+<tr>
+<td align="left">try&#x2F;catch(Exception e)</td>
+<td align="left">try&#x2F;catch(e)<br>try {} on Exception cache(e) {}</td>
+</tr>
+<tr>
+<td align="left">创建匿名内部类对象<br>new IHttpCallback() {<br>    @Override<br>    public void callback(HttpData <br>    }<br>    @Override<br>    public void exception(HttpData <br>    }<br>};</td>
+<td align="left">&#x2F;&#x2F; 定义<br>typedef Callback<T extends Response> &#x3D; void Function(dynamic response);<br>typedef Exception &#x3D; void Function(ErrorInfo errorInfo);<br><br>class IResponseCallback {<br>  Callback callback;<br>  Exception exception;<br><br>  IResponseCallback({required this.callback, required this.exception});<br>}<br><br>&#x2F;&#x2F; 使用<br>IResponseCallback callback &#x3D; IResponseCallback(<br>    callback: <EchoResponse>(response){<br>    },<br>    exception: (errorInfo){<br>    });<br></td>
+</tr>
+<tr>
+<td align="left">时间戳<br>System.currentTimeMillis()</td>
+<td align="left">DateTime.now().millisecond</td>
+</tr>
+<tr>
+<td align="left">类型转换</td>
+<td align="left">&#x2F;&#x2F; base64 转 List<int><br>base64Url.decode(str)<br><br>&#x2F;&#x2F; String 转 byte<br>String foo &#x3D; ‘Hello world’;<br>List<int> bytes &#x3D; utf8.encode(foo);<br><br>&#x2F;&#x2F; byte 转 String<br>String bar &#x3D; utf8.decode(bytes);<br><br>&#x2F;&#x2F; String 转 int<br>String s &#x3D; “45”;<br>int i &#x3D; int.parse(s);<br><br>&#x2F;&#x2F; int 转 String<br>int j &#x3D; 45;<br>String t &#x3D; “$j”; 或 t &#x3D; j.toString();<br><br>&#x2F;&#x2F; Json String 转 Map<br>Map&lt;String, dynamic&gt; jsonObject &#x3D; jsonDecode(httpData.data);</td>
+</tr>
+<tr>
+<td align="left">类型判断和强转<br>object instanceof HashMap<br>(HashMap)object</td>
+<td align="left">object is Map<br>object as Map</td>
+</tr>
+<tr>
+<td align="left">网络判断</td>
+<td align="left">connectivity_plus: ^3.0.2<br><br>var connectivityResult &#x3D; await Connectivity().checkConnectivity();<br><br>bool isNetworkAvailable &#x3D; connectivityResult &#x3D;&#x3D; ConnectivityResult.mobile || connectivityResult &#x3D;&#x3D; ConnectivityResult.wifi;</td>
+</tr>
+<tr>
+<td align="left">Pattern&#x2F;Matcher 正则匹配 <br>—-<br>String code &#x3D; “SH1001”;<br>String number &#x3D; Pattern.compile(“[^0-9]”).matcher(code).replaceAll(“”);<br>String zimu &#x3D; code.replaceAll(“[^a-zA-Z].*$”, “”);<br>System.out.println(“number&#x3D;”+number + “, zimu&#x3D;”+zimu);<br>&#x2F;&#x2F; 输入：number&#x3D;1001, zimu&#x3D;SH<br><br></td>
+<td align="left">RegExp exp &#x3D; RegExp(“[1-2]{1}”);<br>bool  exp.hasMatch(“”)<br>—<br>String code&#x3D;”SH1001”;<br>String number &#x3D; code.replaceAll(RegExp(“[^0-9]”), “”);<br>String zimu &#x3D; code.replaceAll(RegExp(r”[^a-zA-Z].*$”), “”);<br>print(“number&#x3D;$number, zimu&#x3D;$zimu”);<br>&#x2F;&#x2F; 输入：number&#x3D;1001, zimu&#x3D;SH<br></td>
+</tr>
+<tr>
+<td align="left">16进制转String</td>
+<td align="left">String <em>SPLIT_0x01</em>&#x3D; String.fromCharCode(int.<em>parse</em>(‘0x01’,radix: 16));</td>
+</tr>
+<tr>
+<td align="left">判断是否相同，复现对象的equals<br>@Override<br><strong>public boolean</strong>equals(Object o) {<br>}</td>
+<td align="left">判断是否相同，复现对象的&#x3D;&#x3D;<br>@override<br>bool operator &#x3D;&#x3D;(Object o) {<br>}</td>
+</tr>
+<tr>
+<td align="left">URLEncoder.encode(keyword, “utf-8”)</td>
+<td align="left">Uri.<em>encodeComponent</em>(keyword)</td>
+</tr>
+<tr>
+<td align="left">String.format，拼接及字符串补齐<br>String.format(“%08d”, 123); &#x2F;&#x2F; 输出 “00000123 “</td>
+<td align="left">“123”.padLeft(8, “0”); &#x2F;&#x2F; 左侧补齐0<br>“123”.padRight(8, “0”); &#x2F;&#x2F; 右侧补齐0<br><br>方案一：<br>使用 padLeft ： <br>print(1.toString().padLeft(3, ‘0’)); &#x2F;&#x2F; 001<br>print(12.toString().padLeft(3, ‘0’)); &#x2F;&#x2F; 012<br>print(123.toString().padLeft(3, ‘0’)); &#x2F;&#x2F; 123<br>print(1234.toString().padLeft(3, ‘0’)); &#x2F;&#x2F; 1234<br>方案二：<br>使用NumberFormat ：<br>NumberFormat formatter &#x3D; NumberFormat(“000”);<br>print(formatter.format(1)); &#x2F;&#x2F; 001<br>print(formatter.format(12)); &#x2F;&#x2F; 012<br>print(formatter.format(123)); &#x2F;&#x2F; 123<br>print(formatter.format(1234)); &#x2F;&#x2F; 1234</td>
+</tr>
+<tr>
+<td align="left">Date 日期相关<br><br>Date date &#x3D; new Date();<br>date.setTime(5400000);<br></td>
+<td align="left">DateTime<br><br>DateTime date &#x3D; DateTime.now();<br>date &#x3D; DateTime.fromMillisecondsSinceEpoch(5400000);<br></td>
+</tr>
+</tbody></table>
+<p>附官方两种对照表：Java to Dart、Swift to Dart</p>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230217202213.png"></p>
+<p><img src="https://picgo-img-storage.oss-cn-beijing.aliyuncs.com/20230217202228.png"></p>
 
     </div>
 
@@ -348,7 +450,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://skyui.cn/blog/macos-cmake-simple-practice.html" title="MacOS CMake 简单入门">https://skyui.cn/blog/macos-cmake-simple-practice.html</a>
+      <a href="https://skyui.cn/blog/java-to-dart-common-rules.html" title="Java转Dart常用规则">https://skyui.cn/blog/java-to-dart-common-rules.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -357,21 +459,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/CMake/" rel="tag"># CMake</a>
+              <a href="/tags/Java2Dart/" rel="tag"># Java2Dart</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/Android-Q-%E9%80%82%E9%85%8D.html" rel="prev" title="Android Q 适配">
-                  <i class="fa fa-chevron-left"></i> Android Q 适配
+                <a href="/blog/flutter-web-rendering-performance.html" rel="prev" title="Flutter Web 开发实践及优化">
+                  <i class="fa fa-chevron-left"></i> Flutter Web 开发实践及优化
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/gcc-make-cmake-makefile-basic-knowledge.html" rel="next" title="GCC/make/CMake/Makefile基础知识">
-                  GCC/make/CMake/Makefile基础知识 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -467,7 +566,7 @@
 
 
 
-<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"mp3YXKl7UOhTqLe3GoflyBx1-gzGzoHsz","appKey":"Yjef5oBfsu1WuRmO1eq8Kdtf","serverURLs":"https://skyui.cn/","placeholder":"输入评论，提交即可。\n希望收到推送通知，可以填写邮箱。","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":true,"enableQQ":false,"requiredFields":[],"el":"#valine-comments","path":"/blog/macos-cmake-simple-practice.html"}</script>
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"mp3YXKl7UOhTqLe3GoflyBx1-gzGzoHsz","appKey":"Yjef5oBfsu1WuRmO1eq8Kdtf","serverURLs":"https://skyui.cn/","placeholder":"输入评论，提交即可。\n希望收到推送通知，可以填写邮箱。","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":true,"enableQQ":false,"requiredFields":[],"el":"#valine-comments","path":"/blog/java-to-dart-common-rules.html"}</script>
 <script>
 document.addEventListener('page:loaded', () => {
   NexT.utils.loadComments(CONFIG.valine.el)
