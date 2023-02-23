@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://skyui.cn/blog/java2dart.html</loc>
+    
+    <lastmod>2023-02-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://skyui.cn/blog/java-to-dart-common-rules.html</loc>
     
     <lastmod>2023-02-17</lastmod>
@@ -301,7 +310,7 @@
 
   <url>
     <loc>https://skyui.cn/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -309,182 +318,182 @@
   
   <url>
     <loc>https://skyui.cn/tags/Android/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Fragment/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Toolbar/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Splash/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Vector/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Hexo/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Github/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Java-ByteCode/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Linux/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Scrum/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Vysor/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Manifesto/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Flutter-Linux-WSL2/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Jenkins/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/FFI/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/ffigen/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Flutter-Windows-Desktop/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Java2Dart/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Shell/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Charles/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/Flutter-Web/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/CMake/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/tags/sed/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -493,70 +502,70 @@
   
   <url>
     <loc>https://skyui.cn/categories/Android/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/Hexo/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/Java/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/Linux/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/Scrum/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/Vysor/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/Manifesto/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/Flutter/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/Shell/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://skyui.cn/categories/CMake/</loc>
-    <lastmod>2023-02-17</lastmod>
+    <lastmod>2023-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
