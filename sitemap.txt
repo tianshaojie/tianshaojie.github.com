@@ -1,3 +1,4 @@
+https://skyui.cn/blog/dart-ffi-jni-wasm.html
 https://skyui.cn/blog/java2dart.html
 https://skyui.cn/blog/java-to-dart-common-rules.html
 https://skyui.cn/blog/flutter-ffi.html
@@ -59,6 +60,7 @@ https://skyui.cn/tags/Charles/
 https://skyui.cn/tags/Flutter-Web/
 https://skyui.cn/tags/CMake/
 https://skyui.cn/tags/sed/
+https://skyui.cn/tags/ffi-jni/
 https://skyui.cn/categories/Android/
 https://skyui.cn/categories/Hexo/
 https://skyui.cn/categories/Java/
